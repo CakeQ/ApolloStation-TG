@@ -22,7 +22,12 @@
 	var/explosion_level = 0	//for preventing explosion dodging
 	var/explosion_id = 0
 
-	var/list/decals // For overlaying decals to the turf
+	var/list/decals
+
+/turf/SDQL_update(const/var_name, new_value)
+	if(var_name == "x" || var_name == "y" || var_name == "z")
+		return FALSE
+	. = ..()
 
 /turf/New()
 	..()
@@ -189,7 +194,6 @@
 	W.explosion_level = old_ex_level
 	W.explosion_id = old_ex_id
 
-
 	if(!defer_change)
 		W.AfterChange(ignore_air)
 	W.blueprint_data = old_blueprint_data
@@ -202,6 +206,13 @@
 	if(!can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			C.deconstruct()
+
+	//update firedoor adjacency
+	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+	for(var/I in turfs_to_check)
+		var/turf/T = I
+		for(var/obj/machinery/door/firedoor/FD in T)
+			FD.CalculateAffectingAreas()
 
 	queue_smooth_neighbors(src)
 
@@ -431,3 +442,16 @@
 		return
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
+
+
+/turf/proc/add_decal(decal,group)
+	LAZYINITLIST(decals)
+	if(!decals[group])
+		decals[group] = list()
+	decals[group] += decal
+	add_overlay(decals[group])
+
+/turf/proc/remove_decal(group)
+	LAZYINITLIST(decals)
+	overlays -= decals[group]
+	decals[group] = null

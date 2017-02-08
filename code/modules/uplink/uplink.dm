@@ -69,6 +69,8 @@ var/global/list/uplinks = list()
 		ui.open()
 
 /obj/item/device/uplink/ui_data(mob/user)
+	if(!user.mind)
+		return
 	var/list/data = list()
 	data["telecrystals"] = telecrystals
 	data["lockable"] = lockable
@@ -83,6 +85,13 @@ var/global/list/uplinks = list()
 				var/datum/uplink_item/I = uplink_items[category][item]
 				if(I.limited_stock == 0)
 					continue
+				if(I.restricted_roles.len)
+					var/is_inaccessible = 1
+					for(var/R in I.restricted_roles)
+						if(R == user.mind.assigned_role)
+							is_inaccessible = 0
+					if(is_inaccessible)
+						continue
 				cat["items"] += list(list(
 					"name" = I.name,
 					"cost" = I.cost,
@@ -140,3 +149,8 @@ var/global/list/uplinks = list()
 	hidden_uplink = new(src)
 	hidden_uplink.active = TRUE
 	hidden_uplink.lockable = FALSE
+
+/obj/item/weapon/pen/uplink/New()
+	..()
+	hidden_uplink = new(src)
+	traitor_unlock_degrees = 360

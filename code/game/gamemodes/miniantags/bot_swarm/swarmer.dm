@@ -40,7 +40,7 @@
 	if(crit_fail)
 		user << "Swarmer has been depowered."
 		return
-	if(qdeleted(src))
+	if(QDELETED(src))
 		user << "Swarmer has been occupied by someone else."
 		return
 	var/mob/living/simple_animal/hostile/swarmer/S = new /mob/living/simple_animal/hostile/swarmer(get_turf(loc))
@@ -316,10 +316,6 @@
 	S << "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>"
 	return FALSE
 
-/obj/machinery/blackbox_recorder/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	S << "<span class='warning'>This machine has recorded large amounts of data on this structure and its inhabitants, it will be a useful resource to our masters in the future. Aborting. </span>"
-	return FALSE
-
 /obj/machinery/power/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
 	return FALSE
@@ -366,7 +362,7 @@
 	S << "<span class='warning'>This object is receiving unactivated swarmer shells to help us. Aborting.</span>"
 	return FALSE
 
-/obj/stucture/lattice/catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/structure/lattice/catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	. = ..()
 	var/turf/here = get_turf(src)
 	for(var/A in here.contents)

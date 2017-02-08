@@ -35,7 +35,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(L.stat <= stat_affected)
-			if((!is_servant_of_ratvar(L) || (is_servant_of_ratvar(L) && affects_servants)) && L.mind && (!isdrone(L) || istype(L, /mob/living/simple_animal/drone/cogscarab)))
+			if((!is_servant_of_ratvar(L) || (affects_servants && is_servant_of_ratvar(L))) && (L.mind || L.has_status_effect(STATUS_EFFECT_SIGILMARK)) && !isdrone(L))
 				var/obj/item/I = L.null_rod_check()
 				if(I)
 					L.visible_message("<span class='warning'>[L]'s [I.name] [resist_string], protecting them from [src]'s effects!</span>", \
@@ -271,7 +271,7 @@
 	stat_affected = DEAD
 	resist_string = "glows shimmering yellow"
 	sigil_name = "Vitality Matrix"
-	var/vitality = 0
+	var/static/vitality = 0
 	var/base_revive_cost = 20
 	var/sigil_active = FALSE
 	var/animation_number = 3 //each cycle increments this by 1, at 4 it produces an animation and resets
@@ -280,8 +280,11 @@
 /obj/effect/clockwork/sigil/vitality/examine(mob/user)
 	..()
 	if(is_servant_of_ratvar(user) || isobserver(user))
-		user << "<span class='[vitality ? "inathneq_small":"alloy"]'>It is storing <b>[ratvar_awakens ? "INFINITE":"[vitality]"]</b> units of vitality.</span>"
-		user << "<span class='inathneq_small'>It requires at least <b>[base_revive_cost]</b> units of vitality to revive dead Servants, in addition to any damage the Servant has.</span>"
+		user << "<span class='[vitality ? "inathneq_small":"alloy"]'>It has access to <b>[ratvar_awakens ? "INFINITE":"[vitality]"]</b> units of vitality.</span>"
+		if(ratvar_awakens)
+			user << "<span class='inathneq_small'>It can revive Servants at no cost!</span>"
+		else
+			user << "<span class='inathneq_small'>It can revive Servants at a cost of <b>[base_revive_cost]</b> vitality plus vitality equal to the non-oxygen damage they have, in addition to being destroyed in the process.</span>"
 
 /obj/effect/clockwork/sigil/vitality/sigil_effects(mob/living/L)
 	if((is_servant_of_ratvar(L) && L.suiciding) || sigil_active)
@@ -307,11 +310,14 @@
 				L.visible_message("<span class='warning'>[L] collapses in on [L.p_them()]self as [src] flares bright blue!</span>")
 				L << "<span class='inathneq_large'>\"[text2ratvar("Your life will not be wasted.")]\"</span>"
 				for(var/obj/item/W in L)
-					if(!L.unEquip(W))
+					if(!L.dropItemToGround(W))
 						qdel(W)
 				L.dust()
 			else
-				vitality_drained = L.adjustToxLoss(1.5)
+				if(!ratvar_awakens && L.stat == CONSCIOUS)
+					vitality_drained = L.adjustToxLoss(1)
+				else
+					vitality_drained = L.adjustToxLoss(1.5)
 			if(vitality_drained)
 				vitality += vitality_drained
 			else
@@ -326,14 +332,20 @@
 					if(ghost)
 						ghost.reenter_corpse()
 					L.revive(1, 1)
+					var/obj/effect/overlay/temp/ratvar/sigil/vitality/V = new /obj/effect/overlay/temp/ratvar/sigil/vitality(get_turf(src))
+					animate(V, alpha = 0, transform = matrix()*2, time = 8)
 					playsound(L, 'sound/magic/Staff_Healing.ogg', 50, 1)
-					L.visible_message("<span class='warning'>[L] suddenly gets back up, [L.p_their()] mouth dripping blue ichor!</span>", \
+					L.visible_message("<span class='warning'>[L] suddenly gets back up, [ratvar_awakens ? "[L.p_their()] body dripping blue ichor":"even as [src] scatters into blue sparks around [L.p_them()]"]!</span>", \
 					"<span class='inathneq'>\"[text2ratvar("You will be okay, child.")]\"</span>")
 					vitality -= revival_cost
+					if(!ratvar_awakens)
+						qdel(src)
 				break
-			var/vitality_for_cycle = min(vitality, 3)
-			if(ratvar_awakens)
-				vitality_for_cycle = 3
+			var/vitality_for_cycle = 3
+			if(!ratvar_awakens)
+				if(L.stat == CONSCIOUS)
+					vitality_for_cycle = 2
+				vitality_for_cycle = min(vitality, vitality_for_cycle)
 			var/vitality_used = L.heal_ordered_damage(vitality_for_cycle, damage_heal_order)
 
 			if(!vitality_used)

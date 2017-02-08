@@ -185,18 +185,15 @@
 /turf/open/floor/plasteel/arrival/corner
 	icon_state = "arrivalcorner"
 
-
-/turf/open/floor/plasteel/escape
-	icon_state = "escape"
-/turf/open/floor/plasteel/escape/corner
-	icon_state = "escapecorner"
-
-
 /turf/open/floor/plasteel/caution
 	icon_state = "caution"
 /turf/open/floor/plasteel/caution/corner
 	icon_state = "cautioncorner"
 
+/turf/open/floor/plasteel/escape
+	icon_state = "escape"
+/turf/open/floor/plasteel/escape/corner
+	icon_state = "escapecorner"
 
 /turf/open/floor/plasteel/whitebot
 	icon_state = "whitebot"
@@ -413,6 +410,7 @@
 	icon_state = "stage_left"
 /turf/open/floor/plasteel/stage_bleft
 	icon_state = "stage_bleft"
+
 
 /turf/open/floor/plasteel/stairs
 	icon_state = "stairs"

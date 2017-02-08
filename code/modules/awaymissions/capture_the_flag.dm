@@ -55,7 +55,7 @@
 		user << "You can't move your own flag!"
 		return
 	if(loc == user)
-		if(!user.unEquip(src))
+		if(!user.dropItemToGround(src))
 			return
 	anchored = FALSE
 	pickup(user)
@@ -193,7 +193,7 @@
 /obj/machinery/capture_the_flag/attack_ghost(mob/user)
 	if(ctf_enabled == FALSE)
 		return
-	if(ticker.current_state != GAME_STATE_PLAYING)
+	if(ticker.current_state < GAME_STATE_PLAYING)
 		return
 	if(user.ckey in team_members)
 		if(user.ckey in recently_dead_ckeys)
@@ -249,8 +249,7 @@
 	if(istype(I, /obj/item/weapon/twohanded/ctf))
 		var/obj/item/weapon/twohanded/ctf/flag = I
 		if(flag.team != src.team)
-			user.unEquip(flag)
-			flag.loc = get_turf(flag.reset)
+			user.transferItemToLoc(flag, get_turf(flag.reset), TRUE)
 			points++
 			for(var/mob/M in player_list)
 				var/area/mob_area = get_area(M)
@@ -266,7 +265,7 @@
 			M << "<span class='narsie'>[team] team wins!</span>"
 			M << "<span class='userdanger'>The game has been reset! Teams have been cleared. The machines will be active again in 30 seconds.</span>"
 			for(var/obj/item/weapon/twohanded/ctf/W in M)
-				M.unEquip(W)
+				M.dropItemToGround(W)
 			M.dust()
 	for(var/obj/machinery/control_point/control in machines)
 		control.icon_state = "dominator"
@@ -563,7 +562,6 @@
 			var/outfit = CTF.ctf_gear
 			var/datum/outfit/O = new outfit
 			for(var/obj/item/weapon/gun/G in M)
-				M.unEquip(G)
 				qdel(G)
 			O.equip(M)
 			M << "<span class='notice'>Ammunition reloaded!</span>"
@@ -582,7 +580,7 @@
 		CTF.dead_barricades += src
 
 /obj/effect/ctf/dead_barricade/proc/respawn()
-	if(!qdeleted(src))
+	if(!QDELETED(src))
 		new /obj/structure/barricade/security/ctf(get_turf(src))
 		qdel(src)
 

@@ -196,7 +196,7 @@
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5)
-	if(qdeleted(src))
+	if(QDELETED(src))
 		return
 	var/obj/structure/disposalholder/H = new()
 	newHolderDestination(H)
@@ -396,7 +396,7 @@
 	updateDialog()
 
 	if(flush && air_contents.return_pressure() >= SEND_PRESSURE) // flush can happen even without power
-		addtimer(CALLBACK(src, .proc/flush), 0)
+		INVOKE_ASYNC(src, .proc/flush)
 
 	if(stat & NOPOWER) // won't charge if no power
 		return

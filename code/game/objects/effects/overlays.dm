@@ -258,10 +258,11 @@
 
 /obj/effect/overlay/temp/ratvar/door
 	icon_state = "ratvardoorglow"
-	layer = CLOSED_FIREDOOR_LAYER //above closed doors
+	layer = CLOSED_DOOR_LAYER //above closed doors
 
 /obj/effect/overlay/temp/ratvar/door/window
 	icon_state = "ratvarwindoorglow"
+	layer = ABOVE_WINDOW_LAYER
 
 /obj/effect/overlay/temp/ratvar/beam
 	icon_state = "ratvarbeamglow"
@@ -295,7 +296,10 @@
 
 /obj/effect/overlay/temp/ratvar/window
 	icon_state = "ratvarwindowglow"
-	layer = ABOVE_WINDOW_LAYER
+	layer = ABOVE_OBJ_LAYER
+
+/obj/effect/overlay/temp/ratvar/window/single
+	icon_state = "ratvarwindowglow_s"
 
 /obj/effect/overlay/temp/ratvar/gear
 	icon_state = "ratvargearglow"
@@ -308,16 +312,13 @@
 /obj/effect/overlay/temp/ratvar/grille/broken
 	icon_state = "ratvarbrokengrilleglow"
 
-/obj/effect/overlay/temp/ratvar/window/single
-	icon_state = "ratvarwindowglow_s"
-
 /obj/effect/overlay/temp/ratvar/volt_hit
 	name = "volt blast"
 	layer = ABOVE_MOB_LAYER
 	duration = 5
 	icon_state = "volt_hit"
 	var/mob/user
-	var/damage = 25
+	var/damage = 20
 
 /obj/effect/overlay/temp/ratvar/volt_hit/New(loc, caster, multiplier)
 	if(multiplier)
@@ -333,7 +334,7 @@
 		var/matrix/M = new
 		M.Turn(Get_Angle(src, user))
 		transform = M
-	addtimer(CALLBACK(src, .proc/volthit), 0)
+	INVOKE_ASYNC(src, .proc/volthit)
 
 /obj/effect/overlay/temp/ratvar/volt_hit/proc/volthit()
 	if(user)
@@ -550,6 +551,10 @@
 /obj/effect/overlay/temp/impact_effect/red_laser
 	icon_state = "impact_laser"
 	duration = 4
+
+/obj/effect/overlay/temp/impact_effect/red_laser/wall
+	icon_state = "impact_laser_wall"
+	duration = 10
 
 /obj/effect/overlay/temp/impact_effect/blue_laser
 	icon_state = "impact_laser_blue"
