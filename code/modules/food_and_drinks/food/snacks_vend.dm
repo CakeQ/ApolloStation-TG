@@ -10,20 +10,22 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 3)
 	junkiness = 25
 	filling_color = "#D2691E"
+	tastes = list("candy" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/sosjerky
 	name = "\improper Scaredy's Private Reserve Beef Jerky"
 	icon_state = "sosjerky"
 	desc = "Beef jerky made from the finest space cows."
 	trash = /obj/item/trash/sosjerky
-	list_reagents = list("nutriment" = 1, "sugar" = 3)
+	list_reagents = list("nutriment" = 1, "sugar" = 3, "protein" = 1)
 	junkiness = 25
 	filling_color = "#8B0000"
+	tastes = list("dried meat" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/sosjerky/healthy
 	name = "homemade beef jerky"
 	desc = "Homemade beef jerky made from the finest space cows."
-	list_reagents = list("nutriment" = 3, "vitamin" = 1)
+	list_reagents = list("nutriment" = 3, "vitamin" = 1, "protein" = 2)
 	junkiness = 0
 
 /obj/item/weapon/reagent_containers/food/snacks/chips
@@ -35,6 +37,7 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 3)
 	junkiness = 20
 	filling_color = "#FFD700"
+	tastes = list("salt" = 1, "crisps" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin
 	name = "4no raisins"
@@ -44,6 +47,7 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
 	junkiness = 25
 	filling_color = "#8B0000"
+	tastes = list("dried raisins" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin/healthy
 	name = "homemade raisins"
@@ -67,6 +71,7 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 3)
 	junkiness = 25
 	filling_color = "#FFD700"
+	tastes = list("cheese" = 5, "crisps" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/syndicake
 	name = "syndi-cakes"
@@ -75,3 +80,4 @@
 	trash = /obj/item/trash/syndi_cakes
 	list_reagents = list("nutriment" = 4, "doctorsdelight" = 5)
 	filling_color = "#F5F5DC"
+	tastes = list("sweetness" = 3, "cake" = 1)
