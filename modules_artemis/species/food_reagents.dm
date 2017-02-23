@@ -6,6 +6,5 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664333"
 
-	var/brute_heal = 1.3
-	var/burn_heal = 0
-	var/blood_gain = 0.8
+	brute_heal = 1.3
+	blood_gain = 0.8
