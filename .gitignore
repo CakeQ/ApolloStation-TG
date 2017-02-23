@@ -1,8 +1,5 @@
 ###Files and folders specified here will never be tracked.
 
-#Ignore stuff in the config folder
-/config/**/*
-
 #Ignore everything in datafolder and subdirectories
 /data/**/*
 
@@ -188,6 +185,13 @@ Temporary Items
 .apdisk
 
 *.before
+
+#Sublime
+*.sublime-project
+*.sublime-workspace
+
+#Visual studio stuff
+*.vscode/*
 
 # Atom build options
 .atom-build.json

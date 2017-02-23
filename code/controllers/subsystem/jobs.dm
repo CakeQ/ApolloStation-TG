@@ -2,7 +2,7 @@ var/datum/subsystem/job/SSjob
 
 /datum/subsystem/job
 	name = "Jobs"
-	init_order = 5
+	init_order = 14
 	flags = SS_NO_FIRE
 
 	var/list/occupations = list()		//List of all jobs
@@ -357,7 +357,15 @@ var/datum/subsystem/job/SSjob
 	return 1
 
 //Gives the player the stuff he should have with his rank
-/datum/subsystem/job/proc/EquipRank(mob/living/H, rank, joined_late=0)
+/datum/subsystem/job/proc/EquipRank(mob/M, rank, joined_late=0)
+	var/mob/new_player/N
+	var/mob/living/H
+	if(!joined_late)
+		N = M
+		H = N.new_character
+	else
+		H = M
+
 	var/datum/job/job = GetJob(rank)
 
 	H.job = rank
@@ -374,10 +382,10 @@ var/datum/subsystem/job/SSjob
 			S = sloc
 			break
 		if(!S) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
-			world.log << "Couldn't find a round start spawn point for [rank]"
+			log_world("Couldn't find a round start spawn point for [rank]")
 			S = pick(latejoin)
 		if(!S) //final attempt, lets find some area in the arrivals shuttle to spawn them in to.
-			world.log << "Couldn't find a round start latejoin spawn point."
+			log_world("Couldn't find a round start latejoin spawn point.")
 			for(var/turf/T in get_area_turfs(/area/shuttle/arrival))
 				if(!T.density)
 					var/clear = 1
@@ -399,16 +407,16 @@ var/datum/subsystem/job/SSjob
 		if(ismob(new_mob))
 			H = new_mob
 
-	H << "<b>You are the [rank].</b>"
-	H << "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
-	H << "<b>To speak on your departments radio, use the :h button. To see others, look closely at your headset.</b>"
+	M << "<b>You are the [rank].</b>"
+	M << "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
+	M << "<b>To speak on your departments radio, use the :h button. To see others, look closely at your headset.</b>"
 	if(job.req_admin_notify)
-		H << "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>"
+		M << "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>"
 	if(config.minimal_access_threshold)
-		H << "<FONT color='blue'><B>As this station was initially staffed with a [config.jobs_have_minimal_access ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B></font>"
+		M << "<FONT color='blue'><B>As this station was initially staffed with a [config.jobs_have_minimal_access ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B></font>"
 
 	if(job && H)
-		job.after_spawn(H)
+		job.after_spawn(H, M)
 
 	return H
 
