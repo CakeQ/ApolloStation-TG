@@ -77,9 +77,9 @@ Senior Engineer
 	outfit = /datum/outfit/job/engineer
 
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-									access_external_airlocks, access_construction, access_atmospherics, access_desubber)
+									access_external_airlocks, access_construction, access_atmospherics, access_desubber, access_eva)
 	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-									access_external_airlocks, access_construction, access_atmospherics, access_desubber)
+									access_external_airlocks, access_construction, access_atmospherics, access_desubber, access_eva)
 
 	rank_succession_level = SENIOR_SUCCESSION_LEVEL
 
@@ -117,9 +117,9 @@ Station Engineer
 	outfit = /datum/outfit/job/engineer
 
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-									access_external_airlocks, access_construction, access_atmospherics, access_desubber)
+									access_external_airlocks, access_construction, access_atmospherics, access_desubber, access_eva)
 	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-									access_external_airlocks, access_construction)
+									access_external_airlocks, access_construction, access_eva)
 
 	rank_succession_level = INDUCTEE_SUCCESSION_LEVEL
 

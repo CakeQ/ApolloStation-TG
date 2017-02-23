@@ -26,11 +26,11 @@ Head of Security
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_weapons,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_maint_tunnels, access_fax)
+			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_maint_tunnels, access_fax, access_eva)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_weapons,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_maint_tunnels, access_fax)
+			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_maint_tunnels, access_fax, access_eva)
 
 	rank_succession_level = COMMAND_SUCCESSION_LEVEL
 
@@ -76,8 +76,8 @@ Warden
 
 	outfit = /datum/outfit/job/warden
 
-	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers, access_fax)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_weapons, access_fax) //See /datum/job/warden/get_access()
+	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers, access_fax, access_eva)
+	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_weapons, access_fax, access_eva) //See /datum/job/warden/get_access()
 
 	rank_succession_level = INDUCTEE_SUCCESSION_LEVEL+1
 
@@ -178,8 +178,8 @@ Security Officer
 
 	outfit = /datum/outfit/job/security
 
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_weapons) //But see /datum/job/warden/get_access()
+	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers, access_eva)
+	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_weapons, access_eva) //But see /datum/job/warden/get_access()
 
 	rank_succession_level = INDUCTEE_SUCCESSION_LEVEL
 
