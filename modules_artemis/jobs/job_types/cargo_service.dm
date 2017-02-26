@@ -264,23 +264,6 @@ Cook
 	head = /obj/item/clothing/head/chefhat
 	backpack_contents = list(/obj/item/weapon/sharpener = 1)
 
-/datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	var/datum/job/cook/J = SSjob.GetJobType(jobtype)
-	if(J) // Fix for runtime caused by invalid job being passed
-		if(J.cooks>0)//Cooks
-			suit = /obj/item/clothing/suit/apron/chef
-			head = /obj/item/clothing/head/soft/mime
-		if(!visualsOnly)
-			J.cooks++
-
-/datum/outfit/job/cook/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-    ..()
-    var/list/possible_boxes = subtypesof(/obj/item/weapon/storage/box/ingredients)
-    var/chosen_box = pick(possible_boxes)
-    var/obj/item/weapon/storage/box/I = new chosen_box(src)
-    H.equip_to_slot_or_del(I,slot_in_backpack)
-
 /datum/outfit/job/botanist
 	name = "Botanist"
 	jobtype = /datum/job/cook
@@ -294,7 +277,6 @@ Cook
 
 	backpack = /obj/item/weapon/storage/backpack/botany
 	satchel = /obj/item/weapon/storage/backpack/satchel/hyd
-
 
 /*
 Janitor
