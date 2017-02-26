@@ -1,6 +1,7 @@
 //Main smess so we only need ONE for the station ~rj
 /obj/machinery/power/smes/main
-	charge = 20e6
+	charge = 500000
+	capacity = 1000000
 
 /obj/machinery/power/smes/main/New()
 	..()
