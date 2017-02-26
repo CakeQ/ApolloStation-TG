@@ -4,6 +4,8 @@
 		return list(access_maint_tunnels)
 	return list()
 
+var/list/available_depts = list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY)
+
 /*
 Head of Security
 */
@@ -160,6 +162,82 @@ Detective
 
 	if(visualsOnly)
 		return
+
+/datum/job/officer/after_spawn(mob/living/carbon/human/H)
+	// Assign department security
+	var/department
+	if(H && H.client && H.client.prefs)
+		department = H.client.prefs.prefered_security_department
+		if(!LAZYLEN(available_depts) || department == "None")
+			return
+		else if(department in available_depts)
+			LAZYREMOVE(available_depts, department)
+		else
+			department = pick_n_take(available_depts)
+	var/ears = null
+	var/tie = null
+	var/list/dep_access = null
+	var/destination = null
+	var/spawn_point = null
+	switch(department)
+		if(SEC_DEPT_SUPPLY)
+			ears = /obj/item/device/radio/headset/headset_sec/alt/department/supply
+			dep_access = list(access_mailsorting, access_mining, access_mining_station)
+			destination = /area/security/checkpoint/supply
+			spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in department_security_spawns
+			tie = /obj/item/clothing/tie/armband/cargo
+		if(SEC_DEPT_ENGINEERING)
+			ears = /obj/item/device/radio/headset/headset_sec/alt/department/engi
+			dep_access = list(access_construction, access_engine)
+			destination = /area/security/checkpoint/engineering
+			spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in department_security_spawns
+			tie = /obj/item/clothing/tie/armband/engine
+		if(SEC_DEPT_MEDICAL)
+			ears = /obj/item/device/radio/headset/headset_sec/alt/department/med
+			dep_access = list(access_medical)
+			destination = /area/security/checkpoint/medical
+			spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in department_security_spawns
+			tie =  /obj/item/clothing/tie/armband/medblue
+		if(SEC_DEPT_SCIENCE)
+			ears = /obj/item/device/radio/headset/headset_sec/alt/department/sci
+			dep_access = list(access_research)
+			destination = /area/security/checkpoint/science
+			spawn_point = locate(/obj/effect/landmark/start/depsec/science) in department_security_spawns
+			tie = /obj/item/clothing/tie/armband/science
+
+	if(tie)
+		var/obj/item/clothing/under/U = H.w_uniform
+		U.attachTie(new tie)
+	if(ears)
+		if(H.ears)
+			qdel(H.ears)
+		H.equip_to_slot_or_del(new ears(H),slot_ears)
+
+	var/obj/item/weapon/card/id/W = H.wear_id
+	W.access |= dep_access
+
+	var/teleport = 0
+	if(!config.sec_start_brig)
+		if(destination || spawn_point)
+			teleport = 1
+	if(teleport)
+		var/turf/T
+		if(spawn_point)
+			T = get_turf(spawn_point)
+			H.Move(T)
+		else
+			var/safety = 0
+			while(safety < 25)
+				T = safepick(get_area_turfs(destination))
+				if(T && !H.Move(T))
+					safety += 1
+					continue
+				else
+					break
+	if(department)
+		H << "<b>You have been assigned to [department]!</b>"
+	else
+		H << "<b>You have not been assigned to any department. Patrol the halls and help where needed.</b>"
 
 /*
 Security Officer
