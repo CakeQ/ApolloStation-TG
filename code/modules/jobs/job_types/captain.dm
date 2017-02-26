@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Captain
 */
@@ -93,3 +94,4 @@ Head of Personnel
 	head = /obj/item/clothing/head/hopcap
 	backpack_contents = list(/obj/item/weapon/storage/box/ids=1,\
 		/obj/item/weapon/melee/classic_baton/telescopic=1, /obj/item/device/modular_computer/tablet/preset/advanced = 1)
+*/

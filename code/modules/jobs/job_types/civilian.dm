@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Clown
 */
@@ -184,3 +185,4 @@ Lawyer
 	if(J.lawyers>1)
 		uniform = /obj/item/clothing/under/lawyer/purpsuit
 		suit = /obj/item/clothing/suit/toggle/lawyer/purple
+*/

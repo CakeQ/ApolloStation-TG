@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 AI
 */
@@ -40,3 +41,4 @@ Cyborg
 	if(!H)
 		return 0
 	return H.Robotize()
+*/

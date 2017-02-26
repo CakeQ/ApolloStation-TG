@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Chief Engineer
 */
@@ -153,3 +154,4 @@ Atmospheric Technician
 	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	suit_store = /obj/item/weapon/tank/internals/oxygen
 	internals_slot = slot_s_store
+*/
