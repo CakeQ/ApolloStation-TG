@@ -21,6 +21,9 @@ Captain
 
 	rank_succession_level = CAPTAIN_SUCCESION_LEVEL
 
+/datum/job/captain/get_access()
+	return get_all_accesses()
+
 /datum/outfit/job/captain
 	name = "Captain"
 	jobtype = /datum/job/captain
