@@ -32,6 +32,12 @@
 /obj/item/bodypart/l_leg/on_mob_move()
 	if(splinted)
 		return
+	if(owner.stat == DEAD)
+		return
+	if(owner.buckled)
+		return
+	if(owner.is_holding_item_of_type(/obj/item/weapon/cane))
+		return
 
 	if(broken && prob(2))
 		rattle_bones()
@@ -47,6 +53,12 @@
 
 /obj/item/bodypart/r_leg/on_mob_move()
 	if(splinted)
+		return
+	if(owner.stat == DEAD)
+		return
+	if(owner.buckled)
+		return
+	if(owner.is_holding_item_of_type(/obj/item/weapon/cane))
 		return
 
 	if(broken && prob(2))
