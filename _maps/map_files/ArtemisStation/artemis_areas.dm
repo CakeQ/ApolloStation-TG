@@ -9,7 +9,7 @@
 
 /area/shuttle/arrival/artemis
 	icon_state = "shuttle"
-	name = "\improper NOS artemis Arrival Shuttle"
+	name = "\improper NOS Artemis Arrival Shuttle"
 
 //Escape Pods
 /area/shuttle/escape_pod1/station

@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Assistant
 */
@@ -40,3 +41,4 @@ Assistant
 		uniform = /obj/item/clothing/under/color/grey
 	else
 		uniform = /obj/item/clothing/under/color/random
+*/

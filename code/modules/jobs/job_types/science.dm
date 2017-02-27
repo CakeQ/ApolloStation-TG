@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Research Director
 */
@@ -119,3 +120,4 @@ Roboticist
 	satchel = /obj/item/weapon/storage/backpack/satchel/tox
 
 	pda_slot = slot_l_store
+*/

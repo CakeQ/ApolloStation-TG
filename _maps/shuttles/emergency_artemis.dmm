@@ -1,0 +1,77 @@
+"a" = (/turf/open/space,/area/space)
+"b" = (/turf/closed/wall/mineral/titanium,/area/shuttle/escape)
+"c" = (/obj/structure/grille,/obj/structure/window/shuttle,/turf/open/floor/plating,/area/shuttle/escape)
+"d" = (/turf/closed/wall/mineral/titanium/nodiagonal,/area/shuttle/escape)
+"e" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"f" = (/obj/machinery/computer/crew,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"g" = (/obj/machinery/computer/emergency_shuttle,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"h" = (/obj/machinery/computer/communications,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"i" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/obj/item/weapon/crowbar,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"j" = (/obj/machinery/computer/atmos_alert,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"k" = (/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"l" = (/obj/structure/chair/shuttle{tag = "icon-chair3 (NORTH)"; icon_state = "chair3"; dir = 1},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"m" = (/obj/machinery/computer/security,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"n" = (/obj/structure/extinguisher_cabinet{pixel_x = 0; pixel_y = -28},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"o" = (/obj/machinery/button/flasher{id = "cockpit_flasher"; pixel_x = -6; pixel_y = -24},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"p" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/burger/baconburger{name = "Captain Burg"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"q" = (/obj/machinery/door/airlock/glass_command{name = "Emergency Shuttle Bridge"; req_access = list(19); req_access_txt = "0"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"r" = (/obj/machinery/flasher{id = "cockpit_flasher"; pixel_x = -6; pixel_y = 24},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"s" = (/obj/structure/extinguisher_cabinet{pixel_x = 28; pixel_y = 0},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"t" = (/obj/structure/closet/emcloset,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"u" = (/obj/structure/bed/roller,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"v" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/obj/item/weapon/crowbar,/turf/open/floor/mineral/titanium,/area/shuttle/escape)
+"w" = (/obj/machinery/door/airlock/titanium{name = "Emergency Shuttle Airlock"; req_access_txt = "2"},/turf/open/floor/plating,/area/shuttle/escape)
+"x" = (/obj/machinery/door/airlock/glass{name = "Emergency Shuttle Infirmary"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"y" = (/obj/machinery/door/airlock/titanium{name = "Emergency Shuttle Airlock"; req_access_txt = "2"},/obj/structure/fans/tiny,/obj/docking_port/mobile/emergency{dir = 4; dwidth = 8; name = "Artemis Station Departures Shuttle"; preferred_direction = 4; timid = 0; width = 24},/turf/open/floor/plating,/area/shuttle/escape)
+"z" = (/obj/structure/table,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"A" = (/obj/structure/chair/shuttle,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"B" = (/obj/structure/table,/obj/item/weapon/folder/blue,/obj/item/weapon/pen,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"C" = (/obj/structure/table,/obj/item/weapon/paper_bin,/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"D" = (/obj/machinery/sleeper{tag = "icon-sleeper (NORTH)"; icon_state = "sleeper"; dir = 1},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"E" = (/obj/structure/chair/shuttle{tag = "icon-chair3 (EAST)"; icon_state = "chair3"; dir = 4},/turf/open/floor/mineral/titanium,/area/shuttle/escape)
+"F" = (/obj/structure/chair/shuttle{tag = "icon-chair3 (WEST)"; icon_state = "chair3"; dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/escape)
+"G" = (/obj/structure/chair/shuttle{tag = "icon-chair3 (EAST)"; icon_state = "chair3"; dir = 4},/obj/machinery/button/flasher{id = "shuttle_flasher"; pixel_x = -6; pixel_y = -24},/turf/open/floor/mineral/titanium,/area/shuttle/escape)
+"H" = (/obj/structure/extinguisher_cabinet{pixel_y = -28},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"I" = (/obj/machinery/door/airlock/glass_security{name = "Emergency Shuttle Holding Cell"; req_access = list(1)},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"J" = (/obj/structure/chair/shuttle{tag = "icon-chair3 (EAST)"; icon_state = "chair3"; dir = 4},/turf/open/floor/mineral/plastitanium/brig,/area/shuttle/escape)
+"K" = (/turf/open/floor/mineral/plastitanium/brig,/area/shuttle/escape)
+"L" = (/obj/machinery/door/airlock/titanium{name = "Emergency Shuttle Airlock"},/obj/structure/fans/tiny,/turf/open/floor/plating,/area/shuttle/escape)
+"M" = (/obj/machinery/flasher{id = "shuttle_flasher"; pixel_x = 6; pixel_y = -24},/turf/open/floor/mineral/plastitanium/brig,/area/shuttle/escape)
+"N" = (/obj/machinery/door/airlock/titanium{name = "Emergency Shuttle Cargo"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/escape)
+"O" = (/obj/structure/closet/emcloset,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/escape)
+"P" = (/turf/open/floor/mineral/titanium/yellow,/area/shuttle/escape)
+"Q" = (/obj/structure/extinguisher_cabinet{pixel_y = 28},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/escape)
+"R" = (/obj/structure/closet,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/escape)
+"S" = (/obj/structure/closet/crate,/obj/item/weapon/storage/box/donkpockets,/obj/item/weapon/storage/box/donkpockets,/obj/item/weapon/storage/box/donkpockets,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/escape)
+"T" = (/obj/structure/closet/crate,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/escape)
+"U" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-burst_l"; icon_state = "burst_l"; dir = 2},/turf/open/floor/plating/airless,/area/shuttle/escape)
+"V" = (/obj/structure/shuttle/engine/heater,/turf/open/floor/plating/airless,/area/shuttle/escape)
+"W" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-burst_r"; icon_state = "burst_r"; dir = 2},/turf/open/floor/plating/airless,/area/shuttle/escape)
+"X" = (/obj/structure/shuttle/engine/propulsion,/turf/open/floor/plating/airless,/area/shuttle/escape)
+
+(1,1,1) = {"
+aabcccccbaa
+abdefghidba
+acjklllkmca
+aclkkkkklca
+bdnkokkkpdb
+dddqddddddd
+dkkkrsdtuvd
+wkkkkkxkkkc
+ykkzAkdkkkc
+wkkzBCdDkDc
+dEkkkkdccdd
+cEkkkkkkkFc
+cEkkkkFEkFc
+cGkHkkFEkFc
+ddIdEkFEkFd
+dJKcEkFEkFc
+dJKcEkFEkFc
+LKMcEkFEkFc
+dddddNddddd
+adOPQPRPSda
+bdOPPPPTRdb
+ddcccdcccdd
+UdVVVdVVVdW
+adXXXdXXXda
+"}

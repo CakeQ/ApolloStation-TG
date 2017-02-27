@@ -24,10 +24,6 @@ Captain
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
-/datum/job/captain/announce(mob/living/carbon/human/H)
-	..()
-	minor_announce("Captain [H.real_name] on deck!")
-
 /datum/outfit/job/captain
 	name = "Captain"
 	jobtype = /datum/job/captain

@@ -301,7 +301,7 @@
 // should probably be replaced with something more intricate sometime
 /obj/machinery/power/supermatter_shard/supermatter/proc/radiate()
 	// 0.83 * (power/733) + 1.28 comes from regression analysis on wanted values for the radiation range
-	var/rad_range = round( 0.83 * (power/733) + 1.28 )
+	var/rad_range = round( 0.83 * (power/146) + 1.28 ) //originally power/733... RJ told me to mult it by 5. Yell at him. ~Cakey
 	radiation_pulse(get_turf(src), rad_range/2, rad_range, 100, log=0)
 	transfer_energy()
 
