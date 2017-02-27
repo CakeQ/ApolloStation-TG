@@ -788,6 +788,12 @@ var/list/preferences_datums = list()
 					if(new_tentacles)
 						features["tentacles"] = new_tentacles
 
+				if("supermatter")
+					var/new_supermatter
+					new_supermatter = input(user, "Choose your character's shard spikes:", "Character Preference") as anything in supermatter_list
+					if(new_supermatter)
+						features["supermatter"] = new_supermatter
+
 				if("ears")
 					var/new_ears
 					new_ears = input(user, "Choose your character's ears:", "Character Preference") as null|anything in ears_list

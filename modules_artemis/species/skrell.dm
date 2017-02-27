@@ -57,7 +57,7 @@
 	color = "#0066cc"
 
 /datum/sprite_accessory/tentacles
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/skrell_tentacles.dmi'
 
 /datum/sprite_accessory/tentacles/short
 	name = "Short"

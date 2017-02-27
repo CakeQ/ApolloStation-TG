@@ -122,6 +122,7 @@
 #include "modules_artemis\species\food_reagents.dm"
 #include "modules_artemis\species\human_subspecies.dm"
 #include "modules_artemis\species\names.dm"
+#include "modules_artemis\species\nucleation.dm"
 #include "modules_artemis\species\skrell.dm"
 #include "modules_artemis\species\species.dm"
 #include "modules_artemis\supermatter\core_chaimber_control.dm"

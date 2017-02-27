@@ -30,7 +30,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, legs_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tentacles, tentacles_list)
-
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/supermatter, supermatter_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
