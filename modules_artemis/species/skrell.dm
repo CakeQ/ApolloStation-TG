@@ -8,7 +8,7 @@
 	default_color = "64BAA0"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	mutant_bodyparts = list("ears", "wings", "tentacles")
-	default_features = list("mcolor" = "48F", "ears" = "None", "wings" = "None", "tentacles" = "short")
+	default_features = list("mcolor" = "48F", "ears" = "None", "wings" = "None", "tentacles" = "Short")
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/skrell
 	skinned_type = /obj/item/stack/sheet/animalhide/skrell
 	exotic_blood = "skrellblood"
