@@ -4,8 +4,7 @@
 	say_mod = "rattles"
 	meat = /obj/item/weapon/shard/supermatter
 	species_traits = list(NOBLOOD,RESISTCOLD,RADIMMUNE,NOTRANSSTING,VIRUSIMMUNE,NOHUNGER,RESISTPRESSURE,NOBREATH)
-	//mutantlungs = /obj/item/organ/lungs/supermatter
-	//mutanteyes = /obj/item/organ/eyes/supermatter
+	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	burnmod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brutemod = 2 // damn, double wham, double dam
 	var/coreLevel = 1
@@ -13,8 +12,7 @@
 /datum/species/nucleation/highlevel
 	dangerous_existence = 1 //So so much
 	blacklisted = 1 //See above
-	breathid = "plasma"
-	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
+	breathid = "n2"
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 	coreLevel = 4
 
@@ -46,7 +44,7 @@
 	..()
 
 /datum/species/nucleation/highlevel/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
-	var/datum/outfit/plasmaman/O = new /datum/outfit/plasmaman
+	var/datum/outfit/nucleation/O = new /datum/outfit/nucleation
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)
@@ -62,14 +60,14 @@
 		return 1
 
 /mob/living/carbon/human/proc/makeNucleation(mob/living/carbon/human/H, makeLevel)
-	var/datum/species/nucleation/N
+	//var/datum/species/nucleation/N
 	if(makeLevel > 9)
 		makeLevel = 9
-	if(makeLevel > 3)
-		N = H.set_species(var/datum/species/nucleation/highlevel)
-	else
-		N = H.set_species(var/datum/species/nucleation)
-	N.coreLevel = makeLevel
+	//if(makeLevel > 3)
+	//	N = H.set_species(var/datum/species/nucleation/highlevel)
+	//else
+	//	N = H.set_species(var/datum/species/nucleation)
+	//N.coreLevel = makeLevel
 
 /datum/species/nucleation/spec_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
@@ -110,3 +108,43 @@
 /datum/sprite_accessory/supermatter/nuc_neutron
 		name = "Nucleation Neutron Bomb"
 		icon_state = "nuc_neutron"
+
+/datum/outfit/nucleation
+	name = "Nucleation"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
+	r_hand= /obj/item/weapon/tank/internals/nucleation/belt/full
+	mask = /obj/item/clothing/mask/breath
+
+/obj/item/weapon/tank/internals/nucleation
+	name = "nitrogen internals tank"
+	desc = "A tank of nitrogen gas designed specifically for use as internals, particularly for nitrogen-based lifeforms. If you're not a Nucleation, you probably shouldn't use this."
+	icon_state = "plasmaman_tank"
+	item_state = "plasmaman_tank"
+	force = 10
+	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
+
+/obj/item/weapon/tank/internals/nucleation/New()
+	..()
+	air_contents.assert_gas("n2")
+	air_contents.gases["n2"][MOLES] = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	return
+
+/obj/item/weapon/tank/internals/nucleation/full/New()
+	..()
+	air_contents.assert_gas("n2")
+	air_contents.gases["n2"][MOLES] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	return
+
+/obj/item/weapon/tank/internals/nucleation/belt
+	icon_state = "plasmaman_tank_belt"
+	item_state = "plasmaman_tank_belt"
+	slot_flags = SLOT_BELT
+	force = 5
+
+/obj/item/weapon/tank/internals/nucleation/belt/full/New()
+	..()
+	air_contents.assert_gas("n2")
+	air_contents.gases["n2"][MOLES] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	return
