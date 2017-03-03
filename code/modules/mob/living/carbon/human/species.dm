@@ -366,6 +366,10 @@
 		if(!H.dna.features["tentacles"] || H.dna.features["tentacles"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
 			bodyparts_to_add -= "tentacles"
 
+	if("supermatter" in mutant_bodyparts)
+		if(!H.dna.features["supermatter"] || H.dna.features["supermatter"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+			bodyparts_to_add -= "supermatter"
+
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
 	var/update_needed = FALSE
 	var/not_digitigrade = TRUE
@@ -433,6 +437,8 @@
 					S = legs_list[H.dna.features["legs"]]
 				if("tentacles")
 					S = tentacles_list[H.dna.features["tentacles"]]
+				if("supermatter")
+					S = supermatter_list[H.dna.features["supermatter"]]
 
 			if(!S || S.icon_state == "none")
 				continue

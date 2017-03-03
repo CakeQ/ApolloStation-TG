@@ -8,7 +8,7 @@
 /obj/item/weapon/storage/surgery_bag
     name = "surgery bag"
     desc = "Contains all the surgical tools you'll need."
-    icon = 'icons/obj/objects.dmi'
+    icon = 'icons/obj/surgery_bag.dmi'
     icon_state = "sbag_rolled"
     can_hold = list("/obj/item/weapon/scalpel",
                     "/obj/item/weapon/hemostat",
