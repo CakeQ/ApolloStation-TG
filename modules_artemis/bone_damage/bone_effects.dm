@@ -30,10 +30,26 @@
 			. += 5
 
 /obj/item/bodypart/l_leg/on_mob_move()
+	if(!broken)
+		return
 	if(splinted)
 		return
+	if(owner.stat == DEAD)
+		return
+	if(owner.buckled)
+		return
 
-	if(broken && prob(2))
+	// kill me
+	if(owner.is_holding_item_of_type(/obj/item/weapon/cane))
+		var/list/obj/item/bodypart/fractures = owner.get_fractures()
+		fractures -= src
+
+		for(var/X in fractures)
+			var/obj/item/bodypart/B = X
+			if(istype(B, /obj/item/bodypart/r_leg) && !B.broken)
+				return
+
+	if(prob(2))
 		rattle_bones()
 		owner.Weaken(2)
 
@@ -46,10 +62,25 @@
 			. += 5
 
 /obj/item/bodypart/r_leg/on_mob_move()
+	if(!broken)
+		return
 	if(splinted)
 		return
+	if(owner.stat == DEAD)
+		return
+	if(owner.buckled)
+		return
 
-	if(broken && prob(2))
+	if(owner.is_holding_item_of_type(/obj/item/weapon/cane))
+		var/list/obj/item/bodypart/fractures = owner.get_fractures()
+		fractures -= src
+
+		for(var/X in fractures)
+			var/obj/item/bodypart/B = X
+			if(istype(B, /obj/item/bodypart/l_leg) && !B.broken)
+				return
+
+	if(prob(2))
 		rattle_bones()
 		owner.Weaken(2)
 
