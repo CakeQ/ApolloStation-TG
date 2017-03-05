@@ -306,17 +306,12 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/proc/update_status()
 	var/s = ""
+	s += "<a href=\"[config.forumurl]\">"
+	s += "<big><b>[config.server_name]</b></big>: \[MRP, Persistent universe, Promotions System\]"
+	s += "</a>\]"
 
-	if (config && config.server_name)
-		s += "<b>[config.server_name]</b> &#8212; "
-
-	s += "<b>[station_name()]</b>";
-	s += " ("
-	s += "<a href=\"http://\">" //Change this to wherever you want the hub to link to.
-//	s += "[game_version]"
-	s += "Default"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
-	s += "</a>"
-	s += ")"
+	if( clients )
+		s += "Players: [clients.len] / [config.hard_popcap]"
 
 	var/list/features = list()
 

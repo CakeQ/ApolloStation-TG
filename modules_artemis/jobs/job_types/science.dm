@@ -72,8 +72,8 @@ Senior Scientist
 
 	outfit = /datum/outfit/job/scientist
 
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_chemistry, access_tcomsat, access_tech_storage, access_genetics)
-	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_tcomsat, access_chemistry)
+	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_chemistry, access_tcomsat, access_morgue, access_tech_storage, access_genetics)
+	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_tcomsat, access_chemistry, access_morgue)
 
 	rank_succession_level = SENIOR_SUCCESSION_LEVEL
 
@@ -93,8 +93,8 @@ Scientist
 	selection_color = "#ffeeff"
 	outfit = /datum/outfit/job/scientist
 
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_tech_storage, access_genetics, access_chemistry)
-	minimal_access = list(access_research, access_mineral_storeroom, access_robotics, access_chemistry)
+	access = list(access_robotics, access_morgue, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_tech_storage, access_genetics, access_chemistry)
+	minimal_access = list(access_research, access_morgue, access_mineral_storeroom, access_robotics, access_chemistry)
 
 	rank_succession_level = INDUCTEE_SUCCESSION_LEVEL
 
