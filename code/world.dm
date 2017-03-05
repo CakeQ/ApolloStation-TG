@@ -309,7 +309,7 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 	s += "<a href=\"[config.forumurl]\">"
 	s += "<big><b>[config.server_name]</b></big>"
 	s += "</a>\]"
-	s += ": MRP, Persistent Universe"
+	s += ": MRP, Persistent Universe "
 
 	if( clients )
 		s += "Players: [clients.len] / [config.hard_popcap]"
