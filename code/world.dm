@@ -306,12 +306,12 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/proc/update_status()
 	var/s = ""
-		s += "<a href=\"https://discord.gg/9DJySBn\">"
-		s += "<big><b>[config.server_name]</b></big>: HRP, Persistent universe, Promotions System"
-		s += "</a>\]"
+	s += "<a href=\"[config.forumurl]\">"
+	s += "<big><b>[config.server_name]</b></big>: \[MRP, Persistent universe, Promotions System\]"
+	s += "</a>\]"
 
 	if( clients )
-		s += "Players: [clients.len] / [config.player_soft_cap]"
+		s += "Players: [clients.len] / [config.hard_popcap]"
 
 	var/list/features = list()
 
