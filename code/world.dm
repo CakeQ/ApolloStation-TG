@@ -307,30 +307,22 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 /world/proc/update_status()
 	var/s = ""
 	s += "<a href=\"[config.forumurl]\">"
-	s += "<big><b>[config.server_name]</b></big>: \[MRP, Persistent universe, Promotions System\]"
+	s += "<big><b>[config.server_name]</b></big>"
 	s += "</a>\]"
+	s += ": MRP, Persistent Universe"
 
 	if( clients )
 		s += "Players: [clients.len] / [config.hard_popcap]"
 
 	var/list/features = list()
 
-	if(ticker)
-		if(master_mode)
-			features += master_mode
-	else
+	if(!ticker)
 		features += "<b>STARTING</b>"
 
 	if (!enter_allowed)
 		features += "closed"
 
 	features += abandon_allowed ? "respawn" : "no respawn"
-
-	if (config && config.allow_vote_mode)
-		features += "vote"
-
-	if (config && config.allow_ai)
-		features += "AI allowed"
 
 	var/n = 0
 	for (var/mob/M in player_list)
