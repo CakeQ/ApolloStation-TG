@@ -784,13 +784,13 @@ var/list/preferences_datums = list()
 
 				if("tentacles")
 					var/new_tentacles
-					new_tentacles = input(user, "Choose your character's tentacles:", "Character Preference") as anything in tentacles_list
+					new_tentacles = input(user, "Choose your character's tentacles:", "Character Preference") as null|anything in tentacles_list
 					if(new_tentacles)
 						features["tentacles"] = new_tentacles
 
 				if("supermatter")
 					var/new_supermatter
-					new_supermatter = input(user, "Choose your character's shard spikes:", "Character Preference") as anything in supermatter_list
+					new_supermatter = input(user, "Choose your character's shard spikes:", "Character Preference") as null|anything in supermatter_list
 					if(new_supermatter)
 						features["supermatter"] = new_supermatter
 
