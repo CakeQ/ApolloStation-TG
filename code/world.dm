@@ -324,11 +324,6 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	features += abandon_allowed ? "respawn" : "no respawn"
 
-	var/n = 0
-	for (var/mob/M in player_list)
-		if (M.client)
-			n++
-			
 	if (!host && config && config.hostedby)
 		features += "hosted by <b>[config.hostedby]</b>"
 

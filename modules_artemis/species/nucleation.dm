@@ -3,13 +3,18 @@
 	id = "nucleation"
 	say_mod = "rattles"
 	meat = /obj/item/weapon/shard/supermatter
-	species_traits = list(NOBLOOD,RESISTCOLD,RADIMMUNE,NOTRANSSTING,VIRUSIMMUNE,NOHUNGER,RESISTPRESSURE,NOBREATH)
+	species_traits = list(NOBLOOD,RESISTCOLD,RADIMMUNE,NOTRANSSTING,VIRUSIMMUNE,NOHUNGER,RESISTPRESSURE,NOBREATH,EASYDISMEMBER)
+	mutant_bodyparts = list("ears", "wings", "supermatter")
+	default_features = list("ears" = "None", "wings" = "None", "supermatter" = "Nucleation Crystals")
 	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	burnmod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brutemod = 2 // damn, double wham, double dam
 	var/coreLevel = 1
+	fixed_mut_color = SM_DEFAULT_COLOR
 
 /datum/species/nucleation/highlevel
+	id = "highlevelnucleation"
+	species_traits = list(NOBLOOD,RESISTCOLD,RADIMMUNE,NOTRANSSTING,VIRUSIMMUNE,NOHUNGER,RESISTPRESSURE,EASYDISMEMBER)
 	dangerous_existence = 1 //So so much
 	blacklisted = 1 //See above
 	breathid = "n2"
@@ -60,14 +65,15 @@
 		return 1
 
 /mob/living/carbon/human/proc/makeNucleation(mob/living/carbon/human/H, makeLevel)
-	//var/datum/species/nucleation/N
+	var/datum/species/nucleation/N
 	if(makeLevel > 9)
 		makeLevel = 9
-	//if(makeLevel > 3)
-	//	N = H.set_species(var/datum/species/nucleation/highlevel)
-	//else
-	//	N = H.set_species(var/datum/species/nucleation)
-	//N.coreLevel = makeLevel
+	if(makeLevel > 3)
+		H.set_species(/datum/species/nucleation/highlevel)
+	else
+		H.set_species(/datum/species/nucleation)
+	N = H
+	N.coreLevel = makeLevel
 
 /datum/species/nucleation/spec_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
@@ -83,31 +89,31 @@
 
 /datum/sprite_accessory/supermatter/nuc_crystals
 		name = "Nucleation Crystals"
-		icon_state = "nuc_crystal"
+		icon_state = "crystal"
 
 /datum/sprite_accessory/supermatter/nuc_betaburns
 		name = "Nucleation Beta Burns"
-		icon_state = "nuc_betaburns"
+		icon_state = "betaburns"
 
 /datum/sprite_accessory/supermatter/nuc_fallout
 		name = "Nucleation Fallout"
-		icon_state = "nuc_fallout"
+		icon_state = "fallout"
 
 /datum/sprite_accessory/supermatter/nuc_frission
 		name = "Nucleation Frission"
-		icon_state = "nuc_frission"
+		icon_state = "frission"
 
 /datum/sprite_accessory/supermatter/nuc_radical
 		name = "Nucleation Free Radical"
-		icon_state = "nuc_radical"
+		icon_state = "radical"
 
 /datum/sprite_accessory/supermatter/nuc_gammaray
 		name = "Nucleation Gamma Ray"
-		icon_state = "nuc_gammaray"
+		icon_state = "gammaray"
 
 /datum/sprite_accessory/supermatter/nuc_neutron
 		name = "Nucleation Neutron Bomb"
-		icon_state = "nuc_neutron"
+		icon_state = "neutron"
 
 /datum/outfit/nucleation
 	name = "Nucleation"
@@ -148,3 +154,9 @@
 	air_contents.assert_gas("n2")
 	air_contents.gases["n2"][MOLES] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
+
+/proc/isnucleation(A)
+	if(istype(A, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = A
+		return istype(H.dna.species, /datum/species/nucleation)
+	return 0
