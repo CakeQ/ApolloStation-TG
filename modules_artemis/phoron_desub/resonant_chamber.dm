@@ -133,4 +133,8 @@
 	sm_piece.loc = get_turf( src )
 	sm_pieces -= sm_piece
 
+//LINDA! Don't touch the supermatter. ~rj
+/obj/machinery/phoron_desublimer/resonant_chamber/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+	return 0
+
 #undef SM_CORE_SIZE

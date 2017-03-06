@@ -1211,6 +1211,15 @@ var/list/preferences_datums = list()
 
 				dat += "</td>"
 
+			if("supermatter" in pref_species.mutant_bodyparts)
+				dat += "<td valign='top' width='7%'>"
+
+				dat += "<h3>Shard Growth</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=supermatter;task=input'>[features["supermatter"]]</a><BR>"
+
+				dat += "</td>"
+
 			if("frills" in pref_species.mutant_bodyparts)
 				dat += "<td valign='top' width='7%'>"
 

@@ -182,8 +182,8 @@
 		return 1 //Yeah just stop.
 
 	//TODO: Resonant chaimber!
-	//if(istype( loc, /obj/machinery/phoron_desublimer/resonant_chamber ))
-	//	return 1 // Resonant chambers are similar to bluespace beakers, they halt reactions within them
+	if(istype( loc, /obj/machinery/phoron_desublimer/resonant_chamber ))
+		return 1 // Resonant chambers are similar to bluespace beakers, they halt reactions within them
 
 /obj/machinery/power/supermatter_shard/supermatter/proc/alertCheck()
 	var/turf/L = loc
@@ -382,18 +382,14 @@
 	user << "<span class = \"warning\">You attempt to interface with the control circuits but find they are not connected to your network.  Maybe in a future firmware update.</span>"
 
 /obj/machinery/power/supermatter_shard/supermatter/attack_hand(mob/user as mob)
-//TODO: NUCLEATIONS!
-/*
-	if( isnucleation( user )) // Nucleation's can touch it to heal!
+	if( isnucleation(user) ) // Nucleation's can touch it to heal!
 		var/mob/living/L = user
 		user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... \his body starts to glow before they calmly pull away from it.</span>",\
-		"<span class='notice'>You reach out and touch \the [src]. Everything seems to go quiet and slow down as you feel your crystal structures mending.\"</span></span>", \
+		"<span class='notice'>You reach out and touch \the [src]. Everything seems to go quiet and slow down as you feel your crystal structures mending.</span>", \
 		"<span class=\"danger\">Everything suddenly goes silent.\"</span>")
 		L.revive(full_heal = 1, admin_revive = 0)
 		L.sleeping = max(L.sleeping+2, 10)
 		return
-		*/
-
 
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... \his body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
@@ -441,7 +437,7 @@
 
 	if(istype(AM, /mob/living))
 		var/mob/living/M = AM
-		if( !M.smVaporize()) // Nucleation's biology doesn't react to this
+		if( isnucleation(M)) // Nucleation's biology doesn't react to this
 			return
 		AM.visible_message("<span class=\"warning\">\The [AM] slams into \the [src] inducing a resonance... \his body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class=\"danger\">You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\

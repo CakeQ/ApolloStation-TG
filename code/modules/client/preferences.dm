@@ -292,6 +292,15 @@
 
 					dat += "</td>"
 
+				if("supermatter" in pref_species.mutant_bodyparts)
+					dat += "<td valign='top' width='7%'>"
+
+					dat += "<h3>Shard Growth</h3>"
+
+					dat += "<a href='?_src_=prefs;preference=supermatter;task=input'>[features["supermatter"]]</a><BR>"
+
+					dat += "</td>"
+
 				if("frills" in pref_species.mutant_bodyparts)
 					dat += "<td valign='top' width='7%'>"
 
@@ -1004,9 +1013,15 @@
 
 				if("tentacles")
 					var/new_tentacles
-					new_tentacles = input(user, "Choose your character's tentacles:", "Character Preference") as anything in tentacles_list
+					new_tentacles = input(user, "Choose your character's tentacles:", "Character Preference") as null|anything in tentacles_list
 					if(new_tentacles)
 						features["tentacles"] = new_tentacles
+
+				if("supermatter")
+					var/new_supermatter
+					new_supermatter = input(user, "Choose your character's shard growth:", "Character Preference") as null|anything in supermatter_list
+					if(new_supermatter)
+						features["supermatter"] = new_supermatter
 
 				if("ears")
 					var/new_ears
