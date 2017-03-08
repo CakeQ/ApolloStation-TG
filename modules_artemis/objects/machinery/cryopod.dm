@@ -240,13 +240,12 @@
 
 	//Drop all items into the pod.
 	for(var/obj/item/W in occupant)
-		occupant.transferItemToLoc(W,src.loc)
+		W.forceMove(src)
 
 		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
 			for(var/obj/item/O in W.contents)
 				if(istype(O,/obj/item/weapon/storage/internal)) //Stop eating pockets, you fuck!
 					continue
-				O.loc = src
 
 	//Delete all items not on the preservation list.
 	var/list/items = src.contents
@@ -359,6 +358,8 @@
 				if(!user)
 					return
 				willing = 1
+			else
+				open_machine()
 		else
 			willing = 1
 		if(occupant && willing)
