@@ -22,7 +22,7 @@
 		return
 
 	if(istype(B, /obj/item/weapon/wrench))
-		default_unfasten_wrench(user, I, time = 20)
+		default_unfasten_wrench(user, B, time = 20)
 		return
 
 	if(istype( B, /obj/item/weapon/shard/supermatter ))
