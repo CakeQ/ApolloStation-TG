@@ -62,7 +62,7 @@ var/datum/subsystem/ticker/ticker
 /datum/subsystem/ticker/Initialize(timeofday)
 	var/list/music = file2list(ROUND_START_MUSIC_LIST, "\n")
 	login_music = pick(music)
-	
+
 	if(!syndicate_code_phrase)
 		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)
@@ -78,6 +78,7 @@ var/datum/subsystem/ticker/ticker
 			for(var/client/C in clients)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			world << "<span class='boldnotice'>Welcome to [station_name()]!</span>"
+			SSvote.autogamemode()
 			current_state = GAME_STATE_PREGAME
 			fire()
 		if(GAME_STATE_PREGAME)
@@ -729,4 +730,3 @@ var/datum/subsystem/ticker/ticker
 		start_at = world.time + newtime
 	else
 		timeLeft = newtime
-		
