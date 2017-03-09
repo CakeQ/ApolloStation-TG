@@ -226,3 +226,6 @@
 		if(!QDELETED(V))
 			V.Remove(V.owner)
 	generated_actions = list()
+
+/datum/subsystem/vote/proc/autogamemode()
+	initiate_vote("gamemode","the server")
