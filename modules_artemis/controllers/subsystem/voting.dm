@@ -227,5 +227,5 @@
 			V.Remove(V.owner)
 	generated_actions = list()
 
-/datum/subsystem/vote/proc/autogamemode()
+/datum/controller/subsystem/vote/proc/autogamemode()
 	initiate_vote("gamemode","the server")
