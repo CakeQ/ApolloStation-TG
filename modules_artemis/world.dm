@@ -1,4 +1,4 @@
-#define SECRET_GAME 0
+#define SECRET_GAME 1
 /world/load_mode()
 	..()
 	if(SECRET_GAME)
