@@ -60,6 +60,7 @@
 
 	for(var/client/C in clients)
 		if(C.prefs.chat_toggles & CHAT_OOC)
+			C << sound( 'sound/effects/oocalert.ogg' )
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))

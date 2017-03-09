@@ -195,7 +195,7 @@ var/next_external_rsc = 0
 	sethotkeys(1)						//set hoykeys from preferences (from_pref = 1)
 
 	. = ..()	//calls mob.Login()
-	
+
 	connection_time = world.time
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
@@ -300,6 +300,16 @@ var/next_external_rsc = 0
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
+
+	//Join message
+	for(var/client/target in clients)
+		if( !target )
+			return
+
+		if(target.prefs)											//Rare runtime
+			if(!(target.prefs.chat_toggles & CHAT_OOC))
+				target << "<span class='notice'><b>[src.key] has connected to the server.</b></span>"
+				target << sound( 'sound/effects/oocjoin.ogg' )
 
 
 //////////////
