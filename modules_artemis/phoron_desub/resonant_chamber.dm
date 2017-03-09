@@ -22,22 +22,7 @@
 		return
 
 	if(istype(B, /obj/item/weapon/wrench))
-		switch (anchored)
-			if (0)
-				user.visible_message("[user] starts tightening the bolts on \the [src].", "You start tightening the bolts on \the [src].")
-			if (1)
-				user.visible_message("[user] starts unfastening the bolts on \the [src].", "You start unfastening the bolts on \the [src].")
-
-		if(do_after(user, 20))
-			if(!src) return
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			switch (anchored)
-				if (0)
-					anchored = 1
-					user.visible_message("[user] tightens the bolts securing \the [src] to the floor.", "You tighten the bolts securing \the [src] to the floor.")
-				if (1)
-					user.visible_message("[user] unfastens the bolts securing \the [src] to the floor.", "You unfasten the bolts securing \the [src] to the floor.")
-					anchored = 0
+		default_unfasten_wrench(user, B, time = 20)
 		return
 
 	if(istype( B, /obj/item/weapon/shard/supermatter ))
