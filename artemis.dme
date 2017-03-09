@@ -4,7 +4,6 @@
 // BEGIN_INTERNALS
 // END_INTERNALS
 
-#include "_maps\artemisstation.dm"
 #include "tgstation.dme"
 
 // BEGIN_FILE_DIR
@@ -16,7 +15,6 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "_maps\artemisstation.dm"
 #include "_maps\map_files\ArtemisStation\artemis_areas.dm"
 #include "modules_artemis\world.dm"
 #include "modules_artemis\__DEFINES\arc_emitter.dm"
