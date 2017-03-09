@@ -1,8 +1,8 @@
-/datum/subsystem/job
+/datum/controller/subsystem/job
 	init_order = 5
 	var/list/inductee_occupations = list() 	//List of all jobs chars unlock.
 
-/datum/subsystem/job/SetupOccupations(faction = "Station")
+/datum/controller/subsystem/job/SetupOccupations(faction = "Station")
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
@@ -30,12 +30,12 @@
 
 	return 1
 
-/datum/subsystem/job/proc/GetInducteeJobsRanks()
+/datum/controller/subsystem/job/proc/GetInducteeJobsRanks()
 	var/list/iJobs = new/list()
 	for(var/datum/job/j in inductee_occupations)
 		iJobs += j.title
 
-/datum/subsystem/job/FindOccupationCandidates(datum/job/job, level, flag)
+/datum/controller/subsystem/job/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
@@ -59,7 +59,7 @@
 			candidates += player
 	return candidates
 
-/datum/subsystem/job/FillAIPosition(unassigned)
+/datum/controller/subsystem/job/FillAIPosition(unassigned)
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
 	if(!job)
@@ -83,7 +83,7 @@
  *  This proc must not have any side effect besides of modifying "assigned_role".
  *	Totally redone for Artemis Station's role system ~rj
  **/
-/datum/subsystem/job/DivideOccupations()
+/datum/controller/subsystem/job/DivideOccupations()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
 
@@ -224,7 +224,7 @@
 	return 1
 
 //Gives the player the stuff he should have with his rank
-/datum/subsystem/job/EquipRank(mob/living/H, rank, joined_late=0)
+/datum/controller/subsystem/job/EquipRank(mob/living/H, rank, joined_late=0)
 	var/datum/job/job = GetJob(rank)
 
 	H.job = rank
@@ -279,7 +279,7 @@
 
 	return H
 
-/datum/subsystem/job/HandleFeedbackGathering()
+/datum/controller/subsystem/job/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
 		var/tmp_str = "|[job.title]|"
 

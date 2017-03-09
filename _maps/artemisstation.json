@@ -1,0 +1,7 @@
+{
+    "map_name": "Artemis Station",
+    "map_path": "map_files/ArtemisStation",
+    "map_file": "artemis-1.dmm",
+    "minetype": "lavaland",
+    "transition_config": "default"
+}

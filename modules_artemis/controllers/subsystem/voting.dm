@@ -1,7 +1,7 @@
-/datum/subsystem/vote
+/datum/controller/subsystem/vote
 	var/crew_transfer_vote_time = null
 
-/datum/subsystem/vote/get_result()
+/datum/controller/subsystem/vote/get_result()
 	//get the highest number of votes
 	var/greatest_votes = 0
 	var/total_votes = 0
@@ -40,7 +40,7 @@
 				. += option
 	return .
 
-/datum/subsystem/vote/result()
+/datum/controller/subsystem/vote/result()
 	. = announce_result()
 	var/restart = 0
 	var/transfer = 0
@@ -78,7 +78,7 @@
 		//do some checks and start the crew transfer
 	return .
 
-/datum/subsystem/vote/initiate_vote(vote_type, initiator_key)
+/datum/controller/subsystem/vote/initiate_vote(vote_type, initiator_key)
 	if(!mode)
 		if(started_time)
 			var/next_allowed_time = (started_time + config.vote_delay)
@@ -134,7 +134,7 @@
 		return 1
 	return 0
 
-/datum/subsystem/vote/interface(client/C)
+/datum/controller/subsystem/vote/interface(client/C)
 	if(!C)
 		return
 	var/admin = 0
@@ -188,7 +188,7 @@
 	return .
 
 
-/datum/subsystem/vote/Topic(href,href_list[],hsrc)
+/datum/controller/subsystem/vote/Topic(href,href_list[],hsrc)
 	if(!usr || !usr.client)
 		return	//not necessary but meh...just in-case somebody does something stupid
 	switch(href_list["vote"])
@@ -220,7 +220,7 @@
 			submit_vote(round(text2num(href_list["vote"])))
 	usr.vote()
 
-/datum/subsystem/vote/remove_action_buttons()
+/datum/controller/subsystem/vote/remove_action_buttons()
 	for(var/v in generated_actions)
 		var/datum/action/vote/V = v
 		if(!QDELETED(V))

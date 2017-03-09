@@ -35,23 +35,12 @@ var/list/the_station_areas = list (
 
 #if !defined(MAP_FILE)
 
-		#define TITLESCREEN "notitle" //Add an image in misc/fullscreen.dmi, and set this define to the icon_state, to set a custom titlescreen for your map
-
 		#define MINETYPE "lavaland"
 
 		#include "map_files\artemisStation\artemis_areas.dm"
-                #include "map_files\ArtemisStation\artemis-1.dmm"
+		#include "map_files\ArtemisStation\artemis-1.dmm"
+
 #ifndef TRAVIS_MASS_MAP_BUILD
-        #include "map_files\generic\z2.dmm"
-        #include "map_files\generic\z3.dmm"
-        #include "map_files\generic\z4.dmm"
-        #include "map_files\generic\lavaland.dmm"
-        #include "map_files\generic\z6.dmm"
-        #include "map_files\generic\z7.dmm"
-        #include "map_files\generic\z8.dmm"
-		#include "map_files\generic\z9.dmm"
-		#include "map_files\generic\z10.dmm"
-		#include "map_files\generic\z11.dmm"
 
 		#define MAP_PATH "map_files/ArtemisStation"
         #define MAP_FILE "artemis-1.dmm"

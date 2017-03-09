@@ -12,7 +12,6 @@ var/datum/controller/subsystem/server_maint/SSserver
 	if (config.hub)
 		world.visibility = 1
 	..()
-	*/
 
 /datum/controller/subsystem/server_maint/fire()
 	//handle kicking inactive players

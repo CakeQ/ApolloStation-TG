@@ -52,3 +52,4 @@ Cyborg
 /datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M)
 	if(config.rename_cyborg)	//name can't be set in robot/New without the client
 		R.rename_self("cyborg", M.client)
+*/

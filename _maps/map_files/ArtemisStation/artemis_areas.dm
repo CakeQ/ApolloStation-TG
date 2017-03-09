@@ -512,7 +512,6 @@
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
 	luminosity = 1
-	lighting_use_dynamic = 0
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -695,7 +694,6 @@
 /area/solar
 	requires_power = 1
 	always_unpowered = 1
-	lighting_use_dynamic = 0
 	luminosity = 1
 
 /area/solar/starboard
