@@ -19,6 +19,10 @@
 	tag = "mob_[next_mob_id++]"
 	mob_list += src
 
+	if(client && ticker.state == GAME_STATE_STARTUP)
+		var/obj/screen/splash/S = new(client, TRUE, TRUE)
+		S.Fade(TRUE)
+
 	if(length(newplayer_start))
 		loc = pick(newplayer_start)
 	else
@@ -45,12 +49,12 @@
 			var/isadmin = 0
 			if(src.client && src.client.holder)
 				isadmin = 1
-			var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
-			query.Execute()
+			var/DBQuery/query_get_new_polls = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
+			if(!query_get_new_polls.Execute())
+				return
 			var/newpoll = 0
-			while(query.NextRow())
+			if(query_get_new_polls.NextRow())
 				newpoll = 1
-				break
 
 			if(newpoll)
 				output += "<p><b><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
@@ -71,7 +75,7 @@
 
 	if(statpanel("Lobby"))
 		stat("Game Mode:", (ticker.hide_mode) ? "Secret" : "[master_mode]")
-		stat("Map:", MAP_NAME)
+		stat("Map:", SSmapping.config.map_name)
 
 		if(ticker.current_state == GAME_STATE_PREGAME)
 			var/time_remaining = ticker.GetTimeLeft()
@@ -126,7 +130,7 @@
 			if (O)
 				observer.loc = O.loc
 			else
-				src << "<span class='notice'>Teleporting failed. You should be able to use ghost verbs to teleport somewhere useful</span>"
+				src << "<span class='notice'>Teleporting failed. The map is probably still loading...</span>"
 			observer.key = key
 			observer.client = client
 			observer.set_ghost_appearance()
@@ -304,7 +308,7 @@
 
 	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
 	var/equip = SSjob.EquipRank(character, rank, 1)
-	if(iscyborg(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
+	if(isliving(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
 		character = equip
 
 

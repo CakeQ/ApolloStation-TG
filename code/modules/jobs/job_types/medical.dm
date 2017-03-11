@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Chief Medical Officer
 */
@@ -179,3 +180,4 @@ Virologist
 	backpack = /obj/item/weapon/storage/backpack/virology
 	satchel = /obj/item/weapon/storage/backpack/satchel/vir
 	dufflebag = /obj/item/weapon/storage/backpack/dufflebag/med
+*/

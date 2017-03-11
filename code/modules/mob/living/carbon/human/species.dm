@@ -110,6 +110,7 @@
 	var/obj/item/organ/heart/heart = C.getorganslot("heart")
 	var/obj/item/organ/lungs/lungs = C.getorganslot("lungs")
 	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix")
+	var/obj/item/organ/eyes/eyes = C.getorganslot("eyes")
 
 	if((NOBLOOD in species_traits) && heart)
 		heart.Remove(C)
@@ -119,9 +120,14 @@
 		heart.Insert(C)
 
 	if(lungs)
-		lungs.Remove(C)
 		qdel(lungs)
 		lungs = null
+
+	if(eyes)
+		qdel(eyes)
+		eyes = new mutanteyes
+		mutanteyes.Insert(C)
+
 	if((!(NOBREATH in species_traits)) && !lungs)
 		if(mutantlungs)
 			lungs = new mutantlungs()
@@ -130,7 +136,6 @@
 		lungs.Insert(C)
 
 	if((NOHUNGER in species_traits) && appendix)
-		appendix.Remove(C)
 		qdel(appendix)
 	else if((!(NOHUNGER in species_traits)) && (!appendix))
 		appendix = new()
@@ -315,7 +320,6 @@
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
 
-
 	if("waggingtail_human" in mutant_bodyparts)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "waggingtail_human"
@@ -357,6 +361,14 @@
 			bodyparts_to_add -= "wings_open"
 		else if ("wings" in mutant_bodyparts)
 			bodyparts_to_add -= "wings_open"
+
+	if("tentacles" in mutant_bodyparts)
+		if(!H.dna.features["tentacles"] || H.dna.features["tentacles"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+			bodyparts_to_add -= "tentacles"
+
+	if("supermatter" in mutant_bodyparts)
+		if(!H.dna.features["supermatter"] || H.dna.features["supermatter"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+			bodyparts_to_add -= "supermatter"
 
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
 	var/update_needed = FALSE
@@ -423,6 +435,10 @@
 					S = wings_open_list[H.dna.features["wings"]]
 				if("legs")
 					S = legs_list[H.dna.features["legs"]]
+				if("tentacles")
+					S = tentacles_list[H.dna.features["tentacles"]]
+				if("supermatter")
+					S = supermatter_list[H.dna.features["supermatter"]]
 
 			if(!S || S.icon_state == "none")
 				continue
@@ -1001,7 +1017,7 @@
 	if(aim_for_mouth && ( target_on_help_and_unarmed || target_restrained || target_aiming_for_mouth))
 		playsound(target.loc, 'sound/weapons/slap.ogg', 50, 1, -1)
 		user.visible_message("<span class='danger'>[user] slaps [target] in the face!</span>",
-			"<span class='notice'> You slap [target] in the face! </span>",\
+			"<span class='notice'>You slap [target] in the face! </span>",\
 		"You hear a slap.")
 		target.endTailWag()
 		return FALSE

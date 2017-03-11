@@ -6,6 +6,9 @@
 		log_admin("[key_name(usr)] tried to use the admin panel without authorization.")
 		return
 	if(href_list["rejectadminhelp"])
+		if(world.time && (spamcooldown > world.time))
+			usr << "Please wait [max(round((spamcooldown - world.time)*0.1, 0.1), 0)] seconds."
+			return
 		if(!check_rights(R_ADMIN))
 			return
 		var/client/C = locate(href_list["rejectadminhelp"]) in clients
@@ -22,8 +25,12 @@
 
 		message_admins("[key_name_admin(usr)] Rejected [C.key]'s admin help. [C.key]'s Adminhelp verb has been returned to them.")
 		log_admin_private("[key_name(usr)] Rejected [C.key]'s admin help.")
+		spamcooldown = world.time + 150 // 15 seconds
 
 	else if(href_list["icissue"])
+		if(world.time && spamcooldown > world.time)
+			usr << "Please wait [max(round((spamcooldown - world.time)*0.1, 0.1), 0)] seconds."
+			return
 		var/client/C = locate(href_list["icissue"]) in clients
 		if(!C)
 			return
@@ -36,6 +43,7 @@
 
 		message_admins("[key_name_admin(usr)] marked [C.key]'s admin help as an IC issue.")
 		log_admin_private("[key_name(usr)] marked [C.key]'s admin help as an IC issue.")
+		spamcooldown = world.time + 150 // 15 seconds
 
 	else if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
@@ -249,7 +257,7 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom ip and computer id fields replaced with the ip and computer id from the located mob.")
 
-		if(!DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid ))
+		if(!DB_ban_record(bantype, playermob, banduration, banreason, banjob, banckey, banip, bancid ))
 			usr << "<span class='danger'>Failed to apply ban.</span>"
 			return
 		create_message("note", banckey, null, banreason, null, null, 0, 0)
@@ -1101,9 +1109,7 @@
 	else if(href_list["messageedits"])
 		var/message_id = sanitizeSQL("[href_list["messageedits"]]")
 		var/DBQuery/query_get_message_edits = dbcon.NewQuery("SELECT edits FROM [format_table_name("messages")] WHERE id = '[message_id]'")
-		if(!query_get_message_edits.Execute())
-			var/err = query_get_message_edits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from messages table. Error : \[[err]\]\n")
+		if(!query_get_message_edits.warn_execute())
 			return
 		if(query_get_message_edits.NextRow())
 			var/edit_log = query_get_message_edits.item[1]
@@ -1820,6 +1826,17 @@
 		var/mob/M = locate(href_list["subtlemessage"])
 		usr.client.cmd_admin_subtle_message(M)
 
+	else if(href_list["individuallog"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locate(href_list["individuallog"]) in mob_list
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob."
+			return
+
+		show_individual_logging_panel(M, href_list["log_type"])
+
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2246,7 +2263,86 @@
 		message_admins("[key_name(usr)] created \"[G.name]\" station goal.")
 		ticker.mode.station_goals += G
 		modify_goals()
+	else if(href_list["AdminFaxView"])
+		var/client/C = locate(href_list["AdminFaxView"])
+		var/obj/item/fax = locate(href_list["AdminFaxView"])
+		if (istype(fax, /obj/item/weapon/paper))
+			var/obj/item/weapon/paper/P = fax
+			C << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info]<HR>[P.stamps]</BODY></HTML>", "window=[P.name]")
+			onclose(C, "[P.name]")
+		else if (istype(fax, /obj/item/weapon/photo))
+			var/obj/item/weapon/photo/H = fax
+			H.show(usr)
+		else if (istype(fax, /obj/item/weapon/paper_bundle))
+			//having multiple people turning pages on a paper_bundle can cause issues
+			//open a browse window listing the contents instead
+			var/data = ""
+			var/obj/item/weapon/paper_bundle/B = fax
 
+			for (var/page = 1, page <= B.amount, page++)
+				var/obj/pageobj = B.contents[page]
+				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
+
+			usr << browse(data, "window=[B.name]")
+		else
+			usr << "<span class='alert'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>"
+	else if (href_list["AdminFaxViewPage"])
+		var/client/C = locate(href_list["AdminFaxViewPage"])
+		var/page = text2num(href_list["AdminFaxViewPage"])
+		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
+
+		if (!bundle) return
+
+		if (istype(bundle.contents[page], /obj/item/weapon/paper))
+			var/obj/item/weapon/paper/P = bundle.contents[page]
+			C << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info]<HR>[P.stamps]</BODY></HTML>", "window=[P.name]")
+			onclose(C, "[P.name]")
+		else if (istype(bundle.contents[page], /obj/item/weapon/photo))
+			var/obj/item/weapon/photo/H = bundle.contents[page]
+			H.show(src.owner)
+		return
+
+	else if(href_list["CentcommFaxReply"])
+		var/mob/sender = locate(href_list["CentcommFaxReply"])
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+
+		//todo: sanitize
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(sender)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
+		if(!input)	return
+
+		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
+
+		// Create the reply message
+		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( null ) //hopefully the null loc won't cause trouble for us
+		P.name = "[command_name()] - [customname]"
+		P.info = input
+		P.update_icon()
+
+		// Stamps
+		var/obj/item/weapon/stamp/centcom/S
+		P.stamps += "<img src=large_[S.icon_state].png>"
+		if(!P.stamped)
+			P.stamped = new
+		P.stamped += S.icon_state
+
+		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+		stampoverlay.icon_state = "paper_stamp-cent"
+		if(!P.stamped)
+			P.stamped = new
+		P.stamped += /obj/item/weapon/stamp
+		P.overlays += stampoverlay
+		P.stamps += "<HR><i>This paper has been stamped by the Central Command Quantum Relay.</i>"
+
+		if(fax.recievefax(P))
+			src.owner << "<span class='notice'>Message reply to transmitted successfully.</span>"
+			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)]")
+		else
+			src.owner << "<span class='alert'>Message reply failed.</span>"
+
+		spawn(100)
+			qdel(P)
+		return
 	else if(href_list["viewruntime"])
 		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
 		if(!istype(error_viewer))

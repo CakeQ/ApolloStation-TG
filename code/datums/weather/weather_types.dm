@@ -55,13 +55,13 @@
 		var/area/A = V
 		if(stage == MAIN_STAGE)
 			A.invisibility = 0
-			A.opacity = 1
+			A.set_opacity(TRUE)
 			A.layer = overlay_layer
 			A.icon = 'icons/effects/weather_effects.dmi'
 			A.icon_state = "darkness"
 		else
 			A.invisibility = INVISIBILITY_MAXIMUM
-			A.opacity = 0
+			A.set_opacity(FALSE)
 
 
 /datum/weather/ash_storm //Ash Storms: Common happenings on lavaland. Heavily obscures vision and deals heavy fire damage to anyone caught outside.
@@ -160,11 +160,13 @@
 								H.randmutg()
 							H.domutcheck()
 		L.rad_act(20,1)
+/*Replaced for Artemis' rad storm ~Cakey
 /datum/weather/rad_storm/end()
 	if(..())
 		return
 	priority_announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 	status_alarm()
+*/
 
 
 /datum/weather/rad_storm/proc/status_alarm(command)	//Makes the status displays show the radiation warning for those who missed the announcement.

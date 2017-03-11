@@ -111,9 +111,10 @@ var/datum/events/keycard_events = new()
 	emergency_access = 1
 
 /proc/revoke_maint_all_access()
+	minor_announce("Access restrictions in maintenance areas will be restored momentarily.", "Attention! Station-wide emergency rescinded:")
+	emergency_access = 0
+	sleep(600)
 	for(var/area/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	minor_announce("Access restrictions in maintenance areas have been restored.", "Attention! Station-wide emergency rescinded:")
-	emergency_access = 0

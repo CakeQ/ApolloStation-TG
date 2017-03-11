@@ -471,6 +471,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			attack_verb = list("burnt", "singed")
 			if(!istype(src, /obj/item/weapon/lighter/greyscale))
 				user.visible_message("Without even breaking stride, [user] flips open and lights [src] in one smooth movement.", "<span class='notice'>Without even breaking stride, you flip open and lights [src] in one smooth movement.</span>")
+				playsound(src, 'sound/effects/zippo_on.ogg', 50, 0)
 			else
 				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
@@ -489,7 +490,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					user.apply_damage(5, BURN, hitzone)
 					user.visible_message("<span class='warning'>After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn their finger in the process.</span>", "<span class='warning'>You burn yourself while lighting the lighter!</span>")
 
-			user.AddLuminosity(1)
+			set_light(1)
 			START_PROCESSING(SSobj, src)
 		else
 			lit = 0
@@ -499,9 +500,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			attack_verb = null //human_defense.dm takes care of it
 			if(!istype(src, /obj/item/weapon/lighter/greyscale))
 				user.visible_message("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.", "<span class='notice'>You quietly shut off [src] without even looking at what you're doing. Wow.</span>")
+				playsound(src, 'sound/effects/zippo_off.ogg', 50, 0)
 			else
 				user.visible_message("[user] quietly shuts off [src].", "<span class='notice'>You quietly shut off [src].")
-			user.AddLuminosity(-1)
+			set_light(0)
 			STOP_PROCESSING(SSobj, src)
 	else
 		. = ..()
@@ -526,19 +528,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/weapon/lighter/process()
 	open_flame()
-
-/obj/item/weapon/lighter/pickup(mob/user)
-	..()
-	if(lit)
-		SetLuminosity(0)
-		user.AddLuminosity(1)
-
-/obj/item/weapon/lighter/dropped(mob/user)
-	..()
-	if(lit)
-		if(user)
-			user.AddLuminosity(-1)
-		SetLuminosity(1)
 
 /obj/item/weapon/lighter/is_hot()
 	return lit * heat

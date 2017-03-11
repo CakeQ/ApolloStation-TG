@@ -52,6 +52,7 @@
 			return
 
 	log_ooc("[mob.name]/[key] : [raw_msg]")
+	mob.log_message("[key]: [raw_msg]", INDIVIDUAL_OOC_LOG)
 
 	var/keyname = key
 	if(prefs.unlock_content)
@@ -60,6 +61,7 @@
 
 	for(var/client/C in clients)
 		if(C.prefs.chat_toggles & CHAT_OOC)
+			C << sound( 'sound/effects/oocalert.ogg' )
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))

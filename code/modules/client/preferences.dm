@@ -1,9 +1,3 @@
-
-
-var/list/preferences_datums = list()
-
-
-
 /datum/preferences
 	var/client/parent
 	//doohickeys for savefiles
@@ -289,6 +283,24 @@ var/list/preferences_datums = list()
 
 					dat += "</td>"
 
+				if("tentacles" in pref_species.mutant_bodyparts)
+					dat += "<td valign='top' width='7%'>"
+
+					dat += "<h3>Tentacles</h3>"
+
+					dat += "<a href='?_src_=prefs;preference=tentacles;task=input'>[features["tentacles"]]</a><BR>"
+
+					dat += "</td>"
+
+				if("supermatter" in pref_species.mutant_bodyparts)
+					dat += "<td valign='top' width='7%'>"
+
+					dat += "<h3>Shard Growth</h3>"
+
+					dat += "<a href='?_src_=prefs;preference=supermatter;task=input'>[features["supermatter"]]</a><BR>"
+
+					dat += "</td>"
+
 				if("frills" in pref_species.mutant_bodyparts)
 					dat += "<td valign='top' width='7%'>"
 
@@ -409,19 +421,19 @@ var/list/preferences_datums = list()
 
 			dat += "<b>Ghosts of Others:</b> <a href='?_src_=prefs;task=input;preference=ghostothers'>[button_name]</a><br>"
 
-			if (SERVERTOOLS && config.maprotation)
+			if (config.maprotation)
 				var/p_map = preferred_map
 				if (!p_map)
 					p_map = "Default"
 					if (config.defaultmap)
-						p_map += " ([config.defaultmap.friendlyname])"
+						p_map += " ([config.defaultmap.map_name])"
 				else
 					if (p_map in config.maplist)
-						var/datum/votablemap/VM = config.maplist[p_map]
+						var/datum/map_config/VM = config.maplist[p_map]
 						if (!VM)
 							p_map += " (No longer exists)"
 						else
-							p_map = VM.friendlyname
+							p_map = VM.map_name
 					else
 						p_map += " (No longer exists)"
 				dat += "<b>Preferred Map:</b> <a href='?_src_=prefs;preference=preferred_map;task=input'>[p_map]</a><br>"
@@ -745,10 +757,8 @@ var/list/preferences_datums = list()
 	if(href_list["jobbancheck"])
 		var/job = sanitizeSQL(href_list["jobbancheck"])
 		var/sql_ckey = sanitizeSQL(user.ckey)
-		var/DBQuery/query_get_jobban = dbcon.NewQuery("SELECT reason, bantime, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey = '[sql_ckey]' AND job = '[job]' AND (bantype = 'JOB_PERMABAN'  OR (bantype = 'JOB_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
-		if(!query_get_jobban.Execute())
-			var/err = query_get_jobban.ErrorMsg()
-			log_game("SQL ERROR obtaining reason from ban table. Error : \[[err]\]\n")
+		var/DBQuery/query_get_jobban = dbcon.NewQuery("SELECT reason, bantime, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey = '[sql_ckey]' AND (bantype = 'JOB_PERMABAN'  OR (bantype = 'JOB_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned) AND job = '[job]'")
+		if(!query_get_jobban.warn_execute())
 			return
 		if(query_get_jobban.NextRow())
 			var/reason = query_get_jobban.item[1]
@@ -999,6 +1009,18 @@ var/list/preferences_datums = list()
 					if(new_horns)
 						features["horns"] = new_horns
 
+				if("tentacles")
+					var/new_tentacles
+					new_tentacles = input(user, "Choose your character's tentacles:", "Character Preference") as null|anything in tentacles_list
+					if(new_tentacles)
+						features["tentacles"] = new_tentacles
+
+				if("supermatter")
+					var/new_supermatter
+					new_supermatter = input(user, "Choose your character's shard growth:", "Character Preference") as null|anything in supermatter_list
+					if(new_supermatter)
+						features["supermatter"] = new_supermatter
+
 				if("ears")
 					var/new_ears
 					new_ears = input(user, "Choose your character's ears:", "Character Preference") as null|anything in ears_list
@@ -1106,13 +1128,13 @@ var/list/preferences_datums = list()
 					var/maplist = list()
 					var/default = "Default"
 					if (config.defaultmap)
-						default += " ([config.defaultmap.friendlyname])"
+						default += " ([config.defaultmap.map_name])"
 					for (var/M in config.maplist)
-						var/datum/votablemap/VM = config.maplist[M]
-						var/friendlyname = "[VM.friendlyname] "
+						var/datum/map_config/VM = config.maplist[M]
+						var/friendlyname = "[VM.map_name] "
 						if (VM.voteweight <= 0)
 							friendlyname += " (disabled)"
-						maplist[friendlyname] = VM.name
+						maplist[friendlyname] = VM.map_name
 					maplist[default] = null
 					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in maplist
 					if (pickedmap)

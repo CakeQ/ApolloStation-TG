@@ -26,6 +26,8 @@ var/global/list/frills_list = list()
 var/global/list/spines_list = list()
 var/global/list/legs_list = list()
 var/global/list/animated_spines_list = list()
+var/global/list/tentacles_list = list()
+var/global/list/supermatter_list = list()
 
 	//Mutant Human bits
 var/global/list/tails_list_human = list()

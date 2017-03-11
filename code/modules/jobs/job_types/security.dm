@@ -1,9 +1,10 @@
+
 //Warden and regular officers add this result to their get_access()
 /datum/job/proc/check_config_for_sec_maint()
 	if(config.jobs_have_maint_access & SECURITY_HAS_MAINT_ACCESS)
 		return list(access_maint_tunnels)
 	return list()
-
+/* Commented out for Artemis' Job system ~Cakey
 /*
 Head of Security
 */
@@ -306,3 +307,4 @@ var/list/available_depts = list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT
 /obj/item/device/radio/headset/headset_sec/alt/department/sci
 	keyslot = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
+*/

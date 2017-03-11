@@ -406,6 +406,7 @@
 	desc = "A sink used for washing one's hands and face."
 	anchored = 1
 	var/busy = 0 	//Something's being washed at the moment
+	var/dispensedreagent = "water" // for whenever plumbing happens
 
 
 /obj/structure/sink/attack_hand(mob/living/user)
@@ -455,7 +456,7 @@
 	if(istype(O, /obj/item/weapon/reagent_containers))
 		var/obj/item/weapon/reagent_containers/RG = O
 		if(RG.container_type & OPENCONTAINER)
-			RG.reagents.add_reagent("water", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+			RG.reagents.add_reagent("[dispensedreagent]", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 			user << "<span class='notice'>You fill [RG] from [src].</span>"
 			return 1
 
@@ -475,16 +476,16 @@
 				return
 
 	if(istype(O, /obj/item/weapon/mop))
-		O.reagents.add_reagent("water", 5)
+		O.reagents.add_reagent("[dispensedreagent]", 5)
 		user << "<span class='notice'>You wet [O] in [src].</span>"
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+		return
 
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/M = O
-		user << "<span class='notice'>You place [O] under a stream of water...</span>"
-		user.drop_item()
-		M.loc = get_turf(src)
-		M.Expand()
+	if(istype(O, /obj/item/stack/medical/gauze))
+		var/obj/item/stack/medical/gauze/G = O
+		new /obj/item/weapon/reagent_containers/glass/rag(src.loc)
+		user << "<span class='notice'>You tear off a strip of gauze and make a rag.</span>"
+		G.use(1)
 		return
 
 	if(!istype(O))
@@ -501,6 +502,9 @@
 		busy = 0
 		O.clean_blood()
 		O.acid_level = 0
+		create_reagents(5)
+		reagents.add_reagent("[dispensedreagent]", 5)
+		reagents.reaction(O, TOUCH)
 		user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
 							"<span class='notice'>You wash [O] using [src].</span>")
 		return 1
@@ -520,6 +524,7 @@
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
+	desc = "A puddle used for washing one's hands and face."
 	icon_state = "puddle"
 
 /obj/structure/sink/puddle/attack_hand(mob/M)
@@ -542,8 +547,6 @@
 	desc = "Contains less than 1% mercury."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "open"
-	color = "#ACD1E9" //Default color, didn't bother hardcoding other colors, mappers can and should easily change it.
-	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = WALL_OBJ_LAYER
 	anchored = 1
 	opacity = 0
@@ -585,3 +588,32 @@
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, 1)
+
+//Curtain types
+/obj/structure/curtain/black
+	name = "black curtain"
+	color = "#222222"
+
+/obj/structure/curtain/medical
+	name = "plastic curtain"
+	color = "#B8F5E3"
+	alpha = 200
+
+/obj/structure/curtain/open/bed
+	name = "bed curtain"
+	color = "#854636"
+
+/obj/structure/curtain/open/privacy
+	name = "privacy curtain"
+	color = "#B8F5E3"
+
+/obj/structure/curtain/open/shower
+	name = "shower curtain"
+	color = "#ACD1E9"
+	alpha = 200
+
+/obj/structure/curtain/open/shower/engineering
+	color = "#FFA500"
+
+/obj/structure/curtain/open/shower/security
+	color = "#AA0000"

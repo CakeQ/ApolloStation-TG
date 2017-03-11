@@ -1,3 +1,4 @@
+/* Commented out for Artemis' Job system ~Cakey
 //Due to how large this one is it gets its own file
 /*
 Chaplain
@@ -92,3 +93,4 @@ Chaplain
 	SSreligion.Bible_deity_name = B.deity_name
 	feedback_set_details("religion_deity","[new_deity]")
 	H.equip_to_slot_or_del(B, slot_in_backpack)
+*/
