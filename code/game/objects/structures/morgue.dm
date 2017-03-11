@@ -203,7 +203,7 @@ var/global/list/crematoriums = new/list()
 			if (M.stat != DEAD)
 				M.emote("scream")
 			if(user)
-				user.log_message("Cremated <b>[M]/[M.ckey]</b>", INDIVIDUAL_ATTACK_LOG)
+				user.attack_log +="\[[time_stamp()]\] Cremated <b>[M]/[M.ckey]</b>"
 				log_attack("\[[time_stamp()]\] <b>[user]/[user.ckey]</b> cremated <b>[M]/[M.ckey]</b>")
 			else
 				log_attack("\[[time_stamp()]\] <b>UNKNOWN</b> cremated <b>[M]/[M.ckey]</b>")

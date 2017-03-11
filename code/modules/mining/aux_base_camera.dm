@@ -54,8 +54,6 @@ mob/camera/aiEye/remote/base_construction/New(loc)
 	icon_screen = "mining"
 	icon_keyboard = "rd_key"
 
-	light_color = LIGHT_COLOR_PINK
-
 /obj/machinery/computer/camera_advanced/base_construction/New()
 	..()
 	RCD = new /obj/item/weapon/rcd/internal(src)
@@ -70,13 +68,11 @@ mob/camera/aiEye/remote/base_construction/New(loc)
 /obj/machinery/computer/camera_advanced/base_construction/CreateEye()
 
 	var/spawn_spot
-	for(var/obj/machinery/computer/auxillary_base/ABC in machines)
-		if(istype(get_area(ABC), /area/shuttle/auxillary_base))
-			found_aux_console = ABC
-			break
+	if(!found_aux_console)
+		found_aux_console = locate(/obj/machinery/computer/auxillary_base) in machines
 
-	if(found_aux_console)
-		spawn_spot = found_aux_console
+		if(found_aux_console)
+			spawn_spot = found_aux_console
 	else
 		spawn_spot = src
 

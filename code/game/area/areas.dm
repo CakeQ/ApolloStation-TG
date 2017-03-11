@@ -111,8 +111,8 @@ var/list/teleportlocs = list()
 		power_equip = 1
 		power_environ = 1
 
-		if (dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+		if (lighting_use_dynamic != DYNAMIC_LIGHTING_IFSTARLIGHT)
+			lighting_use_dynamic = DYNAMIC_LIGHTING_DISABLED
 
 	..()
 
@@ -255,12 +255,6 @@ var/list/teleportlocs = list()
 		for(var/area/RA in related)
 			RA.ModifyFiredoors(FALSE)
 
-/area/proc/close_and_lock_door(obj/machinery/door/DOOR)
-	set waitfor = FALSE
-	DOOR.close()
-	if(DOOR.density)
-		DOOR.lock()
-
 /area/proc/burglaralert(obj/trigger)
 	if(always_unpowered == 1) //no burglar alarms in space/asteroid
 		return
@@ -272,7 +266,10 @@ var/list/teleportlocs = list()
 		RA.set_fire_alarm_effect()
 		//Lockdown airlocks
 		for(var/obj/machinery/door/DOOR in RA)
-			close_and_lock_door(DOOR)
+			spawn(0)
+				DOOR.close()
+				if(DOOR.density)
+					DOOR.lock()
 		for (var/obj/machinery/camera/C in RA)
 			cameras += C
 
@@ -416,7 +413,6 @@ var/list/teleportlocs = list()
 
 
 /area/Entered(A)
-	set waitfor = FALSE
 	if(!isliving(A))
 		return
 
@@ -438,9 +434,9 @@ var/list/teleportlocs = list()
 		if(!L.client.played)
 			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
 			L.client.played = 1
-			sleep(600)			//ewww - this is very very bad
-			if(L.&& L.client)
-				L.client.played = 0
+			spawn(600)			//ewww - this is very very bad
+				if(L.&& L.client)
+					L.client.played = 0
 
 /atom/proc/has_gravity(turf/T)
 	if(!T || !isturf(T))

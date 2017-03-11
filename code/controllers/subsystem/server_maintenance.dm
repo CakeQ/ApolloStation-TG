@@ -1,19 +1,23 @@
-var/datum/controller/subsystem/server_maint/SSserver
+var/datum/subsystem/server_maint/SSserver
 
-/datum/controller/subsystem/server_maint
+/datum/subsystem/server_maint
 	name = "Server Tasks"
 	wait = 6000
 	flags = SS_NO_TICK_CHECK
 
-/datum/controller/subsystem/server_maint/New()
+/datum/subsystem/server_maint/New()
 	NEW_SS_GLOBAL(SSserver)
 
-/datum/controller/subsystem/server_maint/Initialize(timeofday)
+/datum/subsystem/server_maint/Initialize(timeofday)
+	warning("world.visibility [world.visibility]")
+	warning("config.hub [config.hub]")
+	/*
 	if (config.hub)
 		world.visibility = 1
 	..()
+	*/
 
-/datum/controller/subsystem/server_maint/fire()
+/datum/subsystem/server_maint/fire()
 	//handle kicking inactive players
 	if(config.kick_inactive > 0)
 		for(var/client/C in clients)

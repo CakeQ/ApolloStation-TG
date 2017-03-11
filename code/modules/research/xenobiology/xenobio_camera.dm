@@ -35,8 +35,6 @@
 	icon_screen = "slime_comp"
 	icon_keyboard = "rd_key"
 
-	light_color = LIGHT_COLOR_PINK
-
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/aiEye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
@@ -44,7 +42,7 @@
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
 
-/obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/user)
+/obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/carbon/user)
 	off_action.target = user
 	off_action.Grant(user)
 
@@ -62,6 +60,12 @@
 
 	monkey_recycle_action.target = src
 	monkey_recycle_action.Grant(user)
+
+
+/obj/machinery/computer/camera_advanced/xenobio/attack_hand(mob/user)
+	if(!ishuman(user)) //AIs using it might be weird
+		return
+	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
@@ -84,9 +88,9 @@
 	..()
 
 /datum/action/innate/camera_off/xenobio/Activate()
-	if(!target || !isliving(target))
+	if(!target || !ishuman(target))
 		return
-	var/mob/living/C = target
+	var/mob/living/carbon/C = target
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/origin = remote_eye.origin
 	origin.current_user = null
@@ -112,9 +116,9 @@
 	button_icon_state = "slime_down"
 
 /datum/action/innate/slime_place/Activate()
-	if(!target || !isliving(owner))
+	if(!target || !ishuman(owner))
 		return
-	var/mob/living/C = owner
+	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
@@ -131,9 +135,9 @@
 	button_icon_state = "slime_up"
 
 /datum/action/innate/slime_pick_up/Activate()
-	if(!target || !isliving(owner))
+	if(!target || !ishuman(owner))
 		return
-	var/mob/living/C = owner
+	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
@@ -156,9 +160,9 @@
 	button_icon_state = "monkey_down"
 
 /datum/action/innate/feed_slime/Activate()
-	if(!target || !isliving(owner))
+	if(!target || !ishuman(owner))
 		return
-	var/mob/living/C = owner
+	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
@@ -177,9 +181,9 @@
 	button_icon_state = "monkey_up"
 
 /datum/action/innate/monkey_recycle/Activate()
-	if(!target || !isliving(owner))
+	if(!target || !ishuman(owner))
 		return
-	var/mob/living/C = owner
+	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 

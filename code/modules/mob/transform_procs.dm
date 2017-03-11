@@ -286,6 +286,11 @@
 
 	qdel(src)
 
+
+/mob/new_player/AIize()
+	spawning = 1
+	return ..()
+
 /mob/living/carbon/human/AIize()
 	if (notransform)
 		return
@@ -306,7 +311,7 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	return ..()
 
-/mob/proc/AIize(transfer_after = TRUE)
+/mob/proc/AIize()
 	if(client)
 		stopLobbySound()
 
@@ -329,14 +334,13 @@
 			if (sloc.name == "AI")
 				loc_landmark = sloc.loc
 
-	if(!transfer_after)
-		mind.active = FALSE
-
 	. = new /mob/living/silicon/ai(loc_landmark, null, src)
-
 	qdel(src)
+	return
 
-/mob/living/carbon/human/proc/Robotize(delete_items = 0, transfer_after = TRUE)
+
+//human -> robot
+/mob/living/carbon/human/proc/Robotize(delete_items = 0)
 	if (notransform)
 		return
 	for(var/obj/item/W in src)
@@ -363,13 +367,12 @@
 	R.gender = gender
 	R.invisibility = 0
 
+
 	if(mind)		//TODO
-		if(!transfer_after)
-			mind.active = FALSE
 		mind.transfer_to(R)
 		if(mind.special_role)
 			R.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
-	else if(transfer_after)
+	else
 		R.key = key
 
 	if (config.rename_cyborg)

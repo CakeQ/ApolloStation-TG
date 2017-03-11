@@ -250,7 +250,7 @@
 	},
 /area/ruin/unpowered/no_grav)
 "M" = (
-/turf/open/floor/plating/airless,
+/turf/open/floor/plasteel/airless/circuit/gcircuit,
 /area/ruin/unpowered/no_grav)
 "N" = (
 /turf/closed/wall/r_wall,

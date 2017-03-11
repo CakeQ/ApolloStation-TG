@@ -2586,7 +2586,7 @@
 /area/awaymission/centcomAway/hangar)
 "ij" = (
 /obj/machinery/computer/mech_bay_power_console,
-/turf/open/floor/circuit,
+/turf/open/floor/bluegrid,
 /area/awaymission/centcomAway/hangar)
 "ik" = (
 /turf/open/floor/plasteel/vault{

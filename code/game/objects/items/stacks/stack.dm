@@ -156,7 +156,10 @@
 		//BubbleWrap END
 
 	if (src && usr.machine==src) //do not reopen closed window
-		addtimer(CALLBACK(src, /atom/.proc/interact, usr), 0)
+		spawn( 0 )
+			src.interact(usr)
+			return
+	return
 
 /obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier)
 	if (src.get_amount() < R.req_amount*multiplier)

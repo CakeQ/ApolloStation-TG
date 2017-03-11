@@ -302,7 +302,7 @@
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/M)
 	if(iscarbon(M))
 		var/mob/living/carbon/N = M
-		N.hal_screwyhud = SCREWYHUD_HEALTHY
+		N.hal_screwyhud = 5
 	M.adjustBruteLoss(-0.25*REM, 0)
 	M.adjustFireLoss(-0.25*REM, 0)
 	..()
@@ -329,7 +329,7 @@
 /datum/reagent/medicine/mine_salve/on_mob_delete(mob/living/M)
 	if(iscarbon(M))
 		var/mob/living/carbon/N = M
-		N.hal_screwyhud = SCREWYHUD_NONE
+		N.hal_screwyhud = 0
 	..()
 
 /datum/reagent/medicine/synthflesh

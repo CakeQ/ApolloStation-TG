@@ -36,7 +36,6 @@
 	..()
 	START_PROCESSING(SSobj, src)
 	poi_list |= src
-	singularities |= src
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in machines)
 		if(singubeacon.active)
 			target = singubeacon
@@ -46,7 +45,6 @@
 /obj/singularity/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	poi_list.Remove(src)
-	singularities.Remove(src)
 	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)

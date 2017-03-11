@@ -1,3 +1,4 @@
+
 /obj/item/weapon/implant/abductor
 	name = "recall implant"
 	desc = "Returns you to the mothership."

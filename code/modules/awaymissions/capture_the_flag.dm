@@ -117,13 +117,6 @@
 	desc = "This is where a blue banner used to play capture the flag \
 		would go."
 
-/proc/toggle_all_ctf(mob/user)
-	var/ctf_enabled = FALSE
-	for(var/obj/machinery/capture_the_flag/CTF in machines)
-		ctf_enabled = CTF.toggle_ctf()
-	message_admins("[key_name_admin(user)] has [ctf_enabled? "enabled" : "disabled"] CTF!")
-	notify_ghosts("CTF has been [ctf_enabled? "enabled" : "disabled"]!",'sound/effects/ghost2.ogg')
-
 /obj/machinery/capture_the_flag
 	name = "CTF Controller"
 	desc = "Used for running friendly games of capture the flag."
@@ -145,14 +138,12 @@
 	var/ctf_enabled = FALSE
 	var/ctf_gear = /datum/outfit/ctf
 	var/instagib_gear = /datum/outfit/ctf/instagib
-
-	var/list/obj/effect/ctf/dead_barricade/dead_barricades = list()
-	var/list/obj/structure/barricade/security/ctf/living_barricades = list()
+	var/list/dead_barricades = list()
 
 	var/static/ctf_object_typecache
 	var/static/arena_cleared = FALSE
 
-/obj/machinery/capture_the_flag/Initialize()
+/obj/machinery/capture_the_flag/New()
 	..()
 	if(!ctf_object_typecache)
 		ctf_object_typecache = typecacheof(list(
@@ -182,8 +173,8 @@
 		else
 			// The changes that you've been hit with no shield but not
 			// instantly critted are low, but have some healing.
-			M.adjustBruteLoss(-5)
-			M.adjustFireLoss(-5)
+			M.adjustBruteLoss(-1)
+			M.adjustFireLoss(-1)
 
 /obj/machinery/capture_the_flag/red
 	name = "Red CTF Controller"
@@ -201,12 +192,7 @@
 
 /obj/machinery/capture_the_flag/attack_ghost(mob/user)
 	if(ctf_enabled == FALSE)
-		if(user.client && user.client.holder)
-			var/response = alert("Enable CTF?", "CTF", "Yes", "No")
-			if(response == "Yes")
-				toggle_all_ctf(user)
 		return
-
 	if(ticker.current_state < GAME_STATE_PLAYING)
 		return
 	if(user.ckey in team_members)
@@ -303,16 +289,9 @@
 
 /obj/machinery/capture_the_flag/proc/start_ctf()
 	ctf_enabled = TRUE
-	for(var/d in dead_barricades)
-		var/obj/effect/ctf/dead_barricade/D = d
-		D.respawn()
-
+	for(var/obj/effect/ctf/dead_barricade/ded in dead_barricades)
+		ded.respawn()
 	dead_barricades.Cut()
-
-	for(var/b in living_barricades)
-		var/obj/structure/barricade/security/ctf/B = b
-		B.obj_integrity = B.max_integrity
-
 	notify_ghosts("[name] has been activated!", enter_link="<a href=?src=\ref[src];join=1>(Click to join the [team] team!)</a> or click on the controller directly!", source = src, action=NOTIFY_ATTACK)
 
 	if(!arena_cleared)
@@ -454,7 +433,6 @@
 	ears = /obj/item/device/radio/headset
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf
-	toggle_helmet = FALSE // see the whites of their eyes
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	id = /obj/item/weapon/card/id/syndicate
@@ -550,18 +528,6 @@
 /obj/structure/barricade/security/ctf
 	name = "barrier"
 	desc = "A barrier. Provides cover in fire fights."
-	deploy_time = 0
-	deploy_message = 0
-
-/obj/structure/barricade/security/ctf/Initialize(mapload)
-	..()
-	for(var/obj/machinery/capture_the_flag/CTF in machines)
-		CTF.living_barricades += src
-
-/obj/structure/barricade/security/ctf/Destroy()
-	for(var/obj/machinery/capture_the_flag/CTF in machines)
-		CTF.living_barricades -= src
-	. = ..()
 
 /obj/structure/barricade/security/ctf/make_debris()
 	new /obj/effect/ctf/dead_barricade(get_turf(src))
@@ -583,7 +549,7 @@
 	alpha = 255
 	invisibility = 0
 
-/obj/effect/ctf/ammo/Initialize(mapload)
+/obj/effect/ctf/ammo/New()
 	..()
 	QDEL_IN(src, AMMO_DROP_LIFETIME)
 
@@ -617,8 +583,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrier0"
 
-/obj/effect/ctf/dead_barricade/Initialize(mapload)
-	..()
+/obj/effect/ctf/dead_barricade/New()
 	for(var/obj/machinery/capture_the_flag/CTF in machines)
 		CTF.dead_barricades += src
 
@@ -664,11 +629,3 @@
 					if(istype(mob_area, /area/ctf))
 						M << "<span class='userdanger'>[user.real_name] has captured \the [src], claiming it for [CTF.team]! Go take it back!</span>"
 				break
-
-#undef WHITE_TEAM
-#undef RED_TEAM
-#undef BLUE_TEAM
-#undef FLAG_RETURN_TIME
-#undef INSTAGIB_RESPAWN
-#undef DEFAULT_RESPAWN
-#undef AMMO_DROP_LIFETIME

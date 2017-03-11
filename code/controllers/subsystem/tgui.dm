@@ -1,9 +1,10 @@
-var/datum/controller/subsystem/tgui/SStgui
+var/datum/subsystem/tgui/SStgui
 
-/datum/controller/subsystem/tgui
+/datum/subsystem/tgui
 	name = "tgui"
 	wait = 9
 	init_order = 16
+	display_order = 6
 	flags = SS_NO_INIT|SS_FIRE_IN_LOBBY
 	priority = 110
 
@@ -12,18 +13,18 @@ var/datum/controller/subsystem/tgui/SStgui
 	var/list/processing_uis = list() // A list of processing UIs, ungrouped.
 	var/basehtml // The HTML base used for all UIs.
 
-/datum/controller/subsystem/tgui/New()
+/datum/subsystem/tgui/New()
 	basehtml = file2text('tgui/tgui.html') // Read the HTML from disk.
 
 	NEW_SS_GLOBAL(SStgui)
 
-/datum/controller/subsystem/tgui/Shutdown()
+/datum/subsystem/tgui/Shutdown()
 	close_all_uis()
 
-/datum/controller/subsystem/tgui/stat_entry()
+/datum/subsystem/tgui/stat_entry()
 	..("P:[processing_uis.len]")
 
-/datum/controller/subsystem/tgui/fire(resumed = 0)
+/datum/subsystem/tgui/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = processing_uis.Copy()
 	//cache for sanic speed (lists are references anyways)

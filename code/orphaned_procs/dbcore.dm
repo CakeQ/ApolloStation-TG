@@ -72,7 +72,7 @@ DBConnection/proc/Connect()
 	doConnect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
 	. = IsConnected()
 	if (!. && config.sql_enabled)
-		log_sql("Connect() failed | [ErrorMsg()]")
+		log_world("SQL error: " + ErrorMsg())
 		++failed_connections
 
 DBConnection/proc/doConnect(dbi_handler=src.dbi,user_handler=src.user,password_handler=src.password,cursor_handler)
@@ -122,16 +122,13 @@ DBQuery
 
 DBQuery/proc/Connect(DBConnection/connection_handler) src.db_connection = connection_handler
 
-DBQuery/proc/warn_execute()
-	. = Execute()
-	if(!.)
-		usr << "<span class='danger'>A SQL error occured during this operation, check the server logs.</span>"
-
-DBQuery/proc/Execute(sql_query=src.sql,cursor_handler=default_cursor, log_error = 1)
+DBQuery/proc/Execute(sql_query=src.sql,cursor_handler=default_cursor)
 	Close()
 	. = _dm_db_execute(_db_query,sql_query,db_connection._db_con,cursor_handler,null)
-	if(!. && log_error)
-		log_sql("[ErrorMsg()] | Query used: [sql]")
+	if(!.)	//No connection try to reconnect
+		dbcon.Connect()
+		. = _dm_db_execute(_db_query,sql_query,db_connection._db_con,cursor_handler,null)
+	return
 
 DBQuery/proc/NextRow() return _dm_db_next_row(_db_query,item,conversions)
 
