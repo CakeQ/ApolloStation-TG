@@ -307,7 +307,7 @@ var/next_external_rsc = 0
 			return
 
 		if(target.prefs)											//Rare runtime
-			if(target.prefs.chat_toggles & CHAT_OOC)
+			if(!(target.prefs.chat_toggles & CHAT_OOC))
 				target << "<span class='notice'><b>[src.key] has connected to the server.</b></span>"
 				target << sound( 'sound/effects/oocjoin.ogg' )
 
