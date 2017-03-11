@@ -228,5 +228,4 @@
 	generated_actions = list()
 
 /datum/controller/subsystem/vote/proc/autogamemode()
-	ticker.SetTimeLeft(((config.vote_period/10) + 10))
 	initiate_vote("gamemode","the server")

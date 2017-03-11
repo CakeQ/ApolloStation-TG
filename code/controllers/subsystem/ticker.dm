@@ -95,10 +95,6 @@ var/datum/controller/subsystem/ticker/ticker
 			if(start_immediately)
 				timeLeft = 0
 
-			//check for gamemode vote
-			if(SSvote.mode == "gamemode")
-				return
-
 			//countdown
 			if(timeLeft < 0)
 				return
@@ -158,7 +154,6 @@ var/datum/controller/subsystem/ticker/ticker
 			world << "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players and [mode.required_enemies] eligible antagonists needed. Reverting to pre-game lobby."
 			qdel(mode)
 			mode = null
-			master_mode = "secret"
 			SSjob.ResetOccupations()
 			return 0
 
@@ -213,7 +208,7 @@ var/datum/controller/subsystem/ticker/ticker
 
 	world << "<FONT color='blue'><B>Welcome to [station_name()], enjoy your stay!</B></FONT>"
 	world << sound('sound/AI/welcome.ogg')
-
+	
 	current_state = GAME_STATE_PLAYING
 
 	if(SSevent.holidays)
@@ -410,7 +405,7 @@ var/datum/controller/subsystem/ticker/ticker
 			qdel(player)
 			living.notransform = TRUE
 			if(living.client)
-				var/obj/screen/splash/S = new(living.client, TRUE)
+				var/obj/screen/splash/S = new(living.client, TRUE)	
 				S.Fade(TRUE)
 			livings += living
 	if(livings.len)
@@ -419,7 +414,7 @@ var/datum/controller/subsystem/ticker/ticker
 /datum/controller/subsystem/ticker/proc/release_characters(list/livings)
 	for(var/I in livings)
 		var/mob/living/L = I
-		L.notransform = FALSE
+		L.notransform = FALSE		
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	set waitfor = FALSE
