@@ -300,9 +300,6 @@
 	return(gain)
 
 /mob/living/narsie_act()
-	if(status_flags & GODMODE)
-		return
-
 	if(is_servant_of_ratvar(src) && !stat)
 		src << "<span class='userdanger'>You resist Nar-Sie's influence... but not all of it. <i>Run!</i></span>"
 		adjustBruteLoss(35)
@@ -327,9 +324,6 @@
 
 
 /mob/living/ratvar_act()
-	if(status_flags & GODMODE)
-		return
-
 	if(stat != DEAD && !is_servant_of_ratvar(src))
 		for(var/obj/item/weapon/implant/mindshield/M in implants)
 			qdel(M)

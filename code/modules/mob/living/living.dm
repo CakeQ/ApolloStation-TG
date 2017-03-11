@@ -31,7 +31,6 @@
 		ranged_ability.remove_ranged_ability(src)
 	if(buckled)
 		buckled.unbuckle_mob(src,force=1)
-	QDEL_NULL(riding_datum)
 
 	for(var/mob/living/simple_animal/drone/D in player_list)
 		for(var/image/I in staticOverlays)
@@ -222,7 +221,7 @@
 /mob/living/verb/succumb(whispered as null)
 	set hidden = 1
 	if (InCritical())
-		src.log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", INDIVIDUAL_ATTACK_LOG)
+		src.attack_log += "[src] has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!"
 		src.adjustOxyLoss(src.health - HEALTH_THRESHOLD_DEAD)
 		updatehealth()
 		if(!whispered)
@@ -867,7 +866,7 @@
 		on_fire = 1
 		src.visible_message("<span class='warning'>[src] catches fire!</span>", \
 						"<span class='userdanger'>You're set on fire!</span>")
-		src.set_light(3)
+		src.AddLuminosity(3)
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 		return TRUE
@@ -877,7 +876,7 @@
 	if(on_fire)
 		on_fire = 0
 		fire_stacks = 0
-		src.set_light(0)
+		src.AddLuminosity(-3)
 		clear_alert("fire")
 		update_fire()
 
@@ -916,8 +915,3 @@
 					  "[C] topples over [src]!", \
 					  "[C] leaps out of [src]'s way!")]</span>")
 	C.Weaken(2)
-
-/mob/living/post_buckle_mob(mob/living/M)
-	if(riding_datum)
-		riding_datum.handle_vehicle_offsets()
-		riding_datum.handle_vehicle_layer()

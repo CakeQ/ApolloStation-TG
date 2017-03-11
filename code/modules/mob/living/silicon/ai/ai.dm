@@ -697,18 +697,14 @@ var/list/ai_list = list()
 			var/list/icon_list = list(
 				"default" = 'icons/mob/AI.dmi',
 				"floating face" = 'icons/mob/AI.dmi',
-				"xeno queen" = 'icons/mob/alien.dmi',
+				"xeno queen" = 'icons/mob/AI.dmi',
 				"horror" = 'icons/mob/AI.dmi'
 				)
 
 			input = input("Please select a hologram:") as null|anything in icon_list
 			if(input)
 				qdel(holo_icon)
-				switch(input)
-					if("xeno queen")
-						holo_icon = getHologramIcon(icon(icon_list[input],"alienq"))
-					else
-						holo_icon = getHologramIcon(icon(icon_list[input], input))
+				holo_icon = getHologramIcon(icon(icon_list[input], input))
 	return
 
 /mob/living/silicon/ai/proc/corereturn()
@@ -731,7 +727,7 @@ var/list/ai_list = list()
 		src << "Camera lights deactivated."
 
 		for (var/obj/machinery/camera/C in lit_cameras)
-			C.set_light(0)
+			C.SetLuminosity(0)
 			lit_cameras = list()
 
 		return

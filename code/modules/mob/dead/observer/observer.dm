@@ -76,7 +76,7 @@ var/list/image/ghost_images_simple = list() //this is a list of all ghost images
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
-		logging = body.logging			//preserve our logs by copying them to our ghost
+		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
 		gender = body.gender
 		if(body.mind && body.mind.name)
@@ -99,7 +99,7 @@ var/list/image/ghost_images_simple = list() //this is a list of all ghost images
 
 	update_icon()
 
-	if(!T && latejoin.len)
+	if(!T)
 		T = pick(latejoin)			//Safety in case we cannot find the body's position
 	loc = T
 
@@ -599,28 +599,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Server Hop!"
 	set desc= "Jump to the other server"
-	if(notransform)
-		return
 	if (alert(src, "Jump to server running at [global.cross_address]?", "Server Hop", "Yes", "No") != "Yes")
 		return 0
 	if (client && global.cross_allowed)
 		src << "<span class='notice'>Sending you to [global.cross_address].</span>"
-		new /obj/screen/splash(client)
-		notransform = TRUE
-		sleep(29)	//let the animation play
-		notransform = FALSE
 		winset(src, null, "command=.options") //other wise the user never knows if byond is downloading resources
-		client << link(global.cross_address + "?server_hop=[key]")
+		client << link(global.cross_address)
 	else
 		src << "<span class='error'>There is no other server configured!</span>"
-
-/proc/show_server_hop_transfer_screen(expected_key)
-	//only show it to incoming ghosts
-	for(var/mob/dead/observer/O in player_list)
-		if(O.key == expected_key)
-			if(O.client)
-				new /obj/screen/splash(O.client, TRUE)
-			break
 
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info

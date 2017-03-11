@@ -78,11 +78,10 @@ var/list/z_levels_list = list()
 /proc/setup_map_transitions() //listamania
 	var/list/SLS = list()
 	var/datum/space_level/D
-	var/list/cached_transitions = SSmapping.config.transition_config
-	var/conf_set_len = cached_transitions.len
+	var/conf_set_len = map_transition_config.len
 	var/k = 1
-	for(var/A in cached_transitions)
-		D = new(cached_transitions[A])
+	for(var/A in map_transition_config)
+		D = new(map_transition_config[A])
 		D.name = A
 		D.z_value = k
 		if(D.linked != CROSSLINKED)

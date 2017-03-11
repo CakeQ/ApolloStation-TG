@@ -1,22 +1,23 @@
-var/datum/controller/subsystem/mobs/SSmob
+var/datum/subsystem/mobs/SSmob
 
-/datum/controller/subsystem/mobs
+/datum/subsystem/mobs
 	name = "Mobs"
 	init_order = 4
+	display_order = 4
 	priority = 100
 	flags = SS_KEEP_TIMING|SS_NO_INIT
 
 	var/list/currentrun = list()
 
-/datum/controller/subsystem/mobs/New()
+/datum/subsystem/mobs/New()
 	NEW_SS_GLOBAL(SSmob)
 
 
-/datum/controller/subsystem/mobs/stat_entry()
+/datum/subsystem/mobs/stat_entry()
 	..("P:[mob_list.len]")
 
 
-/datum/controller/subsystem/mobs/fire(resumed = 0)
+/datum/subsystem/mobs/fire(resumed = 0)
 	var/seconds = wait * 0.1
 	if (!resumed)
 		src.currentrun = mob_list.Copy()

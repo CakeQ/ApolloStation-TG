@@ -490,7 +490,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					user.apply_damage(5, BURN, hitzone)
 					user.visible_message("<span class='warning'>After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn their finger in the process.</span>", "<span class='warning'>You burn yourself while lighting the lighter!</span>")
 
-			set_light(1)
+			user.AddLuminosity(1)
 			START_PROCESSING(SSobj, src)
 		else
 			lit = 0
@@ -503,7 +503,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				playsound(src, 'sound/effects/zippo_off.ogg', 50, 0)
 			else
 				user.visible_message("[user] quietly shuts off [src].", "<span class='notice'>You quietly shut off [src].")
-			set_light(0)
+			user.AddLuminosity(-1)
 			STOP_PROCESSING(SSobj, src)
 	else
 		. = ..()
@@ -528,6 +528,19 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/weapon/lighter/process()
 	open_flame()
+
+/obj/item/weapon/lighter/pickup(mob/user)
+	..()
+	if(lit)
+		SetLuminosity(0)
+		user.AddLuminosity(1)
+
+/obj/item/weapon/lighter/dropped(mob/user)
+	..()
+	if(lit)
+		if(user)
+			user.AddLuminosity(-1)
+		SetLuminosity(1)
 
 /obj/item/weapon/lighter/is_hot()
 	return lit * heat

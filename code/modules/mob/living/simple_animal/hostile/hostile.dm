@@ -329,7 +329,7 @@
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 
 	if(rapid)
-		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
+		var/datum/callback/cb = CALLBACK(A, .proc/Shoot)
 		addtimer(cb, 1)
 		addtimer(cb, 4)
 		addtimer(cb, 6)

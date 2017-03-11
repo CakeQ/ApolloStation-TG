@@ -154,13 +154,7 @@
 		user << "<span class='notice'>Location marked as test subject release point.</span>"
 
 
-/obj/machinery/abductor/console/Initialize(mapload)
-	if(mapload)
-		return TRUE //wait for machines list
-	..()
-
-	if(!team)
-		return
+/obj/machinery/abductor/console/proc/Setup()
 
 	for(var/obj/machinery/abductor/pad/p in machines)
 		if(p.team == team)

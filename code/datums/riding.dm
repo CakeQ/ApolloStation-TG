@@ -9,13 +9,6 @@
 	var/slowed = FALSE
 	var/slowvalue = 1
 
-/datum/riding/New(atom/movable/_ridden)
-	ridden = _ridden
-
-/datum/riding/Destroy()
-	ridden = null
-	return ..()
-
 /datum/riding/proc/handle_vehicle_layer()
 	if(ridden.dir != NORTH)
 		ridden.layer = ABOVE_MOB_LAYER
@@ -208,13 +201,6 @@
 	keytype = /obj/item/key/security
 	generic_pixel_x = 0
 	generic_pixel_y = 4
-
-//i want to ride my
-/datum/riding/bicycle
-	keytype = null
-	generic_pixel_x = 0
-	generic_pixel_y = 4
-	vehicle_move_delay = 0
 
 //speedbike
 /datum/riding/space/speedbike

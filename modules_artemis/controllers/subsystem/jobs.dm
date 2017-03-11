@@ -1,8 +1,8 @@
-/datum/controller/subsystem/job
+/datum/subsystem/job
 	init_order = 5
 	var/list/inductee_occupations = list() 	//List of all jobs chars unlock.
 
-/datum/controller/subsystem/job/SetupOccupations(faction = "Station")
+/datum/subsystem/job/SetupOccupations(faction = "Station")
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
@@ -30,12 +30,12 @@
 
 	return 1
 
-/datum/controller/subsystem/job/proc/GetInducteeJobsRanks()
+/datum/subsystem/job/proc/GetInducteeJobsRanks()
 	var/list/iJobs = new/list()
 	for(var/datum/job/j in inductee_occupations)
 		iJobs += j.title
 
-/datum/controller/subsystem/job/FindOccupationCandidates(datum/job/job, level, flag)
+/datum/subsystem/job/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
@@ -59,7 +59,7 @@
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/job/FillAIPosition(unassigned)
+/datum/subsystem/job/FillAIPosition(unassigned)
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
 	if(!job)
@@ -83,7 +83,7 @@
  *  This proc must not have any side effect besides of modifying "assigned_role".
  *	Totally redone for Artemis Station's role system ~rj
  **/
-/datum/controller/subsystem/job/DivideOccupations()
+/datum/subsystem/job/DivideOccupations()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
 
@@ -223,7 +223,63 @@
 		RejectPlayer(player)
 	return 1
 
-/datum/controller/subsystem/job/HandleFeedbackGathering()
+//Gives the player the stuff he should have with his rank
+/datum/subsystem/job/EquipRank(mob/living/H, rank, joined_late=0)
+	var/datum/job/job = GetJob(rank)
+
+	H.job = rank
+
+	//If we joined at roundstart we should be positioned at our workstation
+	if(!joined_late)
+		var/obj/S = null
+		for(var/obj/effect/landmark/start/sloc in start_landmarks_list)
+			if(sloc.name != rank)
+				S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
+				continue
+			if(locate(/mob/living) in sloc.loc)
+				continue
+			S = sloc
+			break
+		if(!S) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
+			log_world("Couldn't find a round start spawn point for [rank]")
+			S = pick(latejoin)
+		if(!S) //final attempt, lets find some area in the arrivals shuttle to spawn them in to.
+			log_world("Couldn't find a round start latejoin spawn point.")
+			for(var/turf/T in get_area_turfs(/area/shuttle/arrival))
+				if(!T.density)
+					var/clear = 1
+					for(var/obj/O in T)
+						if(O.density)
+							clear = 0
+							break
+					if(clear)
+						S = T
+						continue
+		if(istype(S, /obj/effect/landmark) && isturf(S.loc))
+			H.loc = S.loc
+
+	if(H.mind)
+		H.mind.assigned_role = rank
+
+	if(job)
+		var/new_mob = job.equip(H)
+		if(ismob(new_mob))
+			H = new_mob
+
+	H << "<b>You are the [rank].</b>"
+	H << "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
+	H << "<b>To speak on your departments radio, use the :h button. To see others, look closely at your headset.</b>"
+	if(job.req_admin_notify)
+		H << "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>"
+	if(config.minimal_access_threshold)
+		H << "<FONT color='blue'><B>As this station was initially staffed with a [config.jobs_have_minimal_access ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B></font>"
+
+	if(job && H)
+		job.after_spawn(H)
+
+	return H
+
+/datum/subsystem/job/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
 		var/tmp_str = "|[job.title]|"
 

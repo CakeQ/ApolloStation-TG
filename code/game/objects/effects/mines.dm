@@ -11,13 +11,12 @@
 	victim << "<span class='danger'>*click*</span>"
 
 /obj/effect/mine/Crossed(AM as mob|obj)
-	if(isturf(loc))
-		if(ismob(AM))
-			var/mob/MM = AM
-			if(!(MM.movement_type & FLYING))
-				triggermine(AM)
-		else
+	if(ismob(AM))
+		var/mob/MM = AM
+		if(!(MM.movement_type & FLYING))
 			triggermine(AM)
+	else
+		triggermine(AM)
 
 /obj/effect/mine/proc/triggermine(mob/victim)
 	if(triggered)

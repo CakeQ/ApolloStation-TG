@@ -1,4 +1,4 @@
-var/global/datum/controller/subsystem/cell_auto/cell_auto_manager
+var/global/datum/subsystem/cell_auto/cell_auto_manager
 var/global/datum/cell_auto_handler/v_wave_handler = new(2)
 var/global/datum/cell_auto_handler/sm_crystal_handler = new(600)
 var/global/datum/cell_auto_handler/explosion_handler = new(1)
@@ -7,10 +7,10 @@ var/global/datum/cell_auto_handler/explosion_handler = new(1)
 //fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
 //fire(), and the procs it calls, SHOULD NOT HAVE ANY SLEEP OPERATIONS in them!
 //YE BE WARNED!
-/datum/controller/subsystem/cell_auto/fire()
+/datum/subsystem/cell_auto/fire()
 
 
-/datum/controller/subsystem/cell_auto
+/datum/subsystem/cell_auto
 	name = "Cell Auto"
 	init_order = 12
 	priority = 40
@@ -20,19 +20,19 @@ var/global/datum/cell_auto_handler/explosion_handler = new(1)
 	var/initialized = FALSE
 	var/old_initialized
 
-/datum/controller/subsystem/cell_auto/New()
+/datum/subsystem/cell_auto/New()
 	NEW_SS_GLOBAL(cell_auto_manager)
 
-/datum/controller/subsystem/cell_auto/Initialize(timeofdayl)
+/datum/subsystem/cell_auto/Initialize(timeofdayl)
 	handlers = list( v_wave_handler, sm_crystal_handler)//,explosion_handler)
 	initialized = TRUE
 	. = ..()
 
-/datum/controller/subsystem/cell_auto/stat_entry()
+/datum/subsystem/cell_auto/stat_entry()
 	..("C:[handlers.len]")
 
 
-/datum/controller/subsystem/cell_auto/fire(resumed = 0)
+/datum/subsystem/cell_auto/fire(resumed = 0)
 	//world << "FIRING Cell Auto"
 	if( !handlers )
 		return
@@ -43,6 +43,6 @@ var/global/datum/cell_auto_handler/explosion_handler = new(1)
 		if (MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/cell_auto/Recover()
+/datum/subsystem/cell_auto/Recover()
 	initialized = cell_auto_manager.initialized
 	old_initialized = cell_auto_manager.old_initialized

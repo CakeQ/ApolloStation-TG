@@ -38,11 +38,7 @@
 
 	// The "brine" is the reagents that are automatically added in small
 	// amounts to the occupant.
-	var/static/list/brine_types = list(
-		"salbutamol", // anti-oxyloss
-		"bicaridine", // NOBREATHE species take brute in crit
-		"corazone", // prevents cardiac arrest damage
-		"mimesbane") // stops them gasping from lack of air.
+	var/static/list/brine_types = list("salbutamol", "bicaridine", "corazone")
 
 /obj/machinery/clonepod/New()
 	..()
