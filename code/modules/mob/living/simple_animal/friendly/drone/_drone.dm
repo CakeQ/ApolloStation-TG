@@ -141,9 +141,6 @@
 	dust()
 
 /mob/living/simple_animal/drone/ratvar_act()
-	if(status_flags & GODMODE)
-		return
-
 	if(internal_storage)
 		dropItemToGround(internal_storage)
 	if(head)
@@ -271,5 +268,5 @@
 	// Why would bees pay attention to drones?
 	return 1
 
-/mob/living/simple_animal/drone/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
+/mob/living/simple_animal/drone/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0)
 	return 0 //So they don't die trying to fix wiring

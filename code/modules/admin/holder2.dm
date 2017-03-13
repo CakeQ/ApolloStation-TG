@@ -8,8 +8,6 @@ var/list/admin_datums = list()
 
 	var/datum/marked_datum
 
-	var/spamcooldown = 0
-
 	var/admincaster_screen = 0	//TODO: remove all these 5 variables, they are completly unacceptable
 	var/datum/newscaster/feed_message/admincaster_feed_message = new /datum/newscaster/feed_message
 	var/datum/newscaster/wanted_message/admincaster_wanted_message = new /datum/newscaster/wanted_message
@@ -18,11 +16,13 @@ var/list/admin_datums = list()
 
 /datum/admins/New(datum/admin_rank/R, ckey)
 	if(!ckey)
-		QDEL_IN(src, 0)
+		spawn(0)
+			del(src)
 		throw EXCEPTION("Admin datum created without a ckey")
 		return
 	if(!istype(R))
-		QDEL_IN(src, 0)
+		spawn(0)
+			del(src)
 		throw EXCEPTION("Admin datum created without a rank")
 		return
 	rank = R

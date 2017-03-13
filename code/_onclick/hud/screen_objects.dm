@@ -667,29 +667,21 @@
 			L.say(pick(word_messages))
 
 /obj/screen/splash
-	icon = 'config/title_screens/images/blank.png'
-	icon_state = ""
+	icon = 'icons/misc/fullscreen.dmi'
+	icon_state = "title"
 	screen_loc = "1,1"
 	layer = SPLASHSCREEN_LAYER
 	plane = SPLASHSCREEN_PLANE
 	var/client/holder
 
-/obj/screen/splash/New(client/C, visible, use_previous_title)
-	holder = C
-
-	if(!visible)
-		alpha = 0
-	if(SStitle.title_screen)
-		icon = SStitle.title_screen.icon
-
-	holder.screen += src
-	if(use_previous_title && !SSmapping.previous_map_config.defaulted)
-		holder.screen -= src	//Yell at Cyberboss to finish this
-
+/obj/screen/splash/New(client/C, fadeout, qdel_after = TRUE)
 	..()
-
-/obj/screen/splash/proc/Fade(out, qdel_after = TRUE)
-	if(out)
+	holder = C
+	holder.screen += src
+	var/titlescreen = TITLESCREEN
+	if(titlescreen)
+		icon_state = titlescreen
+	if(fadeout)
 		animate(src, alpha = 0, time = 30)
 	else
 		alpha = 0
@@ -698,7 +690,5 @@
 		QDEL_IN(src, 30)
 
 /obj/screen/splash/Destroy()
-	if(holder)
-		holder.screen -= src
-		holder = null
+	holder.screen -= src
 	return ..()

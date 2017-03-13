@@ -1,6 +1,6 @@
-var/datum/controller/subsystem/religion/SSreligion
+var/datum/subsystem/religion/SSreligion
 
-/datum/controller/subsystem/religion
+/datum/subsystem/religion
 	name = "Religion"
 	init_order = 19
 	flags = SS_NO_FIRE|SS_NO_INIT
@@ -13,5 +13,5 @@ var/datum/controller/subsystem/religion/SSreligion
 
 	var/holy_weapon
 
-/datum/controller/subsystem/religion/New()
+/datum/subsystem/religion/New()
 	NEW_SS_GLOBAL(SSreligion)

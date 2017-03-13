@@ -1,6 +1,6 @@
-var/datum/controller/subsystem/acid/SSacid
+var/datum/subsystem/acid/SSacid
 
-/datum/controller/subsystem/acid
+/datum/subsystem/acid
 	name = "Acid"
 	priority = 40
 	flags = SS_NO_INIT|SS_BACKGROUND
@@ -8,15 +8,15 @@ var/datum/controller/subsystem/acid/SSacid
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-/datum/controller/subsystem/acid/New()
+/datum/subsystem/acid/New()
 	NEW_SS_GLOBAL(SSacid)
 
 
-/datum/controller/subsystem/acid/stat_entry()
+/datum/subsystem/acid/stat_entry()
 	..("P:[processing.len]")
 
 
-/datum/controller/subsystem/acid/fire(resumed = 0)
+/datum/subsystem/acid/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = processing.Copy()
 

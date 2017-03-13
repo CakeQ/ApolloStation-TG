@@ -98,7 +98,7 @@
 //Changes color and light_range of the light to these values if they were not already set
 /obj/machinery/power/supermatter_shard/supermatter/proc/shift_light( var/clr, var/lum = luminosity)
 	luminosity = lum
-	set_light(lum)
+	SetLuminosity(lum)
 	//light_color = clr
 	//light_range = lum
 

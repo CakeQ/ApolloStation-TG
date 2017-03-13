@@ -106,9 +106,16 @@
 
 /obj/item/weapon/implanter/explosive
 	name = "implanter (explosive)"
-	imp_type = /obj/item/weapon/implant/explosive
+
+/obj/item/weapon/implanter/explosive/New()
+	imp = new /obj/item/weapon/implant/explosive(src)
+	..()
+
 
 /obj/item/weapon/implantcase/explosive
 	name = "implant case - 'Explosive'"
 	desc = "A glass case containing an explosive implant."
-	imp_type = /obj/item/weapon/implant/explosive
+
+/obj/item/weapon/implantcase/explosive/New()
+	imp = new /obj/item/weapon/implant/explosive(src)
+	..()

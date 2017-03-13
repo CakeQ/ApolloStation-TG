@@ -44,58 +44,75 @@
 	. = ..()
 	if(remaining_uses != -1)
 		user << "It has [remaining_uses] uses left."
+	else
+		user << "It looks like it can be used an unlimited number of times."
 
 /obj/item/soapstone/afterattack(atom/target, mob/user, proximity)
 	var/turf/T = get_turf(target)
 	if(!proximity)
 		return
 
-	var/obj/structure/chisel_message/existing_message = locate() in T
 
-	if(!remaining_uses && !existing_message)
-		user << "<span class='warning'>[src] is too worn out to use.</span>"
+	var/obj/structure/chisel_message/already_message = locate(/obj/structure/chisel_message) in T
+
+	var/our_message = FALSE
+	if(already_message)
+		our_message = already_message.creator_key == user.ckey
+
+	if(!remaining_uses && !already_message)
+		// The dull chisel is dull.
+		user << "<span class='warning'>[src] is [w_dull].</span>"
 		return
 
 	if(!good_chisel_message_location(T))
 		user << "<span class='warning'>It's not appropriate to [w_engrave] on [T].</span>"
 		return
 
-	if(existing_message)
-		user.visible_message("<span class='notice'>[user] starts erasing [existing_message].</span>", "<span class='notice'>You start erasing [existing_message].</span>", "<span class='italics'>You hear a [w_chipping] sound.</span>")
+	if(already_message)
+		user.visible_message("<span class='notice'>[user] starts erasing [already_message].</span>", "<span class='notice'>You start erasing [already_message].</span>", "<span class='italics'>You hear a [w_chipping] sound.</span>")
 		playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
-		if(do_after(user, tool_speed, target = existing_message))
-			user.visible_message("<span class='notice'>[user] erases [existing_message].</span>", "<span class='notice'>You erase [existing_message][existing_message.creator_key == user.ckey ? ", refunding a use" : ""].</span>")
-			existing_message.persists = FALSE
-			qdel(existing_message)
+
+		// Removing our own messages refunds a charge
+
+		if(do_after(user, tool_speed, target=target))
+			user.visible_message("<span class='notice'>[user] has erased [already_message].</span>", "<span class='notice'>You erased [already_message].</span>")
+			already_message.persists = FALSE
+			qdel(already_message)
 			playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
-			if(existing_message.creator_key == user.ckey)
+			if(our_message)
 				refund_use()
 		return
 
-	var/message = stripped_input(user, "What would you like to [w_engrave]?", "Leave a message")
+	var/message = stripped_input(user, "What would you like to [w_engrave]?", "[name] Message")
 	if(!message)
-		user << "<span class='notice'>You decide not to [w_engrave] anything.</span>"
+		user << "You decide not to [w_engrave] anything."
 		return
 
 	if(!target.Adjacent(user) && locate(/obj/structure/chisel_message) in T)
-		user << "<span class='warning'>Someone wrote here before you chose! Find another spot.</span>"
+		user << "You decide not to [w_engrave] anything."
 		return
+
 	playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
-	user.visible_message("<span class='notice'>[user] starts [w_engraving] a message into [T]...</span>", "<span class='notice'>You start [w_engraving] a message into [T]...</span>", "<span class='italics'>You hear a [w_chipping] sound.</span>")
-	if(can_use() && do_after(user, tool_speed, target = T) && can_use()) //This looks messy but it's actually really clever!
+	user.visible_message("<span class='notice'>[user] starts [w_engraving] a message into [T].</span>", "You start [w_engraving] a message into [T].", "<span class='italics'>You hear a [w_chipping] sound.</span>")
+	if(can_use() && do_after(user, tool_speed, target=T) && can_use())
 		if(!locate(/obj/structure/chisel_message in T))
-			user.visible_message("<span class='notice'>[user] leaves a message for future spacemen!</span>", "<span class='notice'>You [w_engrave] a message into [T]!</span>", "<span class='italics'>You hear a [w_chipping] sound.</span>")
+			user << "You [w_engrave] a message into [T]."
 			playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
 			var/obj/structure/chisel_message/M = new(T)
 			M.register(user, message)
 			remove_use()
 
 /obj/item/soapstone/proc/can_use()
-	return remaining_uses == -1 || remaining_uses >= 0
+	if(remaining_uses == -1 || remaining_uses >= 0)
+		. = TRUE
+	else
+		. = FALSE
 
 /obj/item/soapstone/proc/remove_use()
 	if(remaining_uses <= 0)
+		// -1 == unlimited, 0 == empty
 		return
+
 	remaining_uses--
 	check_name()
 
@@ -141,7 +158,6 @@
 	desc = "A message from a past traveler."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "soapstone_message"
-	layer = HIGH_OBJ_LAYER
 	density = 0
 	anchored = 1
 	luminosity = 1
@@ -173,7 +189,7 @@
 	creator_name = user.real_name
 	creator_key = user.ckey
 	realdate = world.timeofday
-	map = SSmapping.config.map_name
+	map = MAP_NAME
 	update_icon()
 
 /obj/structure/chisel_message/update_icon()
@@ -188,7 +204,7 @@
 	data["creator_name"] = creator_name
 	data["creator_key"] = creator_key
 	data["realdate"] = realdate
-	data["map"] = SSmapping.config.map_name
+	data["map"] = MAP_NAME
 	var/turf/T = get_turf(src)
 	data["x"] = T.x
 	data["y"] = T.y

@@ -30,11 +30,17 @@
 
 /obj/item/weapon/implanter/uplink
 	name = "implanter (uplink)"
-	imp_type = /obj/item/weapon/implant/uplink
+
+/obj/item/weapon/implanter/uplink/New()
+	imp = new /obj/item/weapon/implant/uplink(src)
+	..()
 
 /obj/item/weapon/implanter/uplink/precharged
-	name = "implanter (precharged uplink)"
-	imp_type = /obj/item/weapon/implant/uplink/precharged
+	name = "implanter (uplink)"
+
+/obj/item/weapon/implanter/uplink/New()
+	imp = new /obj/item/weapon/implant/uplink/precharged(src)
+	..()
 
 /obj/item/weapon/implant/uplink/precharged
 	starting_tc = 10

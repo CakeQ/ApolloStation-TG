@@ -36,6 +36,7 @@
 	var/active = 0
 
 	var/memory
+	var/attack_log
 
 	var/assigned_role
 	var/special_role
@@ -247,7 +248,7 @@
 
 	if(window)
 		recipient << browse(output,"window=memory")
-	else if(objectives.len || memory)
+	else
 		recipient << "<i>[output]</i>"
 
 /datum/mind/proc/edit_memory()
@@ -1528,7 +1529,8 @@
 		if(ticker)
 			ticker.minds += mind
 		else
-			stack_trace("mind_initialize(): No ticker ready")
+			spawn(0)
+				throw EXCEPTION("mind_initialize(): No ticker ready")
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src

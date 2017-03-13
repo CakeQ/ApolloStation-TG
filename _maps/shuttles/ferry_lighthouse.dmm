@@ -83,7 +83,7 @@
 /area/shuttle/transport)
 "as" = (
 /obj/structure/emergency_shield,
-/turf/open/floor/mineral/titanium/blue/airless,
+/turf/open/space,
 /area/shuttle/transport)
 "at" = (
 /obj/machinery/door/airlock,
@@ -376,8 +376,8 @@ aa
 (4,1,1) = {"
 ac
 af
-bh
-bh
+ah
+ah
 an
 aq
 as
@@ -385,9 +385,9 @@ aB
 as
 as
 aX
-bh
-bh
-bh
+ah
+ah
+ah
 bi
 bj
 "}
