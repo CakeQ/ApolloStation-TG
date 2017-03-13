@@ -42,7 +42,7 @@
 			user << "You throw the lit [I.name] into the barrel, and the paper inside lights up in flames!"
 			desc = "A hot piece of cylindrical metal."
 
-			SetLuminosity(brightness_on)
+			set_light(brightness_on)
 		else
 			user << "You throw the [I.name] into the barrel."
 		qdel(C)
