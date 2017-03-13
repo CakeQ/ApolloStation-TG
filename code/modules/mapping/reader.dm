@@ -14,10 +14,6 @@ var/global/dmm_suite/preloader/_preloader = new
 		// /^[\s\n]+|[\s\n]+$/
 	var/static/regex/trimRegex = new/regex("^\[\\s\n]+|\[\\s\n]+$", "g")
 	var/static/list/modelCache = list()
-	var/static/space	// the world turf model key
-#ifdef TESTING
-	var/static/num_skipped
-#endif
 
 /**
  * Construct the model map and control the loading process
@@ -29,21 +25,13 @@ var/global/dmm_suite/preloader/_preloader = new
  * 2) Read the map line by line, parsing the result (using parse_grid)
  *
  */
-/dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num, no_changeturf as num)
+/dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
 	//How I wish for RAII
 	Master.StartLoadingMap()
-	space = null	//different file, different keys
-	#ifdef TESTING
-	num_skipped = 0
-	#endif
-	. = load_map_impl(dmm_file, x_offset, y_offset, z_offset, cropMap, measureOnly, no_changeturf)
-	#ifdef TESTING
-	if(. && no_changeturf)
-		testing("Skipped loading [num_skipped] basic turfs.")
-	#endif
+	. = load_map_impl(dmm_file, x_offset, y_offset, z_offset, cropMap, measureOnly)
 	Master.StopLoadingMap()
 
-/dmm_suite/proc/load_map_impl(dmm_file, x_offset, y_offset, z_offset, cropMap, measureOnly, no_changeturf)
+/dmm_suite/proc/load_map_impl(dmm_file, x_offset, y_offset, z_offset, cropMap, measureOnly)
 	var/tfile = dmm_file//the map file we're creating
 	if(isfile(tfile))
 		tfile = file2text(tfile)
@@ -87,13 +75,11 @@ var/global/dmm_suite/preloader/_preloader = new
 			var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 			var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
 
-			var/zexpansion = zcrd > world.maxz
-			if(zexpansion)
+			if(zcrd > world.maxz)
 				if(cropMap)
 					continue
 				else
 					world.maxz = zcrd //create a new z_level if needed
-			var/basic_turfs = no_changeturf || zexpansion
 
 			bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
 			bounds[MAP_MINZ] = min(bounds[MAP_MINZ], zcrd)
@@ -139,14 +125,9 @@ var/global/dmm_suite/preloader/_preloader = new
 
 							if(xcrd >= 1)
 								var/model_key = copytext(line, tpos, tpos + key_len)
-								if(!basic_turfs || model_key != space)
-									if(!grid_models[model_key])
-										throw EXCEPTION("Undefined model key in DMM.")
-									parse_grid(grid_models[model_key], model_key, xcrd, ycrd, zcrd, basic_turfs)
-								#ifdef TESTING
-								else
-									++num_skipped
-								#endif
+								if(!grid_models[model_key])
+									throw EXCEPTION("Undefined model key in DMM.")
+								parse_grid(grid_models[model_key], xcrd, ycrd, zcrd)
 								CHECK_TICK
 
 							maxx = max(maxx, xcrd)
@@ -160,7 +141,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	if(bounds[1] == 1.#INF) // Shouldn't need to check every item
 		return null
 	else
-		if(!measureOnly && !no_changeturf)
+		if(!measureOnly)
 			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
 				var/turf/T = t
 				//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
@@ -184,7 +165,7 @@ var/global/dmm_suite/preloader/_preloader = new
  * 4) Instanciates the atom with its variables
  *
  */
-/dmm_suite/proc/parse_grid(model as text, model_key, xcrd as num,ycrd as num,zcrd as num, no_changeturf as num)
+/dmm_suite/proc/parse_grid(model as text,xcrd as num,ycrd as num,zcrd as num)
 	/*Method parse_grid()
 	- Accepts a text string containing a comma separated list of type paths of the
 		same construction as those contained in a .dmm file, and instantiates them.
@@ -238,24 +219,8 @@ var/global/dmm_suite/preloader/_preloader = new
 			CHECK_TICK
 		while(dpos != 0)
 
-		var/static/area_typecache = world.area ///area/space
-		var/static/turf_typecache = world.turf ///turf/open/space/basic
+		modelCache[model] = list(members, members_attributes)
 
-		if(!space && members.len == 2 && members_attributes.len == 2 && (area_typecache in members) && length(members_attributes[1]) == 0 && length(members_attributes[2]) == 0)
-			if (turf_typecache in members)
-				space = model_key
-				if(no_changeturf)
-					#ifdef TESTING
-					++num_skipped
-					#endif
-					return
-			#ifdef TESTING
-			else if(/turf/open/space in members)
-				testing("WARNING: FOUND BAD SPACE TURF AT KEY [model_key]! USE /turf/open/space/basic TO ENABLE MAPLOADER OPTIMIZATIONS!")
-			#endif
-
-		var/L = list(members, members_attributes)
-		modelCache[model] = L
 
 	////////////////
 	//Instanciation
@@ -288,20 +253,20 @@ var/global/dmm_suite/preloader/_preloader = new
 	//instanciate the first /turf
 	var/turf/T
 	if(members[first_turf_index] != /turf/template_noop)
-		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],xcrd,ycrd,zcrd,no_changeturf)
+		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],xcrd,ycrd,zcrd)
 
 	if(T)
 		//if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
 		while(index <= members.len - 1) // Last item is an /area
 			var/underlay = T.appearance
-			T = instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd,no_changeturf)//instance new turf
+			T = instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd)//instance new turf
 			T.underlays += underlay
 			index++
 
 	//finally instance all remainings objects/mobs
 	for(index in 1 to first_turf_index-1)
-		instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd,no_changeturf)
+		instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd)
 
 		//custom CHECK_TICK here because we don't want things created while we're sleeping to not initialize
 		if(world.tick_usage > CURRENT_TICKLIMIT)
@@ -316,13 +281,13 @@ var/global/dmm_suite/preloader/_preloader = new
 ////////////////
 
 //Instance an atom at (x,y,z) and gives it the variables in attributes
-/dmm_suite/proc/instance_atom(path,list/attributes, x, y, z, no_changeturf)
+/dmm_suite/proc/instance_atom(path,list/attributes, x, y, z)
 	var/atom/instance
 	_preloader.setup(attributes, path)
 
 	var/turf/T = locate(x,y,z)
 	if(T)
-		if(!no_changeturf && ispath(path, /turf))
+		if(ispath(path, /turf))
 			T.ChangeTurf(path, TRUE)
 			instance = T
 		else

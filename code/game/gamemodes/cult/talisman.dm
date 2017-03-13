@@ -4,7 +4,6 @@
 	var/invocation = "Naise meam!"
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the talisman
-	var/creation_time = 100 //how long it takes an imbue rune to make this type of talisman
 
 /obj/item/weapon/paper/talisman/examine(mob/user)
 	if(iscultist(user) || user.stat == DEAD)
@@ -120,7 +119,6 @@
 	color = "#551A8B" // purple
 	invocation = "Sas'so c'arta forbici!"
 	health_cost = 5
-	creation_time = 80
 
 /obj/item/weapon/paper/talisman/teleport/invoke(mob/living/user, successfuluse = 1)
 	var/list/potential_runes = list()
@@ -159,7 +157,6 @@
 	color = "#512727" // red-black
 	invocation = "N'ath reth sh'yro eth d'raggathnor!"
 	health_cost = 1
-	creation_time = 30
 
 /obj/item/weapon/paper/talisman/summon_tome/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
@@ -175,7 +172,6 @@
 	color = "#9c9c9c" // grey
 	invocation = "Kla'atu barada nikt'o!"
 	health_cost = 1
-	creation_time = 30
 	uses = 2
 	var/revealing = FALSE //if it reveals or not
 
@@ -200,7 +196,6 @@
 	cultist_desc = "A talisman that will make nearby runes appear fake."
 	color = "#ff80d5" // honk
 	invocation = "By'o nar'nar!"
-	creation_time = 20
 
 /obj/item/weapon/paper/talisman/make_runes_fake/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
@@ -278,7 +273,6 @@
 	cultist_desc = "A talisman that will equip the invoker with cultist equipment if there is a slot to equip it to."
 	color = "#33cc33" // green
 	invocation = "N'ath reth sh'yro eth draggathnor!"
-	creation_time = 80
 
 /obj/item/weapon/paper/talisman/armor/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
@@ -307,7 +301,6 @@
 	cultist_desc = "A talisman that will break the mind of the victim with nightmarish hallucinations."
 	color = "#ffb366" // light orange
 	invocation = "Lo'Nab Na'Dm!"
-	creation_time = 80
 
 /obj/item/weapon/paper/talisman/horror/attack(mob/living/target, mob/living/user)
 	if(iscultist(user))
@@ -330,7 +323,6 @@
 	invocation = "Ethra p'ni dedol!"
 	color = "#000000" // black
 	uses = 25
-	creation_time = 80
 
 /obj/item/weapon/paper/talisman/construction/attack_self(mob/living/user)
 	if(iscultist(user))

@@ -44,9 +44,7 @@
 	var/outfit = null
 
 //Only override this proc
-//H is usually a human unless an /equip override transformed it
-/datum/job/proc/after_spawn(mob/living/H, mob/M)
-	//do actions on H but send messages to M as the key may not have been transferred_yet
+/datum/job/proc/after_spawn(mob/living/carbon/human/H)
 
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
@@ -54,7 +52,7 @@
 		announce_head(H, head_announce)
 
 
-//Don't override this unless the job transforms into a non-human (Silicons do this for example)
+//But don't override this
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
 	if(!H)
 		return 0
@@ -69,11 +67,6 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
-
-	if(config.enforce_human_authority && src in command_positions)
-		H.dna.features["tail_human"] = "None"
-		H.dna.features["ears"] = "None"
-		H.regenerate_icons()
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
@@ -117,8 +110,6 @@
 /datum/job/proc/config_check()
 	return 1
 
-/datum/job/proc/map_check()
-	return TRUE
 
 
 /datum/outfit/job

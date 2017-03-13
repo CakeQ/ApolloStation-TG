@@ -4,25 +4,23 @@
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
 	var/mob/camera/aiEye/remote/eyeobj
-	var/mob/living/current_user = null
+	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
-
-	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
 	eyeobj.origin = src
 
-/obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
+/obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/carbon/user)
 	off_action.target = user
 	off_action.Grant(user)
 	jump_action.target = user
 	jump_action.Grant(user)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if( (stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.eye_blind || user.incapacitated() )
+	if( (stat & (NOPOWER|BROKEN)) || !Adjacent(user) || user.eye_blind || user.incapacitated() )
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
@@ -40,9 +38,11 @@
 	if(current_user)
 		user << "The console is already in use!"
 		return
+	if(!iscarbon(user))
+		return
 	if(..())
 		return
-	var/mob/living/L = user
+	var/mob/living/carbon/L = user
 
 	if(!eyeobj)
 		CreateEye()
@@ -65,11 +65,6 @@
 		give_eye_control(L)
 		eyeobj.setLoc(eyeobj.loc)
 
-/obj/machinery/computer/camera_advanced/attack_robot(mob/user)
-	return attack_hand(user)
-
-obj/machinery/computer/camera_advanced/attack_ai(mob/user)
-	return //AIs would need to disable their own camera procs to use the console safely. Bugs happen otherwise.
 
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
@@ -85,7 +80,7 @@ obj/machinery/computer/camera_advanced/attack_ai(mob/user)
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
-	var/mob/living/eye_user = null
+	var/mob/living/carbon/human/eye_user = null
 	var/obj/machinery/computer/camera_advanced/origin
 	var/eye_initialized = 0
 	var/visible_icon = 0
@@ -137,9 +132,9 @@ obj/machinery/computer/camera_advanced/attack_ai(mob/user)
 	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/Activate()
-	if(!target || !isliving(target))
+	if(!target || !iscarbon(target))
 		return
-	var/mob/living/C = target
+	var/mob/living/carbon/C = target
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	remote_eye.origin.current_user = null
 	remote_eye.origin.jump_action.Remove(C)
@@ -160,9 +155,9 @@ obj/machinery/computer/camera_advanced/attack_ai(mob/user)
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/Activate()
-	if(!target || !isliving(target))
+	if(!target || !iscarbon(target))
 		return
-	var/mob/living/C = target
+	var/mob/living/carbon/C = target
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 

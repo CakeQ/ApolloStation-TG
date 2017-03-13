@@ -80,12 +80,11 @@
 
 /////////////////////////////////// SLEEPING ////////////////////////////////////
 
-/mob/proc/Sleeping(amount, updating = 1, no_alert = FALSE)
+/mob/proc/Sleeping(amount, updating = 1)
 	var/old_sleeping = sleeping
 	sleeping = max(max(sleeping,amount),0)
 	if(!old_sleeping && sleeping)
-		if(!no_alert)
-			throw_alert("asleep", /obj/screen/alert/asleep)
+		throw_alert("asleep", /obj/screen/alert/asleep)
 		if(updating)
 			update_stat()
 	else if(old_sleeping && !sleeping)
@@ -93,12 +92,11 @@
 		if(updating)
 			update_stat()
 
-/mob/proc/SetSleeping(amount, updating = 1, no_alert = FALSE)
+/mob/proc/SetSleeping(amount, updating = 1)
 	var/old_sleeping = sleeping
 	sleeping = max(amount,0)
 	if(!old_sleeping && sleeping)
-		if(!no_alert)
-			throw_alert("asleep", /obj/screen/alert/asleep)
+		throw_alert("asleep", /obj/screen/alert/asleep)
 		if(updating)
 			update_stat()
 	else if(old_sleeping && !sleeping)
@@ -106,12 +104,11 @@
 		if(updating)
 			update_stat()
 
-/mob/proc/AdjustSleeping(amount, updating = 1, no_alert = FALSE)
+/mob/proc/AdjustSleeping(amount, updating = 1)
 	var/old_sleeping = sleeping
 	sleeping = max(sleeping + amount,0)
 	if(!old_sleeping && sleeping)
-		if(!no_alert)
-			throw_alert("asleep", /obj/screen/alert/asleep)
+		throw_alert("asleep", /obj/screen/alert/asleep)
 		if(updating)
 			update_stat()
 	else if(old_sleeping && !sleeping)
@@ -169,8 +166,7 @@
 		var/old_eye_blind = eye_blind
 		eye_blind = max(eye_blind, amount)
 		if(!old_eye_blind)
-			if(stat == CONSCIOUS)
-				throw_alert("blind", /obj/screen/alert/blind)
+			throw_alert("blind", /obj/screen/alert/blind)
 			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 
 /mob/proc/adjust_blindness(amount)
@@ -178,8 +174,7 @@
 		var/old_eye_blind = eye_blind
 		eye_blind += amount
 		if(!old_eye_blind)
-			if(stat == CONSCIOUS)
-				throw_alert("blind", /obj/screen/alert/blind)
+			throw_alert("blind", /obj/screen/alert/blind)
 			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 	else if(eye_blind)
 		var/blind_minimum = 0
@@ -195,8 +190,7 @@
 		var/old_eye_blind = eye_blind
 		eye_blind = amount
 		if(client && !old_eye_blind)
-			if(stat == CONSCIOUS)
-				throw_alert("blind", /obj/screen/alert/blind)
+			throw_alert("blind", /obj/screen/alert/blind)
 			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 	else if(eye_blind)
 		var/blind_minimum = 0

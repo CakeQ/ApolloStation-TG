@@ -1,39 +1,4 @@
 //artemis Station
-var/list/the_station_areas = list (
-	/area/shuttle/arrival,
-	/area/shuttle/escape/station,
-	/area/shuttle/escape_pod1/station,
-	/area/shuttle/escape_pod2/station,
-	/area/shuttle/escape_pod3/station,
-	/area/shuttle/escape_pod5/station,
-	/area/atmos,
-	/area/maintenance,
-	/area/hallway,
-	/area/bridge,
-	/area/crew_quarters,
-	/area/holodeck,
-	/area/library,
-	/area/chapel,
-	/area/lawoffice,
-	/area/engine,
-	/area/solar,
-	/area/assembly,
-	/area/teleporter,
-	/area/medical,
-	/area/security,
-	/area/quartermaster,
-	/area/janitor,
-	/area/hydroponics,
-	/area/toxins,
-	/area/storage,
-	/area/ai_monitored/storage/eva, //do not try to simplify to "/area/ai_monitored" --rastaf0
-	/area/ai_monitored/storage/secure,
-	/area/ai_monitored/storage/emergency,
-	/area/ai_monitored/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
-	/area/ai_monitored/turret_protected/ai_upload_foyer,
-	/area/ai_monitored/turret_protected/ai,
-)
-
 /*=========================================
 ================01 - artemis================
 ===========================================*/
@@ -547,6 +512,7 @@ var/list/the_station_areas = list (
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
 	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -729,6 +695,7 @@ var/list/the_station_areas = list (
 /area/solar
 	requires_power = 1
 	always_unpowered = 1
+	lighting_use_dynamic = 0
 	luminosity = 1
 
 /area/solar/starboard

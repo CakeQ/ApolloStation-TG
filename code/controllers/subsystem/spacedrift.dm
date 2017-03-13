@@ -1,6 +1,6 @@
-var/datum/controller/subsystem/spacedrift/SSspacedrift
+var/datum/subsystem/spacedrift/SSspacedrift
 
-/datum/controller/subsystem/spacedrift
+/datum/subsystem/spacedrift
 	name = "Space Drift"
 	priority = 30
 	wait = 5
@@ -9,15 +9,15 @@ var/datum/controller/subsystem/spacedrift/SSspacedrift
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-/datum/controller/subsystem/spacedrift/New()
+/datum/subsystem/spacedrift/New()
 	NEW_SS_GLOBAL(SSspacedrift)
 
 
-/datum/controller/subsystem/spacedrift/stat_entry()
+/datum/subsystem/spacedrift/stat_entry()
 	..("P:[processing.len]")
 
 
-/datum/controller/subsystem/spacedrift/fire(resumed = 0)
+/datum/subsystem/spacedrift/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = processing.Copy()
 
