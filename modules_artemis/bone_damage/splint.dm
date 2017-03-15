@@ -5,6 +5,7 @@
 	name = "medical splint"
 	singular_name = "medical splint"
 	desc = "For supporting and keeping limbs with bone fractures still, preventing further injury."
+	icon = 'icons/obj/splint.dmi'
 	icon_state = "splint"
 	amount = 5
 	max_amount = 5
@@ -49,7 +50,7 @@
 		user.visible_message("<span class='danger'>[user] starts to apply the splint to [M]'s [limb].</span>",
 		"<span class='danger'>You start to apply the splint to [M]'s [limb].</span>",
 		"<span class='danger'>You hear something being wrapped.</span>")
-		
+
 
 	if(do_after(user, self_delay, target = M))
 		if(M == user && prob(75))
