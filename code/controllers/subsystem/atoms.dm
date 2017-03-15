@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var/datum/controller/subsystem/atoms/SSatoms
 
 #define INITIALIZATION_INSSATOMS 0	//New should not call Initialize
@@ -34,6 +35,9 @@ var/datum/controller/subsystem/atoms/SSatoms
 		for(var/I in atoms)
 			var/atom/A = I
 			if(!A.initialized)	//this check is to make sure we don't call it twice on an object that was created in a previous Initialize call
+				if(QDELETED(A))
+					stack_trace("Found new qdeletion in type [A.type]!")
+					continue
 				var/start_tick = world.time
 				if(A.Initialize(TRUE))
 					LAZYADD(late_loaders, A)
@@ -47,6 +51,9 @@ var/datum/controller/subsystem/atoms/SSatoms
 		#endif
 		for(var/atom/A in world)
 			if(!A.initialized)	//this check is to make sure we don't call it twice on an object that was created in a previous Initialize call
+				if(QDELETED(A))
+					stack_trace("Found new qdeletion in type [A.type]!")
+					continue
 				var/start_tick = world.time
 				if(A.Initialize(TRUE))
 					LAZYADD(late_loaders, A)
