@@ -44,6 +44,7 @@
 #include "modules_artemis\cellauto\subsystem.dm"
 #include "modules_artemis\cellauto\types\sm_crystals.dm"
 #include "modules_artemis\cellauto\types\waveprop.dm"
+#include "modules_artemis\client\looc.dm"
 #include "modules_artemis\client\preferences.dm"
 #include "modules_artemis\client\preferences_savefile.dm"
 #include "modules_artemis\client\preferences_setup.dm"
