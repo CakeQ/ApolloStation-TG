@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var/datum/controller/subsystem/atoms/SSatoms
 
 #define INITIALIZATION_INSSATOMS 0	//New should not call Initialize
