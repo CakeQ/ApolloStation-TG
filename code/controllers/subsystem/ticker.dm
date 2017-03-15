@@ -100,7 +100,7 @@ var/datum/controller/subsystem/ticker/ticker
 			if(SSvote.mode == "gamemode")
 				return
 
-			if(ticker.start_immediately = TRUE)
+			if(ticker.start_immediately == TRUE)
 				SSvote.reset()
 
 			//countdown
