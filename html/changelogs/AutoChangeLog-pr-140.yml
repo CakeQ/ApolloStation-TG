@@ -1,0 +1,6 @@
+author: "Cakey"
+delete-after: True
+changes: 
+  - rscadd: "Added local OOC"
+  - bugfix: "Fixed medical splint sprites"
+  - bugfix: "Fixed SM glove sprites"
