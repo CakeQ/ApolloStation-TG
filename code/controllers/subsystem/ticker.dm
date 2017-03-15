@@ -78,7 +78,7 @@ var/datum/controller/subsystem/ticker/ticker
 			for(var/client/C in clients)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			world << "<span class='boldnotice'>Welcome to [station_name()]!</span>"
-			if(ticker.start_immediately = FALSE)
+			if(ticker.start_immediately == FALSE)
 				SSvote.autogamemode()
 			current_state = GAME_STATE_PREGAME
 			fire()
@@ -100,7 +100,7 @@ var/datum/controller/subsystem/ticker/ticker
 			if(SSvote.mode == "gamemode")
 				return
 
-			if(ticker.start_immediately = TRUE)
+			if(ticker.start_immediately == TRUE)
 				SSvote.reset()
 
 			//countdown
