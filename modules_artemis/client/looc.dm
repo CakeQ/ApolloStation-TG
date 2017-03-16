@@ -63,18 +63,13 @@
 		if(prefs.toggles & MEMBER_PUBLIC)
 			keyname = "<font color='[prefs.ooccolor ? prefs.ooccolor : normal_ooc_colour]'><img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]</font>"
 
-	if(holder && holder.fakekey)
-		display_name = holder.fakekey
 	if(source.stat != DEAD)
 		display_name = source.name
+	else
+		display_name = capitalize(source.ckey)
 
 	for(var/client/C in clients)
 		if(C.prefs.chat_toggles & CHAT_OOC)
 			if(C.mob in heard)
-				if(holder)
-					if(!holder.fakekey || C.holder)
-						C << "<span class='adminobserverooc'><span class='prefix'>LOOC:</span> <EM>[display_name] : </EM> <span class='message'>[msg]</span></span>"
-					else
-						C << "<font color='#68d1c1'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]: </EM> <span class='message'>[msg]</span></span></font>"
-				else if(!(key in C.prefs.ignoring))
-					C << "<font color='#68d1c1'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]: </EM> <span class='message'>[msg]</span></span></font>"
+				if(!(key in C.prefs.ignoring))
+					C << "<font color='#3A9696'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]: </EM> <span class='message'>[msg]</span></span></font>"

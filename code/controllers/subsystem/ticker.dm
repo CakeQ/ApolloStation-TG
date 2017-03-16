@@ -55,6 +55,7 @@ var/datum/controller/subsystem/ticker/ticker
 	var/maprotatechecked = 0
 
 	var/news_report
+	var/gamemodevoted = FALSE
 
 /datum/controller/subsystem/ticker/New()
 	NEW_SS_GLOBAL(ticker)
@@ -78,11 +79,13 @@ var/datum/controller/subsystem/ticker/ticker
 			for(var/client/C in clients)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, "<span class='boldnotice'>Welcome to [station_name()]!</span>")
-			if(ticker.start_immediately = FALSE)
-				SSvote.autogamemode()
 			current_state = GAME_STATE_PREGAME
 			fire()
 		if(GAME_STATE_PREGAME)
+			if(ticker.start_immediately == FALSE && gamemodevoted == FALSE && clients.len > 0)
+				SSvote.autogamemode()
+				gamemodevoted = TRUE
+
 				//lobby stats for statpanels
 			if(isnull(timeLeft))
 				timeLeft = max(0,start_at - world.time)
