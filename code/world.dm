@@ -306,9 +306,6 @@
 
 	features += abandon_allowed ? "respawn" : "no respawn"
 
-	if (!host && config && config.hostedby)
-		features += "hosted by <b>[config.hostedby]</b>"
-
 	if (features)
 		s += ": [jointext(features, ", ")]"
 
