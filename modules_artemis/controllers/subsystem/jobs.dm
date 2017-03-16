@@ -24,9 +24,9 @@
 		name_occupations[job.title] = job
 		type_occupations[J] = job
 
-	for(var/mob/dead/new_player/player/p in mob_list)
-		if(!p.client.prefs.roles || !p.client.prefs.roles.len)
-			p.client.prefs.roles = GetInducteeJobsRanks()
+	for(var/mob/dead/new_player/player in mob_list)
+		if(!player.client.prefs.roles || !player.client.prefs.roles.len)
+			player.client.prefs.roles = GetInducteeJobsRanks()
 
 	return 1
 
@@ -38,7 +38,7 @@
 /datum/controller/subsystem/job/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
-	for(var/mob/dead/new_player/player/player in unassigned)
+	for(var/mob/dead/new_player/player in unassigned)
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
 			continue
@@ -69,7 +69,7 @@
 			var/list/candidates = list()
 			candidates = FindOccupationCandidates(job, level)
 			if(candidates.len)
-				var/mob/dead/new_player/player/candidate = pick(candidates)
+				var/mob/dead/new_player/candidate = pick(candidates)
 				if(AssignRole(candidate, "AI"))
 					ai_selected++
 					break
@@ -122,7 +122,7 @@
 	//People who have assistant as high should just get that role
 	Debug("DO, Running Assistant Check 1")
 	var/tmp/assigned = 0
-	for(var/mob/dead/new_player/player/player in unassigned)
+	for(var/mob/dead/new_player/player in unassigned)
 		if(player.client.prefs.roles["Assistant"] == "HIGH")
 			Debug("AC1 pass, Player: [player]")
 			AssignRole(player, "Assistant")
@@ -193,15 +193,15 @@
 	Debug("DO, Running AC2")
 
 	// For those who wanted to be assistant if their preferences were filled, here you go.
-	for(var/mob/dead/new_player/player/p in to_assign)
+	for(var/mob/dead/new_player/player in to_assign)
 		if(PopcapReached())
-			RejectPlayer(p)
-		if(p.client.prefs.joblessrole == BEASSISTANT)
-			Debug("AC2 Assistant located, Player: [p]")
-			AssignRole(p, "Assistant")
-			unassigned -= p
+			RejectPlayer(player)
+		if(player.client.prefs.joblessrole == BEASSISTANT)
+			Debug("AC2 Assistant located, Player: [player]")
+			AssignRole(player, "Assistant")
+			unassigned -= player
 		else // For those who don't want to play if their preference were filled, back you go.
-			RejectPlayer(p)
+			RejectPlayer(player)
 
 	to_assign = unassigned.Copy()
 
@@ -219,8 +219,8 @@
 				continue
 
 	//Finally players that really cannot join because all the jobs they can occcupie are taken.
-	for(var/mob/dead/new_player/player/p in unassigned)
-		RejectPlayer(p)
+	for(var/mob/dead/new_player/player in unassigned)
+		RejectPlayer(player)
 	return 1
 
 /datum/controller/subsystem/job/HandleFeedbackGathering()
@@ -233,7 +233,7 @@
 		var/level4 = 0 //never
 		var/level5 = 0 //banned
 		var/level6 = 0 //account too young
-		for(var/mob/dead/new_player/player/player in player_list)
+		for(var/mob/dead/new_player/player in player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
 			if(jobban_isbanned(player, job.title))

@@ -1,4 +1,4 @@
-/mob/dead/new_player/player/IsJobAvailable(rank)
+/mob/dead/new_player/IsJobAvailable(rank)
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return 0
