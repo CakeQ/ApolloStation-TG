@@ -2,3 +2,4 @@
 
 /obj/item/weapon/cartridge
 	access_manifest = 1
+	
