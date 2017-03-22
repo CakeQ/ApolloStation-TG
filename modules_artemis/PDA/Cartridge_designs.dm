@@ -230,3 +230,4 @@
 	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	build_path = /obj/item/weapon/cartridge/captain
 	category = list("Electronics")
+	
