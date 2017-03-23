@@ -1,0 +1,5 @@
+author: "Metichi"
+delete-after: True
+changes: 
+  - rscadd: "Added designs for all the PDA cartridges with increasing levels of data research according to rank (3 for base, 5 for command and 7 for captain)"
+  - tweak: "Modified cartridges so all of them grant crew manifest functionality. Your PDA still wont show it if it doesn't have a cartridge."
