@@ -8,7 +8,7 @@
 		scantemp = "<font class='bad'>Unable to locate valid genetic data.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
-	if (subject.suiciding == 1 || subject.hellbound)
+	if (subject.suiciding == 1 || subject.hellbound || (subject.mind && subject.mind.damnation_type))
 		scantemp = "<font class='bad'>Subject is not responding to scanning stimuli.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
@@ -428,5 +428,6 @@
 	occupant.domutcheck(1) //Waiting until they're out before possible monkeyizing. The 1 argument forces powers to manifest.
 	occupant = null
 
-#undef CLONE_INITIAL_DAMAGE#undef MINIMUM_HEAL_LEVEL
+#undef CLONE_INITIAL_DAMAGE
+#undef MINIMUM_HEAL_LEVEL
 #undef SPEAK
