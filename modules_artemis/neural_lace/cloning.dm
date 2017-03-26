@@ -355,11 +355,9 @@
 */
 
 #define CLONE_INITIAL_DAMAGE 190
+#define MINIMUM_HEAL_LEVEL 40
 
-// Cloning pod
-/obj/machinery/clonepod
-	var/locked = FALSE
-	var/eject_wait = FALSE
+#define SPEAK(message) radio.talk_into(src, message, radio_channel, get_spans())
 
 /obj/machinery/clonepod/growclone(clonename, ui, se, datum/species/mrace, list/features, factions)
 	if(panel_open)
@@ -368,11 +366,7 @@
 		return FALSE
 
 	attempting = TRUE //One at a time!!
-	locked = TRUE
 	countdown.start()
-
-	eject_wait = TRUE
-	addtimer(CALLBACK(src, .proc/wait_complete), 30)
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
 
@@ -402,8 +396,8 @@
 
 	icon_state = "pod_1"
 	//Get the clone body ready
-	H.setCloneLoss(CLONE_INITIAL_DAMAGE)     //Yeah, clones start with very low health, not with random, because why would they start with random health
-	H.setBrainLoss(CLONE_INITIAL_DAMAGE)
+	maim_clone(H)
+	check_brine() // put in chemicals NOW to stop death via cardiac arrest
 	H.Paralyse(4)
 
 	if(H)
@@ -416,8 +410,6 @@
 	return TRUE
 
 /obj/machinery/clonepod/go_out()
-	if (locked)
-		return
 	countdown.stop()
 
 	if (mess) //Clean that mess and dump those gibs!
@@ -433,8 +425,8 @@
 	var/turf/T = get_turf(src)
 	occupant.forceMove(T)
 	icon_state = "pod_0"
-	eject_wait = FALSE //If it's still set somehow.
 	occupant.domutcheck(1) //Waiting until they're out before possible monkeyizing. The 1 argument forces powers to manifest.
 	occupant = null
 
-#undef CLONE_INITIAL_DAMAGE
+#undef CLONE_INITIAL_DAMAGE#undef MINIMUM_HEAL_LEVEL
+#undef SPEAK
