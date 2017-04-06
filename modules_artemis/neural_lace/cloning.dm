@@ -8,7 +8,7 @@
 		scantemp = "<font class='bad'>Unable to locate valid genetic data.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
-	if (subject.suiciding == 1 || subject.hellbound)
+	if (subject.suiciding == 1 || subject.hellbound || (subject.mind && subject.mind.damnation_type))
 		scantemp = "<font class='bad'>Subject is not responding to scanning stimuli.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
@@ -329,8 +329,7 @@
 			else if(pod.occupant)
 				temp = "<font class='bad'>Cloning cycle already in progress.</font>"
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			else if(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mind"], C.fields["mrace"], C.fields["features"], C.fields["factions"]))
-				world << "we made it"
+			else if(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mrace"], C.fields["features"], C.fields["factions"]))
 				temp = "[C.fields["name"]] => <font class='good'>Cloning cycle in progress...</font>"
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 				menu = 1
@@ -355,31 +354,16 @@
 	Defined in code/game/machinery/cloning.dm
 */
 
-#define CLONE_INITIAL_DAMAGE     190    //Clones in clonepods start with 190 cloneloss damage and 190 brainloss damage, thats just logical
+#define CLONE_INITIAL_DAMAGE 190
 #define MINIMUM_HEAL_LEVEL 40
 
 #define SPEAK(message) radio.talk_into(src, message, radio_channel, get_spans())
 
-// Cloning pod
-/obj/machinery/clonepod
-	var/locked = FALSE
-	var/eject_wait = FALSE
-
-/obj/machinery/clonepod/growclone(clonename, ui, se, mindref, datum/species/mrace, list/features, factions)
-	clonemind = locate(mindref)
-	world << clonemind.name
+/obj/machinery/clonepod/growclone(clonename, ui, se, datum/species/mrace, list/features, factions)
 	if(panel_open)
 		return FALSE
 	if(mess || attempting)
 		return FALSE
-
-	if(clonemind.damnation_type) //Can't clone the damned.
-		INVOKE_ASYNC(src, .proc/horrifyingsound)
-		mess = TRUE
-		icon_state = "pod_g"
-		update_icon()
-		return FALSE
-		world << "returning cus damn"
 
 	attempting = TRUE //One at a time!!
 	countdown.start()
@@ -424,4 +408,26 @@
 		H.suiciding = FALSE
 	attempting = FALSE
 	return TRUE
+
+/obj/machinery/clonepod/go_out()
+	countdown.stop()
+
+	if (mess) //Clean that mess and dump those gibs!
+		mess = FALSE
+		new /obj/effect/gibspawner/generic(loc)
+		audible_message("<span class='italics'>You hear a splat.</span>")
+		icon_state = "pod_0"
+		return
+
+	if (!occupant)
+		return
+
+	var/turf/T = get_turf(src)
+	occupant.forceMove(T)
+	icon_state = "pod_0"
+	occupant.domutcheck(1) //Waiting until they're out before possible monkeyizing. The 1 argument forces powers to manifest.
+	occupant = null
+
 #undef CLONE_INITIAL_DAMAGE
+#undef MINIMUM_HEAL_LEVEL
+#undef SPEAK

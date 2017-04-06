@@ -91,7 +91,10 @@
 			if((admin_datums[ckey]) || (ckey in deadmins))
 				admin = TRUE
 
-			if(next_allowed_time > world.time && !admin)
+
+			//Added a condition so you can have as many votes as you want during the pregame phase, allowing for the server
+			//to call for another gamemode vote after the first one fails.
+			if((next_allowed_time > world.time) && !admin && ticker.gamemodevoted)
 				usr << "<span class='warning'>A vote was initiated recently, you must wait roughly [(next_allowed_time-world.time)/10] seconds before a new vote can be started!</span>"
 				return 0
 
