@@ -40,11 +40,11 @@ var/list/the_station_areas = list (
 
 /area/shuttle/transport1/station
 	icon_state = "shuttle"
-	name = "\improper Transport Shuttle"
+	name = "Transport Shuttle"
 
 /area/shuttle/arrival/artemis
 	icon_state = "shuttle"
-	name = "\improper NOS Artemis Arrival Shuttle"
+	name = "NOS Artemis Arrival Shuttle"
 
 //Escape Pods
 /area/shuttle/escape_pod1/station
@@ -63,121 +63,121 @@ var/list/the_station_areas = list (
 /area/hallway/
 
 /area/hallway/primary/fore_port
-	name = "\improper Fore Port Primary Hallway"
+	name = "Fore Port Primary Hallway"
 	icon_state = "hallP"
 
 /area/hallway/primary/fore
-	name = "\improper Fore Primary Hallway"
+	name = "Fore Primary Hallway"
 	icon_state = "hallF"
 
 /area/hallway/primary/fore_starboard
-	name = "\improper Fore Starboard Primary Hallway"
+	name = "Fore Starboard Primary Hallway"
 	icon_state = "hallS"
 
 /area/hallway/primary/starboard
-	name = "\improper Starboard Primary Hallway"
+	name = "Starboard Primary Hallway"
 	icon_state = "hallS"
 
 /area/hallway/primary/aft_starboard
-	name = "\improper Aft Starboard Primary Hallway"
+	name = "Aft Starboard Primary Hallway"
 	icon_state = "hallS"
 
 /area/hallway/primary/aft
-	name = "\improper Aft Primary Hallway"
+	name = "Aft Primary Hallway"
 	icon_state = "hallA"
 
 /area/hallway/primary/aft_port
-	name = "\improper Aft Port Primary Hallway"
+	name = "Aft Port Primary Hallway"
 	icon_state = "hallP"
 
 /area/hallway/primary/port
-	name = "\improper Port Primary Hallway"
+	name = "Port Primary Hallway"
 	icon_state = "hallP"
 
 /area/hallway/arrival
-	name = "\improper Arrivals"
+	name = "Arrivals"
 	icon_state = "entry_2"
 
 
 //Security
 /area/crew_quarters/courtroom
-	name = "\improper Courtroom"
+	name = "Courtroom"
 	icon_state = "courtroom"
 
 /area/security/main
-	name = "\improper Security Office"
+	name = "Security Office"
 	icon_state = "security"
 
 /area/security/interrogate
-	name = "\improper Security Interrogation"
+	name = "Security Interrogation"
 	icon_state = "security"
 
 /area/security/meeting
-	name = "\improper Security Meeting Room"
+	name = "Security Meeting Room"
 	icon_state = "security"
 
 /area/security/tribunal
-	name = "\improper Courtroom"
+	name = "Courtroom"
 	icon_state = "security"
 
 /area/security/evidence
-	name = "\improper Security Evidence"
+	name = "Security Evidence"
 	icon_state = "security"
 
 /area/security/brig
-	name = "\improper Brig"
+	name = "Brig"
 	icon_state = "brig"
 
 /area/security/brig/processing
-	name = "\improper Brig Processing"
+	name = "Brig Processing"
 	icon_state = "brig"
 
 /area/security/brig/solitaryA
-	name = "\improper Solitary Confinement A"
+	name = "Solitary Confinement A"
 	icon_state = "brig"
 
 /area/security/brig/solitaryB
-	name = "\improper Solitary Confinement B"
+	name = "Solitary Confinement B"
 	icon_state = "brig"
 
 /area/security/brig/interrogation
-	name = "\improper Brig Interrogation"
+	name = "Brig Interrogation"
 	icon_state = "brig"
 
 /area/security/lobby
-	name = "\improper Security Lobby"
+	name = "Security Lobby"
 	icon_state = "brig"
 
 /area/security/prison
-	name = "\improper Prison Wing"
+	name = "Prison Wing"
 	icon_state = "sec_prison"
 
 /area/security/prison/restroom
-	name = "\improper Prison Wing Restroom"
+	name = "Prison Wing Restroom"
 	icon_state = "sec_prison"
 
 /area/security/prison/dorm
-	name = "\improper Prison Wing Dorm"
+	name = "Prison Wing Dorm"
 	icon_state = "sec_prison"
 
 /area/security/warden
-	name = "\improper Warden"
+	name = "Warden"
 	icon_state = "Warden"
 
 /area/security/armoury
-	name = "\improper Armory"
+	name = "Armory"
 	icon_state = "Warden"
 
 /area/security/detectives_office
-	name = "\improper Detective's Office"
+	name = "Detective's Office"
 	icon_state = "detective"
 
 /area/security/range
-	name = "\improper Firing Range"
+	name = "Firing Range"
 	icon_state = "firingrange"
 
 /area/security/tactical
-	name = "\improper Tactical Equipment"
+	name = "Tactical Equipment"
 	icon_state = "Tactical"
 
 /area/ai_monitored/storage/eva
@@ -194,266 +194,266 @@ var/list/the_station_areas = list (
 
 //Command
 /area/bridge
-	name = "\improper Bridge"
+	name = "Bridge"
 	icon_state = "bridge"
 
 /area/bridge/bridgedorm
-	name = "\improper Bridge Dormitory"
+	name = "Bridge Dormitory"
 	icon_state = "bridge"
 
 /area/bridge/bridgelocker
-	name = "\improper Bridge Locker Room"
+	name = "Bridge Locker Room"
 	icon_state = "bridge"
 
 /area/bridge/meeting_room
-	name = "\improper Heads of Staff Meeting Room"
+	name = "Heads of Staff Meeting Room"
 	icon_state = "bridge"
 
 /area/crew_quarters/captain
-	name = "\improper Captain's Office"
+	name = "Captain's Office"
 	icon_state = "captain"
 
 /area/crew_quarters/captain/quarters
-	name = "\improper Captain's Quarters"
+	name = "Captain's Quarters"
 
 /area/crew_quarters/heads/hop
-	name = "\improper Head of Personnel's Office"
+	name = "Head of Personnel's Office"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hor
-	name = "\improper Research Director's Office"
+	name = "Research Director's Office"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hos
-	name = "\improper Head of Security's Office"
+	name = "Head of Security's Office"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/cmo
-	name = "\improper Chief Medical Officer's Office"
+	name = "Chief Medical Officer's Office"
 	icon_state = "head_quarters"
 
 /area/teleporter
-	name = "\improper Teleporter"
+	name = "Teleporter"
 	icon_state = "teleporter"
 
 /area/lawoffice
-	name = "\improper Internal Affairs"
+	name = "Internal Affairs"
 	icon_state = "law"
 
 /area/lawoffice/meeting
-	name = "\improper Internal Affairs Meeting Room"
+	name = "Internal Affairs Meeting Room"
 
 /area/security/vacantoffice
-	name = "\improper Bridge Vacant Office"
+	name = "Bridge Vacant Office"
 	icon_state = "security"
 
 /area/security/nuke_storage
-	name = "\improper Vault"
+	name = "Vault"
 	icon_state = "nuke_storage"
 
 /area/security/checkpoint
-	name = "\improper Security Checkpoint"
+	name = "Security Checkpoint"
 	icon_state = "checkpoint1"
 
 /area/security/solgov
-	name = "\improper SolGov Office"
+	name = "SolGov Office"
 	icon_state = "law"
 
 //Medical
 /area/medical/hallway_fore
-	name = "\improper Medbay Hallway - Fore"
+	name = "Medbay Hallway - Fore"
 	icon_state = "medbay3"
 
 /area/medical/hallway_aft
-	name = "\improper Medbay Hallway - Aft"
+	name = "Medbay Hallway - Aft"
 	icon_state = "medbay3"
 
 /area/medical/biostorage
-	name = "\improper Secondary Storage"
+	name = "Secondary Storage"
 	icon_state = "medbay2"
 
 /area/medical/reception
-	name = "\improper Medbay Reception"
+	name = "Medbay Reception"
 	icon_state = "medbay"
 
 /area/medical/psych
-	name = "\improper Psych Room"
+	name = "Psych Room"
 	icon_state = "medbay3"
 
 /area/crew_quarters/medbreak
-	name = "\improper Break Room"
+	name = "Break Room"
 	icon_state = "medbay3"
 
 /area/medical/patients_roomA
-	name = "\improper Patient Room A"
+	name = "Patient Room A"
 	icon_state = "patients"
 
 /area/medical/patients_roomB
-	name = "\improper Patient Room B"
+	name = "Patient Room B"
 	icon_state = "patients"
 
 /area/medical/patients_roomC
-	name = "\improper Patient Room C"
+	name = "Patient Room C"
 	icon_state = "patients"
 
 /area/medical/patients_roomD
-	name = "\improper Patient Room D"
+	name = "Patient Room D"
 	icon_state = "patients"
 
 /area/medical/ward
-	name = "\improper Recovery Ward"
+	name = "Recovery Ward"
 	icon_state = "patients"
 
 /area/medical/patient_wing
-	name = "\improper Patient Wing"
+	name = "Patient Wing"
 	icon_state = "patients"
 
 /area/medical/cmostore
-	name = "\improper Secure Storage"
+	name = "Secure Storage"
 	icon_state = "CMO"
 
 /area/medical/virology
-	name = "\improper Virology"
+	name = "Virology"
 	icon_state = "virology"
 
 /area/medical/virologyaccess
-	name = "\improper Virology Access"
+	name = "Virology Access"
 	icon_state = "virology"
 
 /area/medical/morgue
-	name = "\improper Morgue"
+	name = "Morgue"
 	icon_state = "morgue"
 
 /area/medical/chemistry
-	name = "\improper Chemistry"
+	name = "Chemistry"
 	icon_state = "chem"
 
 /area/medical/surgery
-	name = "\improper Operating Theatre 1"
+	name = "Operating Theatre 1"
 	icon_state = "surgery"
 
 /area/medical/surgery2
-	name = "\improper Operating Theatre 2"
+	name = "Operating Theatre 2"
 	icon_state = "surgery"
 
 /area/medical/surgeryobs
-	name = "\improper Operation Observation Room"
+	name = "Operation Observation Room"
 	icon_state = "surgery"
 
 /area/medical/surgeryprep
-	name = "\improper Pre-Op Prep Room"
+	name = "Pre-Op Prep Room"
 	icon_state = "surgery"
 
 /area/medical/surgerystorage
-	name = "\improper Surgery Freezer Room"
+	name = "Surgery Freezer Room"
 	icon_state = "surgery"
 
 /area/medical/cryo
-	name = "\improper Cryogenics"
+	name = "Cryogenics"
 	icon_state = "cryo"
 
 /area/medical/exam_room
-	name = "\improper Exam Room"
+	name = "Exam Room"
 	icon_state = "exam_room"
 
 /area/medical/storage
-	name = "\improper Storage Room"
+	name = "Storage Room"
 	icon_state = "medbay3"
 
 /area/medical/medicinestorage
-	name = "\improper Medical Supplies"
+	name = "Medical Supplies"
 	icon_state = "medbay3"
 
 /area/medical/biostorage
-	name = "\improper Biogear Storage Room"
+	name = "Biogear Storage Room"
 	icon_state = "medbay3"
 
 /*
 //ONE DAY
 /area/medical/genetics
-	name = "\improper Genetics Lab"
+	name = "Genetics Lab"
 	icon_state = "genetics"
 */
 
 /area/medical/genetics_cloning
-	name = "\improper Cloning Lab"
+	name = "Cloning Lab"
 	icon_state = "cloning"
 
 /area/medical/sleeper
-	name = "\improper Emergency Treatment Centre"
+	name = "Emergency Treatment Centre"
 	icon_state = "exam_room"
 
 //Science
 /area/assembly/robotics
-	name = "\improper Robotics Lab"
+	name = "Robotics Lab"
 	icon_state = "robotics"
 
 /area/assembly/chargebay
-	name = "\improper Mech Bay"
+	name = "Mech Bay"
 	icon_state = "mechbay"
 
 /area/toxins/research
-	name = "\improper Research and Development"
+	name = "Research and Development"
 	icon_state = "research"
 
 /area/toxins/researchhalla
-	name = "\improper Research Main Hallway"
+	name = "Research Main Hallway"
 	icon_state = "research"
 
 /area/toxins/researchhallb
-	name = "\improper Research Hazardous Materials Hallway"
+	name = "Research Hazardous Materials Hallway"
 	icon_state = "research"
 
 /area/toxins/researchbreak
-	name = "\improper Research Break Room"
+	name = "Research Break Room"
 	icon_state = "research"
 
 /area/toxins/lab
-	name = "\improper Research Lab"
+	name = "Research Lab"
 	icon_state = "toxlab"
 
 /area/toxins/rdoffice
-	name = "\improper Research Director's Office"
+	name = "Research Director's Office"
 	icon_state = "head_quarters"
 
 /area/toxins/xenobiology
-	name = "\improper Xenobiology Lab"
+	name = "Xenobiology Lab"
 	icon_state = "xeno_lab"
 
 /area/toxins/xenobiology/xenoflora
-	name = "\improper Xenoflora Lab"
+	name = "Xenoflora Lab"
 	icon_state = "xeno_f_lab"
 
 /area/toxins/storage
-	name = "\improper Toxins Storage"
+	name = "Toxins Storage"
 	icon_state = "toxstorage"
 
 /area/toxins/test_area
-	name = "\improper Toxins Test Area"
+	name = "Toxins Test Area"
 	icon_state = "toxtest"
 
 /area/toxins/mixing
-	name = "\improper Toxins Mixing Room"
+	name = "Toxins Mixing Room"
 	icon_state = "toxmix"
 
 /area/toxins/misc_lab
-	name = "\improper Miscellaneous Research"
+	name = "Miscellaneous Research"
 	icon_state = "toxmisc"
 
 /area/tcomms/chamber
-	name = "\improper Telecomms Central Compartment"
+	name = "Telecomms Central Compartment"
 	icon_state = "tcomsatcham"
 
 /area/ai_monitored/turret_protected/tcommbreaker
-	name = "\improper Telecomms Breaker Room"
+	name = "Telecomms Breaker Room"
 	icon_state = "tcomsatcomp"
 
 /area/tcomms/computer
-	name = "\improper Telecomms Control Room"
+	name = "Telecomms Control Room"
 	icon_state = "tcomsatcomp"
 
 /area/ai_monitored/turret_protected/ai_upload
-	name = "\improper AI Upload Chamber"
+	name = "AI Upload Chamber"
 	icon_state = "ai_upload"
 
 
@@ -462,105 +462,105 @@ var/list/the_station_areas = list (
 	icon_state = "ai_foyer"
 
 /area/ai_monitored/turret_protected/ai
-	name = "\improper AI Chamber"
+	name = "AI Chamber"
 	icon_state = "ai_chamber"
 
 /area/ai_monitored/turret_protected/ai_cyborg_station
-	name = "\improper Cyborg Station"
+	name = "Cyborg Station"
 	icon_state = "ai_cyborg"
 
 //Civilian
 /area/crew_quarters
-	name = "\improper Dormitories"
+	name = "Dormitories"
 	icon_state = "Sleep"
 	//flags = RAD_SHIELDED
 
 /area/crew_quarters/observe
-	name = "\improper Observatory"
+	name = "Observatory"
 	icon_state = "green"
 
 /area/crew_quarters/sleep
-	name = "\improper Dormitories"
+	name = "Dormitories"
 	icon_state = "Sleep"
 
 /area/crew_quarters/sleep/engi_wash
-	name = "\improper Engineering Washroom"
+	name = "Engineering Washroom"
 	icon_state = "toilet"
 
 /area/crew_quarters/sleep/cryo
-	name = "\improper Cryogenic Storage"
+	name = "Cryogenic Storage"
 	icon_state = "Sleep"
 
 /area/crew_quarters/locker
-	name = "\improper Locker Room"
+	name = "Locker Room"
 	icon_state = "locker"
 
 /area/crew_quarters/fitness
-	name = "\improper Fitness Room"
+	name = "Fitness Room"
 	icon_state = "fitness"
 
 /area/crew_quarters/kitchen
-	name = "\improper Kitchen"
+	name = "Kitchen"
 	icon_state = "kitchen"
 
 /area/crew_quarters/kitchen/backroom
-	name = "\improper Kitchen Backroom"
+	name = "Kitchen Backroom"
 	icon_state = "kitchen"
 
 /area/crew_quarters/kitchen/freezer
-	name = "\improper Kitchen"
+	name = "Kitchen"
 	icon_state = "kitchen"
 
 /area/crew_quarters/bar
-	name = "\improper Bar"
+	name = "Bar"
 	icon_state = "bar"
 
 /area/crew_quarters/bar/backroom
-	name = "\improper Bar Backroom"
+	name = "Bar Backroom"
 	icon_state = "bar"
 
 /area/crew_quarters/lounge
-	name = "\improper Lounge"
+	name = "Lounge"
 	icon_state = "Break Room"
 
 /area/crew_quarters/diner
-	name = "\improper Diner"
+	name = "Diner"
 	icon_state = "bar"
 
 /area/library
-	name = "\improper Library"
+	name = "Library"
 	icon_state = "library"
 
 /area/chapel/main
-	name = "\improper Chapel"
+	name = "Chapel"
 	icon_state = "chapel"
 
 /area/chapel/crematorium
-	name = "\improper Chapel Crematorium"
+	name = "Chapel Crematorium"
 	icon_state = "chapel"
 
 /area/chapel/office
-	name = "\improper Chapel Office"
+	name = "Chapel Office"
 	icon_state = "chapeloffice"
 
 /area/holodeck
-	name = "\improper Holodeck"
+	name = "Holodeck"
 	icon_state = "Holodeck"
 	luminosity = 1
 
 /area/holodeck/alphadeck
-	name = "\improper Holodeck Alpha"
+	name = "Holodeck Alpha"
 
 /area/janitor/
-	name = "\improper Custodial Closet"
+	name = "Custodial Closet"
 	icon_state = "janitor"
 
 /area/janitor/secondary
-	name = "\improper Secondary Custodial Closet"
+	name = "Secondary Custodial Closet"
 	icon_state = "janitor"
 
 /area/hydroponics
-	name = "\improper Hydroponics"
+	name = "Hydroponics"
 	icon_state = "hydro"
 
 
@@ -573,67 +573,67 @@ var/list/the_station_areas = list (
 	icon_state = "storage"
 
 /area/security/vacantoffice2
-	name = "\improper Vacant Office"
+	name = "Vacant Office"
 	icon_state = "security"
 
 //Cargo
 
 /area/quartermaster
-	name = "\improper Quartermasters"
+	name = "Quartermasters"
 	icon_state = "quart"
 
 /area/quartermaster/office
-	name = "\improper Cargo Office"
+	name = "Cargo Office"
 	icon_state = "quartoffice"
 
 /area/quartermaster/storage
-	name = "\improper Cargo Bay"
+	name = "Cargo Bay"
 	icon_state = "quartstorage"
 
 /area/quartermaster/qm
-	name = "\improper Quartermaster's Office"
+	name = "Quartermaster's Office"
 	icon_state = "quart"
 
 /area/quartermaster/miningstorage
-	name = "\improper Mining Storage"
+	name = "Mining Storage"
 	icon_state = "mining"
 
 /area/quartermaster/sorting
-	name = "\improper Delivery Office"
+	name = "Delivery Office"
 	icon_state = "quartstorage"
 
 //Hangar
 /area/podbay
-	name = "\improper Podbay"
+	name = "Podbay"
 	icon_state = "yellow"
 
 /area/hangar/A
-	name = "\improper Hangar A"
+	name = "Hangar A"
 	icon_state = "green"
 
 /area/hangar/B
-	name = "\improper Hangar B"
+	name = "Hangar B"
 	icon_state = "green"
 
 /area/hangar
-	name = "\improper Central Hangar"
+	name = "Central Hangar"
 	icon_state = "green"
 
 /area/hangar/base_construction
-	name = "\improper Auxiliary Base Construction"
+	name = "Auxiliary Base Construction"
 	icon_state = "yellow"
 
 /area/hallway/secondary/exit
-	name = "\improper Departures Lobby"
+	name = "Departures Lobby"
 	icon_state = "escape"
 
 /area/shuttle/escape/station
-	name = "\improper Emergency Shuttle Station"
+	name = "Emergency Shuttle Station"
 	icon_state = "shuttle2"
 
 //Engineering
 /area/desubber
-	name = "\improper Phoron Desublimation Room"
+	name = "Phoron Desublimation Room"
 	icon_state = "yellow"
 
 /area/atmos
@@ -641,7 +641,7 @@ var/list/the_station_areas = list (
 	icon_state = "atmos"
 
 /area/engine/chiefs_office
-	name = "\improper Chief Engineer's Office"
+	name = "Chief Engineer's Office"
 	icon_state = "head_quarters"
 
 /area/engine/engine_smes
@@ -657,27 +657,27 @@ var/list/the_station_areas = list (
 		icon_state = "engineering_storage"
 
 /area/engine/engine_room
-		name = "\improper Engine Room"
+		name = "Engine Room"
 		icon_state = "engine"
 
 /area/engine/engine_airlock
-		name = "\improper Engine Room Airlock"
+		name = "Engine Room Airlock"
 		icon_state = "engine"
 
 /area/engine/engine_monitoring
-		name = "\improper Engine Monitoring Room"
+		name = "Engine Monitoring Room"
 		icon_state = "engine_monitoring"
 
 /area/engine/engine_waste
-		name = "\improper Engine Waste Handling"
+		name = "Engine Waste Handling"
 		icon_state = "engine_waste"
 
 /area/engine/engineering_monitoring
-		name = "\improper Engineering Monitoring Room"
+		name = "Engineering Monitoring Room"
 		icon_state = "engine_monitoring"
 
 /area/engine/atmos_monitoring
-		name = "\improper Atmospherics Monitoring Room"
+		name = "Atmospherics Monitoring Room"
 		icon_state = "engine_monitoring"
 
 /area/engine/engineering
@@ -685,7 +685,7 @@ var/list/the_station_areas = list (
 		icon_state = "engineering"
 
 /area/engine/engineering_foyer
-		name = "\improper Engineering Foyer"
+		name = "Engineering Foyer"
 		icon_state = "engineering_foyer"
 
 /area/engine/engineering_supply
@@ -693,31 +693,31 @@ var/list/the_station_areas = list (
 		icon_state = "engineering_storage"
 
 /area/engine/break_room
-		name = "\improper Engineering Break Room"
+		name = "Engineering Break Room"
 		icon_state = "engineering_break"
 
 
 /area/engine/hallway
-		name = "\improper Engineering Hallway"
+		name = "Engineering Hallway"
 		icon_state = "engineering_foyer"
 
 
 /area/engine/engine_hallway
-		name = "\improper Engine Room Hallway"
+		name = "Engine Room Hallway"
 		icon_state = "engineering_foyer"
 
 
 /area/engine/workshop
-		name = "\improper Engineering Workshop"
+		name = "Engineering Workshop"
 		icon_state = "engineering_workshop"
 
 /area/engine/locker_room
-		name = "\improper Engineering Locker Room"
+		name = "Engineering Locker Room"
 		icon_state = "engineering_locker"
 
 
 /area/engine/gravity
-		name = "\improper Gravity Generator Control Room"
+		name = "Gravity Generator Control Room"
 		icon_state = "engineering"
 
 
@@ -804,48 +804,48 @@ var/list/the_station_areas = list (
 	icon_state = "disposal"
 
 /area/engine/drone_fabrication
-	name = "\improper Drone Fabrication"
+	name = "Drone Fabrication"
 	icon_state = "engine"
 
 	//Crew Quarters
 /area/crew_quarters/maintrooms/medroom
-	name = "\improper Fore Port Private Quarter"
+	name = "Fore Port Private Quarter"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/secroom1
-	name = "\improper Fore Starboard Private Quarter One"
+	name = "Fore Starboard Private Quarter One"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/arrivalroom1
-	name = "\improper Port Private Quarter One"
+	name = "Port Private Quarter One"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/secroom2
-	name = "\improper Fore Starboard Private Quarter Two"
+	name = "Fore Starboard Private Quarter Two"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/secroom3
-	name = "\improper Fore Starboard Private Quarter Three"
+	name = "Fore Starboard Private Quarter Three"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/sciroom1
-	name = "\improper Aft Starboard Private Quarter One"
+	name = "Aft Starboard Private Quarter One"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/sciroom2
-	name = "\improper Aft Starboard Private Quarter Two"
+	name = "Aft Starboard Private Quarter Two"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/sciroom3
-	name = "\improper Aft Starboard Private Quarter Three"
+	name = "Aft Starboard Private Quarter Three"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/civroom
-	name = "\improper Aft Port Private Quarter"
+	name = "Aft Port Private Quarter"
 	icon_state = "Sleep"
 
 /area/crew_quarters/maintrooms/centroom
-	name = "\improper Central Private Quarter"
+	name = "Central Private Quarter"
 	icon_state = "Sleep"
 
 	//Substations
@@ -1019,19 +1019,19 @@ var/list/the_station_areas = list (
 
 /area/shuttle/transport1/centcom
 	icon_state = "shuttle"
-	name = "\improper Transport Shuttle"
+	name = "Transport Shuttle"
 
 /area/shuttle/pizza/centcom
 	icon_state = "shuttle"
-	name = "\improper Pizza Shuttle"
+	name = "Pizza Shuttle"
 
 /area/shuttle/trade/centcom
 	icon_state = "shuttle"
-	name = "\improper Trade Shuttle"
+	name = "Trade Shuttle"
 
 /area/shuttle/hippie/centcom
 	icon_state = "shuttle"
-	name = "\improper Hippie Shuttle"
+	name = "Hippie Shuttle"
 
 //Central command
 /area/shuttle/escape/centcom
