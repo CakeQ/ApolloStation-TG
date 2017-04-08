@@ -1,0 +1,4 @@
+author: "Metichi"
+delete-after: True
+changes: 
+  - bugfix: "Fixed the pregame lobby so it keeps calling a gamemode vote until a gamemode that meets the player requirements."
